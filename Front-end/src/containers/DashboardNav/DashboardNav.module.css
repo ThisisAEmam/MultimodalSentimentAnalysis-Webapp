@@ -1,5 +1,6 @@
 .DashboardNav {
-  background-color: #05192d;
+  background-color: var(--primary);
   height: 100vh;
   width: 15rem;
+  padding-top: 5rem;
 }

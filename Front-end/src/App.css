@@ -14,3 +14,9 @@ code {
   padding: 0;
   box-sizing: border-box;
 }
+
+:root {
+  --primary: #05192d;
+  --secondary: rgb(92, 162, 209);
+  --text: #93a0ad;
+}

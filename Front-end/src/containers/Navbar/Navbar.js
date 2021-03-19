@@ -15,9 +15,20 @@ const Navbar = (props) => {
         <img src="logo-placeholder.png" alt="logo" className={classes.logo} />
         <div className={classes.rightSide}>
           <div className={classes.myAccount}>
-            <button onClick={myAccountClickHandler}>
+            <button className={classes.myAccountBtn} onClick={myAccountClickHandler}>
               My Account <i className={`fa fa-chevron-${isMyAccountOpen ? "up" : "down"}`}></i>
             </button>
+            <ul className={[classes.myAccountList, isMyAccountOpen ? classes.shown : classes.hidden].join(" ")}>
+              <li>
+                <i className="fa fa-user"></i>My Profile
+              </li>
+              <li>
+                <i className="fa fa-cog"></i>Account Settings
+              </li>
+              <li>
+                <i className="fa fa-sign-out-alt"></i>Log Out
+              </li>
+            </ul>
           </div>
         </div>
       </div>
