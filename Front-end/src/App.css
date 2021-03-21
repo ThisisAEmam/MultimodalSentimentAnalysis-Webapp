@@ -17,6 +17,18 @@ code {
 
 :root {
   --primary: #05192d;
-  --secondary: rgb(92, 162, 209);
+  --secondary: rgb(79, 151, 199);
   --text: #93a0ad;
+}
+
+::-webkit-scrollbar {
+  width: 0.8rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--primary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--secondary);
 }

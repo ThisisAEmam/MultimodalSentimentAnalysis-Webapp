@@ -1,5 +1,5 @@
 .Navbar {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   height: 4rem;
@@ -53,6 +53,8 @@
   position: absolute;
   right: 0;
   top: 110%;
+  opacity: 0;
+  pointer-events: none;
   background-color: #fcfcfc;
   border-radius: 10px;
   padding: 1rem 0.5rem;
@@ -69,9 +71,13 @@
   font-size: 1rem;
   font-weight: 500;
   transition: all 0.25s ease;
-  color: var(--primary);
   cursor: pointer;
   margin-bottom: 0.25rem;
+}
+
+.myAccountList li a {
+  color: var(--primary);
+  text-decoration: none;
 }
 
 .myAccountList li:hover {

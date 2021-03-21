@@ -25,7 +25,7 @@ function App() {
       <Router>
         <Switch>
           <Route path="/" exact component={Homepage} />
-          <Route path="/my_dashboard" exact component={Dashboard} />
+          <Route path="/dashboard" component={Dashboard} />
         </Switch>
       </Router>
     </div>

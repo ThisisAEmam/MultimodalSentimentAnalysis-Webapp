@@ -1,3 +1,13 @@
 .Dashboard {
   background-color: #f7f3eb;
+  min-height: 100vh;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+}
+
+.default {
+  height: calc(100vh - 8rem);
 }
