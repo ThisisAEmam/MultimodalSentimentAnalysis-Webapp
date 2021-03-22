@@ -4,7 +4,9 @@ import { useHistory, useLocation } from "react-router-dom";
 import DashboardNav from "../../containers/DashboardNav/DashboardNav";
 import Navbar from "../../containers/Navbar/Navbar";
 import Layout from "../../hoc/Layout/Layout";
+import HelpPage from "../HelpPage/HelpPage";
 import MyModels from "../MyModels/MyModels";
+import Newsletter from "../Newsletter/Newsletter";
 import QApage from "../QApage/QApage";
 import classes from "./Dashboard.module.css";
 
@@ -27,6 +29,12 @@ const Dashboard = (props) => {
       break;
     case "q_a":
       content = <QApage />;
+      break;
+    case "newsletter":
+      content = <Newsletter />;
+      break;
+    case "help":
+      content = <HelpPage />;
       break;
     default:
       content = <div className={classes.default}></div>;

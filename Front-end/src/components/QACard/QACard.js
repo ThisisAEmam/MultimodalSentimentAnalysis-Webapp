@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { useSpring, animated, config } from "react-spring";
 import { useMeasure } from "react-use";
 import classes from "./QACard.module.css";
