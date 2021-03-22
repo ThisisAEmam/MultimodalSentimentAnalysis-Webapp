@@ -32,7 +32,7 @@ const DashboardNav = (props) => {
         <div className={classes.section}>
           <h3>Models</h3>
           <DBNavItem selected={selected} selHandler={selectHandler} label="my_models" text="My Models" icon="fa fa-layer-group" models />
-          <DBNavItem selected={selected} selHandler={selectHandler} label="models" text="Browse Catalogue" icon="fa fa-search" />
+          <DBNavItem selected={selected} selHandler={selectHandler} label="models" text="Browse Models" icon="fa fa-search" />
           <DBNavItem selected={selected} selHandler={selectHandler} label="my_likes" text="My Likes" icon="fa fa-heart" />
           <DBNavItem selected={selected} selHandler={selectHandler} label="my_bookmarks" text="My Bookmarks" icon="fa fa-bookmark" />
         </div>
