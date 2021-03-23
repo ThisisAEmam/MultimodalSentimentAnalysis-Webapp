@@ -14,7 +14,7 @@ const MyModels = (props) => {
       <PageTitle>My Models</PageTitle>
       <div className={classes.body}>
         {data.map((item, index) => (
-          <ModelCard key={index} index={(index + 1) % 9} name={item.name} user={item.user} likes={item.likes} />
+          <ModelCard key={index} id={item.id} index={(index + 1) % 9} name={item.name} user={item.user} likes={item.likes} />
         ))}
         <div className={[classes.createNewModelBtn].join(" ")} onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
           <p className={classes.plus}>+</p>

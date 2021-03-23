@@ -60,7 +60,11 @@ const BrowseModels = (props) => {
     <div className={classes.BrowseModels}>
       <PageTitle>Browse Models</PageTitle>
       <div className={classes.searchbarParent}>
-        <input type="text" placeholder="Search by model name or user name" onChange={(e) => searchHandler(e)} className={classes.searchbar} />
+        <h2>Search available models by keyworks</h2>
+        <div className={classes.searchbar}>
+          <input type="text" placeholder="Search by model name or user name" onChange={(e) => searchHandler(e)} />
+          <i className="fa fa-search"></i>
+        </div>
       </div>
       {noMatches ? (
         <div className={classes.noMatches}>
@@ -70,7 +74,7 @@ const BrowseModels = (props) => {
       ) : (
         <div className={classes.body}>
           {fetchedModels.map((item, index) => (
-            <ModelCard key={index} index={(index % 8) + 1} name={item.name} user={item.user} likes={item.likes} />
+            <ModelCard key={index} id={item.id} index={(index % 8) + 1} name={item.name} user={item.user} likes={item.likes} />
           ))}
         </div>
       )}

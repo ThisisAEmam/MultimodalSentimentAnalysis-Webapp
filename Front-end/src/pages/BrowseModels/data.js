@@ -2,7 +2,7 @@ const data = [
   {
     id: 1,
     name: "Cars Reviews",
-    user: "Sweilam",
+    user: "Swilam",
     likes: 10,
   },
   {
@@ -14,7 +14,7 @@ const data = [
   {
     id: 3,
     name: "Cats Reviews",
-    user: "Sweilam",
+    user: "Swilam",
     likes: 143,
   },
   {
@@ -32,7 +32,7 @@ const data = [
   {
     id: 6,
     name: "Cars Reviews",
-    user: "Sweilam",
+    user: "Swilam",
     likes: 38,
   },
   {
@@ -44,13 +44,13 @@ const data = [
   {
     id: 8,
     name: "Cars Reviews",
-    user: "Sweilam",
+    user: "Swilam",
     likes: 14,
   },
   {
     id: 9,
     name: "Cars Reviews",
-    user: "Sweilam",
+    user: "Swilam",
     likes: 143,
   },
   {
@@ -68,7 +68,7 @@ const data = [
   {
     id: 12,
     name: "Cars Reviews",
-    user: "Sweilam",
+    user: "Swilam",
     likes: 38,
   },
   {
@@ -80,13 +80,13 @@ const data = [
   {
     id: 14,
     name: "Cars Reviews",
-    user: "Sweilam",
+    user: "Swilam",
     likes: 14,
   },
   {
     id: 15,
     name: "Cars Reviews",
-    user: "Sweilam",
+    user: "Swilam",
     likes: 143,
   },
   {
@@ -104,7 +104,7 @@ const data = [
   {
     id: 18,
     name: "Cars Reviews",
-    user: "Sweilam",
+    user: "Swilam",
     likes: 38,
   },
   {
@@ -116,7 +116,7 @@ const data = [
   {
     id: 20,
     name: "Cars Reviews",
-    user: "Sweilam",
+    user: "Swilam",
     likes: 14,
   },
 ];
