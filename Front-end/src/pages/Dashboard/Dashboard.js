@@ -24,7 +24,8 @@ const Dashboard = (props) => {
     } else if (location.pathname === "/dashboard/") {
       history.push(location.pathname + "overview");
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   let content = null;
   let path = location.pathname.split("/")[2];
 
