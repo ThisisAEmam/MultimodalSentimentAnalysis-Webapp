@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import ModelCard from "../../components/ModelCard/ModelCard";
+import ModelsArray from "../../containers/ModelsArray/ModelsArray";
+import NoMatches from "../../components/NoMatches/NoMatches";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import classes from "./BrowseModels.module.css";
 import data from "./data";
@@ -37,7 +38,6 @@ const BrowseModels = (props) => {
   const searchHandler = (e) => {
     e.preventDefault();
     const query = e.target.value;
-    console.log(query);
     if (query.trim() === "") {
       setModels([...originalModels]);
     }
@@ -66,18 +66,7 @@ const BrowseModels = (props) => {
           <i className="fa fa-search"></i>
         </div>
       </div>
-      {noMatches ? (
-        <div className={classes.noMatches}>
-          <p>Sorry! we can't find any models that meet your search keywords.</p>
-          <img src="/noMatches.svg" alt="No Matches" />
-        </div>
-      ) : (
-        <div className={classes.body}>
-          {fetchedModels.map((item, index) => (
-            <ModelCard key={index} id={item.id} index={(index % 8) + 1} name={item.name} user={item.user} likes={item.likes} />
-          ))}
-        </div>
-      )}
+      {noMatches ? <NoMatches>Sorry! we can't find any models that meet your search keywords.</NoMatches> : <ModelsArray models={fetchedModels} />}
 
       {!allFetched ? (
         <div className={classes.loadMoreBtn}>

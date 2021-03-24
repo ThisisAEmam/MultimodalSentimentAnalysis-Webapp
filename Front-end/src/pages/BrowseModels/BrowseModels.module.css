@@ -89,22 +89,3 @@
 .searchbar input:focus {
   border-color: var(--secondary);
 }
-
-.noMatches {
-  margin-top: 5rem;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.noMatches p {
-  font-size: 1.4rem;
-  color: var(--primary);
-  font-weight: 600;
-}
-
-.noMatches img {
-  margin-top: 3rem;
-  height: 12rem;
-}

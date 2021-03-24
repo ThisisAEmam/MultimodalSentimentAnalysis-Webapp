@@ -1,0 +1,39 @@
+.slide-enter {
+  transform: translateX(100%);
+}
+
+.slide-enter-active {
+  transform: translateX(0);
+  transition: all 1000ms ease-in-out;
+}
+
+.slide-exit {
+  transform: translateX(0%);
+}
+
+.slide-exit-active {
+  transform: translateX(-100%);
+  transition: all 1000ms ease-in-out;
+}
+
+/* .prevSlide-enter {
+  transform: translateX(0);
+  opacity: 0;
+}
+
+.prevSlide-enter-active {
+  transform: translateX(100%);
+  transition: all 1000ms ease-in-out;
+  opacity: 1;
+}
+
+.prevSlide-exit {
+  transform: translateX(100%);
+  opacity: 1;
+}
+
+.prevSlide-exit-active {
+  transform: translateX(200%);
+  transition: all 1000ms ease-in-out;
+  opacity: 0;
+} */
