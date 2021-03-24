@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-// import { CSSTransition, SwitchTransition } from "react-transition-group";
 import ModelCard from "../../components/ModelCard/ModelCard";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import data from "./data";
-// import "./trans.css";
 import classes from "./MyModels.module.css";
 
 const MyModels = (props) => {
@@ -14,7 +12,7 @@ const MyModels = (props) => {
       <PageTitle>My Models</PageTitle>
       <div className={classes.body}>
         {data.map((item, index) => (
-          <ModelCard key={index} id={item.id} index={(index + 1) % 9} name={item.name} user={item.user} likes={item.likes} />
+          <ModelCard key={index} id={item.id} index={(index % 8) + 1} name={item.name} user={item.user} likes={item.likes} />
         ))}
         <div className={[classes.createNewModelBtn].join(" ")} onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
           <p className={classes.plus}>+</p>

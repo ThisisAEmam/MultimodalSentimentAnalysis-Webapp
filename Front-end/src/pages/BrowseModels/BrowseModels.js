@@ -60,7 +60,7 @@ const BrowseModels = (props) => {
     <div className={classes.BrowseModels}>
       <PageTitle>Browse Models</PageTitle>
       <div className={classes.searchbarParent}>
-        <h2>Search available models by keyworks</h2>
+        <h2>Search available models by keywords</h2>
         <div className={classes.searchbar}>
           <input type="text" placeholder="Search by model name or user name" onChange={(e) => searchHandler(e)} />
           <i className="fa fa-search"></i>

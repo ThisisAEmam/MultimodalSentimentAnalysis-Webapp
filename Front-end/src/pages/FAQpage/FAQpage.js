@@ -1,11 +1,11 @@
 import React from "react";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import QACard from "../../components/QACard/QACard";
-import classes from "./QApage.module.css";
+import classes from "./FAQpage.module.css";
 
-const QApage = (props) => {
+const FAQpage = (props) => {
   return (
-    <div className={classes.QApage}>
+    <div className={classes.FAQpage}>
       <PageTitle>Questions and Answers</PageTitle>
       <QACard question="How are you?">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus dignissimos laboriosam eligendi libero, nobis magnam id exercitationem illum totam
@@ -19,4 +19,4 @@ const QApage = (props) => {
   );
 };
 
-export default QApage;
+export default FAQpage;

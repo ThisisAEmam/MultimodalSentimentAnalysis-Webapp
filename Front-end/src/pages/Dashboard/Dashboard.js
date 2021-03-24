@@ -10,7 +10,7 @@ import MyBookmarks from "../MyBookmarks/MyBookmarks";
 import MyLikes from "../MyLikes/MyLikes";
 import MyModels from "../MyModels/MyModels";
 import Newsletter from "../Newsletter/Newsletter";
-import QApage from "../QApage/QApage";
+import FAQpage from "../FAQpage/FAQpage";
 import Overview from "../Overview/Overview";
 import GettingStarted from "../GettingStarted/GettingStarted";
 import classes from "./Dashboard.module.css";
@@ -47,8 +47,8 @@ const Dashboard = (props) => {
     case "my_bookmarks":
       content = <MyBookmarks />;
       break;
-    case "q_a":
-      content = <QApage />;
+    case "faq":
+      content = <FAQpage />;
       break;
     case "newsletter":
       content = <Newsletter />;
