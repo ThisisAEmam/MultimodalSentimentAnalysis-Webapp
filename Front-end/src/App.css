@@ -32,3 +32,9 @@ code {
 ::-webkit-scrollbar-thumb:hover {
   background-color: var(--secondary);
 }
+
+@media (min-width: 767px) and (max-width: 1367px) {
+  html {
+    font-size: 12px;
+  }
+}
