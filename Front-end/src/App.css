@@ -17,8 +17,10 @@ code {
 
 :root {
   --primary: #05192d;
-  --secondary: #4f97c7;
+  /* --secondary: #4f97c7; */
+  --secondary: #e25151;
   --text: #93a0ad;
+  --primary-hover: #213147;
 }
 
 ::-webkit-scrollbar {

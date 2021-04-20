@@ -1,8 +1,8 @@
 import React from "react";
 import { useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import DashboardNav from "../../containers/DashboardNav/DashboardNav";
-import Navbar from "../../containers/Navbar/Navbar";
+import DashboardNav from "../../containers/Dashboard/DashboardNav/DashboardNav";
+import Navbar from "../../containers/Dashboard/Navbar/Navbar";
 import Layout from "../../hoc/Layout/Layout";
 import BrowseModels from "../BrowseModels/BrowseModels";
 import HelpPage from "../HelpPage/HelpPage";

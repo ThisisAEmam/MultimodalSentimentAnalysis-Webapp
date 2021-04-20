@@ -1,5 +1,5 @@
 import React from "react";
-import ModelCard from "../../components/ModelCard/ModelCard";
+import ModelCard from "../../../components/Dashboard/ModelCard/ModelCard";
 import classes from "./ModelsArray.module.css";
 
 const ModelsArray = (props) => {

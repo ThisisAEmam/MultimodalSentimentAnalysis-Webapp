@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import NoMatches from "../../components/NoMatches/NoMatches";
-import PageTitle from "../../components/PageTitle/PageTitle";
+import NoMatches from "../../components/Dashboard/NoMatches/NoMatches";
+import PageTitle from "../../components/Dashboard/PageTitle/PageTitle";
 import { useSelector } from "react-redux";
-import ModelsArray from "../../containers/ModelsArray/ModelsArray";
+import ModelsArray from "../../containers/Dashboard/ModelsArray/ModelsArray";
 import classes from "./MyBookmarks.module.css";
 
 const MyBookmarks = (props) => {

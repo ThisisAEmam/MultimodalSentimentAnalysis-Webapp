@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
-import Notification from "../../components/Notification/Notification";
-import PageTitle from "../../components/PageTitle/PageTitle";
+import Notification from "../../components/Dashboard/Notification/Notification";
+import PageTitle from "../../components/Dashboard/PageTitle/PageTitle";
 import classes from "./Newsletter.module.css";
 
 const Newsletter = (props) => {

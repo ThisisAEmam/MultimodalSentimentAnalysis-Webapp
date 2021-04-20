@@ -3,8 +3,8 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import classes from "./ModelCard.module.css";
-import { setBookmarkedModels } from "../../features/bookmarkedModelsSlice";
-import { setLikedModels } from "../../features/likedModelsSlice";
+import { setBookmarkedModels } from "../../../features/bookmarkedModelsSlice";
+import { setLikedModels } from "../../../features/likedModelsSlice";
 
 const ModelCard = (props) => {
   const [likes, setLikes] = useState(0);
@@ -16,6 +16,10 @@ const ModelCard = (props) => {
 
   useEffect(() => {
     setLikes(props.likes);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     const ifLiked = likedModels.findIndex((el) => el.id === props.id);
     if (ifLiked !== -1) {
       setLiked(true);
@@ -25,11 +29,13 @@ const ModelCard = (props) => {
       setBookmarked(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.likes, likedModels, bookmarkedModels]);
+  }, [likedModels, bookmarkedModels]);
 
   const likeClickHandler = () => {
     if (!liked) {
-      likeDispatch(setLikedModels([...likedModels, props.model]));
+      const tempModel = props.model;
+      tempModel.likes += 1;
+      likeDispatch(setLikedModels([...likedModels, tempModel]));
     } else {
       const thisModelIndex = likedModels.findIndex((el) => el.id === props.id);
       const temp = [...likedModels];

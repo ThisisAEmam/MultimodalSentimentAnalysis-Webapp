@@ -19,8 +19,18 @@
   justify-content: space-between;
 }
 
+.logoContainer {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.logoContainer a {
+  height: fit-content;
+}
+
 .logo {
-  height: 60%;
+  height: 3rem;
 }
 
 .myAccount {

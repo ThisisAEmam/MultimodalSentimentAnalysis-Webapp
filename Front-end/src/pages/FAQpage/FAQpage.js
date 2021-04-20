@@ -1,6 +1,6 @@
 import React from "react";
-import PageTitle from "../../components/PageTitle/PageTitle";
-import QACard from "../../components/QACard/QACard";
+import PageTitle from "../../components/Dashboard/PageTitle/PageTitle";
+import QACard from "../../components/Dashboard/QACard/QACard";
 import classes from "./FAQpage.module.css";
 
 const FAQpage = (props) => {

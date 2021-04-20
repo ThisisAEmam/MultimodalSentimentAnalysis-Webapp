@@ -1,5 +1,5 @@
 import React from "react";
-import PageTitle from "../../components/PageTitle/PageTitle";
+import PageTitle from "../../components/Dashboard/PageTitle/PageTitle";
 import classes from "./HelpPage.module.css";
 
 const HelpPage = (props) => {

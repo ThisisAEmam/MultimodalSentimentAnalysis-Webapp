@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import DBNavItem from "../../components/DBNavItem/DBNavItem";
+import DBNavItem from "../../../components/Dashboard/DBNavItem/DBNavItem";
 import classes from "./DashboardNav.module.css";
 
 const DashboardNav = (props) => {

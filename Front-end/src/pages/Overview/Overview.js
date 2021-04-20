@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import PageTitle from "../../components/PageTitle/PageTitle";
+import PageTitle from "../../components/Dashboard/PageTitle/PageTitle";
 import classes from "./Overview.module.css";
 import { useSelector } from "react-redux";
-import OverviewCounter from "../../components/OverviewCounter/OverviewCounter";
+import OverviewCounter from "../../components/Dashboard/OverviewCounter/OverviewCounter";
 
 const Overview = (props) => {
   const [name, setName] = useState("");

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import ModelsArray from "../../containers/ModelsArray/ModelsArray";
-import NoMatches from "../../components/NoMatches/NoMatches";
-import PageTitle from "../../components/PageTitle/PageTitle";
+import ModelsArray from "../../containers/Dashboard/ModelsArray/ModelsArray";
+import NoMatches from "../../components/Dashboard/NoMatches/NoMatches";
+import PageTitle from "../../components/Dashboard/PageTitle/PageTitle";
 import classes from "./BrowseModels.module.css";
 import data from "./data";
 

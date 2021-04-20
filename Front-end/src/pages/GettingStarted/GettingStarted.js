@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { Link } from "react-router-dom";
-import PageTitle from "../../components/PageTitle/PageTitle";
+import PageTitle from "../../components/Dashboard/PageTitle/PageTitle";
 import classes from "./GettingStarted.module.css";
 import "./transitions.css";
 

@@ -20,11 +20,11 @@
 .DBNavItem.selected {
   color: #fff;
   font-weight: 700;
-  background-color: #213147;
+  background-color: var(--primary-hover);
 }
 
 .DBNavItem:hover {
-  background-color: #213147;
+  background-color: var(--primary-hover);
 }
 
 .DBNavItem i {

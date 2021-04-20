@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import NoMatches from "../../components/NoMatches/NoMatches";
-import PageTitle from "../../components/PageTitle/PageTitle";
-import ModelsArray from "../../containers/ModelsArray/ModelsArray";
+import NoMatches from "../../components/Dashboard/NoMatches/NoMatches";
+import PageTitle from "../../components/Dashboard/PageTitle/PageTitle";
+import ModelsArray from "../../containers/Dashboard/ModelsArray/ModelsArray";
 import classes from "./MyLikes.module.css";
 
 const MyLikes = (props) => {

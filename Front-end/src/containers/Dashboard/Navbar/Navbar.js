@@ -20,7 +20,11 @@ const Navbar = (props) => {
   return (
     <div className={classes.Navbar}>
       <div className={classes.container}>
-        <img src="/logo-placeholder.png" alt="logo" className={classes.logo} />
+        <div className={classes.logoContainer}>
+          <Link to="/">
+            <img src="/logo-placeholder.png" alt="logo" className={classes.logo} />
+          </Link>
+        </div>
         <div className={classes.rightSide}>
           <div className={classes.notifications}></div>
           <div className={classes.myAccount}>
