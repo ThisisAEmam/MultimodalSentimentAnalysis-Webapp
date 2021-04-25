@@ -23,7 +23,7 @@ const SecondaryPageContainer = (props) => {
   });
 
   return (
-    <div className={classes.SecondaryPageContainer}>
+    <div className={[classes.SecondaryPageContainer, props.signup ? classes.signup : null].join(" ")}>
       <div className={classes.backToHomeBtn}>
         <Link to="/">
           <div className={classes.backToHomeText}>

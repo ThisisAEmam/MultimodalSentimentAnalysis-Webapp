@@ -4,7 +4,7 @@ import { setScreen } from "./features/screenSlice";
 import { useDispatch } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Homepage from "./pages/Homepage/Homepage";
-import Dashboard from "./pages/Dashboard/Dashboard";
+import Dashboard from "./pages/Dashboard/Dashboard/Dashboard";
 import Game from "./pages/Game/Game";
 import AboutUS from "./pages/AboutUS/AboutUS";
 import LoginPage from "./pages/LoginPage/LoginPage";
@@ -41,6 +41,7 @@ const App = () => {
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/game" exact component={Game} />
           <Route path="/about" exact component={AboutUS} />
+          <Route path="/login" exact component={LoginPage} />
           <Route path="/login" exact component={LoginPage} />
         </Switch>
       </Router>

@@ -1,9 +1,9 @@
 import React from "react";
 import { useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import DashboardNav from "../../containers/Dashboard/DashboardNav/DashboardNav";
-import Navbar from "../../containers/Dashboard/Navbar/Navbar";
-import Layout from "../../hoc/Layout/Layout";
+import DashboardNav from "../../../containers/Dashboard/DashboardNav/DashboardNav";
+import Navbar from "../../../containers/Dashboard/Navbar/Navbar";
+import Layout from "../../../hoc/Layout/Layout";
 import BrowseModels from "../BrowseModels/BrowseModels";
 import HelpPage from "../HelpPage/HelpPage";
 import MyBookmarks from "../MyBookmarks/MyBookmarks";
@@ -14,15 +14,21 @@ import FAQpage from "../FAQpage/FAQpage";
 import Overview from "../Overview/Overview";
 import GettingStarted from "../GettingStarted/GettingStarted";
 import classes from "./Dashboard.module.css";
+import { useSelector } from "react-redux";
 
 const Dashboard = (props) => {
   const location = useLocation();
   const history = useHistory();
+  const { isLoggedin } = useSelector((state) => state);
   useEffect(() => {
-    if (location.pathname === "/dashboard") {
-      history.push(location.pathname + "/overview");
-    } else if (location.pathname === "/dashboard/") {
-      history.push(location.pathname + "overview");
+    if (!isLoggedin) {
+      history.push("/login");
+    } else {
+      if (location.pathname === "/dashboard") {
+        history.push(location.pathname + "/overview");
+      } else if (location.pathname === "/dashboard/") {
+        history.push(location.pathname + "overview");
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

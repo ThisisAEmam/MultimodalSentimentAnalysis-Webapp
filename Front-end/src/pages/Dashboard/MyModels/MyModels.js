@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import PageTitle from "../../components/Dashboard/PageTitle/PageTitle";
+import PageTitle from "../../../components/Dashboard/PageTitle/PageTitle";
 import data from "./data";
-import ModelsArray from "../../containers/Dashboard/ModelsArray/ModelsArray";
-import NoMatches from "../../components/Dashboard/NoMatches/NoMatches";
+import ModelsArray from "../../../containers/Dashboard/ModelsArray/ModelsArray";
+import NoMatches from "../../../components/Dashboard/NoMatches/NoMatches";
 import classes from "./MyModels.module.css";
 
 const MyModels = (props) => {

@@ -67,6 +67,10 @@
 }
 
 @media (max-width: 767px) {
+  .SecondaryPageContainer.signup {
+    overflow-y: scroll;
+  }
+
   .singleCircles1 {
     top: 18%;
     left: 5%;

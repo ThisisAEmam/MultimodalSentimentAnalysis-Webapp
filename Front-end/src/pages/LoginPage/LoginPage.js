@@ -1,10 +1,12 @@
 import React, { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import SecondaryPageHeader from "../../components/Homepage/SecondaryPageHeader/SecondaryPageHeader";
 import SecondaryPageContainer from "../../containers/Homepage/SecondaryPageContainer/SecondaryPageContainer";
 import WhiteContainer from "../../containers/Homepage/WhiteContainer/WhiteContainer";
 import classes from "./LoginPage.module.css";
 import Notification from "../../components/Homepage/Notification/Notification";
+import { setLoggedin } from "../../features/LoggedinSlice";
+import { useDispatch } from "react-redux";
 
 const LoginPage = (props) => {
   const [emptyEmail, setEmptyEmail] = useState(false);
@@ -14,21 +16,29 @@ const LoginPage = (props) => {
   const emailRef = useRef();
   const passwordRef = useRef();
 
+  const loginDispatch = useDispatch(setLoggedin);
+  const history = useHistory();
+
   const clickHandler = () => {
-    const email = emailRef.current.value;
-    const password = passwordRef.current.value;
+    const email = emailRef.current.value.trim();
+    const password = passwordRef.current.value.trim();
 
-    if (email.trim() === "") {
-      setEmptyEmail(true);
+    if (email === "" || password === "") {
+      if (email === "") {
+        setEmptyEmail(true);
+      }
+
+      if (password === "") {
+        setEmptyPassword(true);
+      }
+    } else {
+      if (email === "abdoemamofficial@gmail.com" && password === "123456") {
+        loginDispatch(setLoggedin(true));
+        history.push("/");
+      } else {
+        setWrongCredentials(true);
+      }
     }
-
-    if (password.trim() === "") {
-      setEmptyPassword(true);
-    }
-
-    setWrongCredentials(true);
-    // console.log();
-    // console.log(passwordRef.current.value);
   };
 
   const notificationShowHandler = (e) => {
