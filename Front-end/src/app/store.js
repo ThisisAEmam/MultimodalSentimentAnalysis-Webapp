@@ -11,4 +11,5 @@ export default configureStore({
     likedModels: LikedModelsReducer,
     bookmarkedModels: BookmarkedModelsReducer,
   },
+  devTools: process.env.NODE_ENV !== "production",
 });
