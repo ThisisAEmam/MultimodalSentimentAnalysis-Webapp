@@ -1,0 +1,33 @@
+.Notification {
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  width: 100%;
+  height: 2.5rem;
+  display: flex;
+  color: #fff;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 1rem;
+  border-radius: 5px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+}
+
+.Notification i {
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.Notification.alert {
+  background-color: var(--alert);
+}
+
+.Notification.success {
+  background-color: var(--success);
+}
+
+@media (max-width: 767px) {
+  .Notification {
+    top: -15%;
+  }
+}
