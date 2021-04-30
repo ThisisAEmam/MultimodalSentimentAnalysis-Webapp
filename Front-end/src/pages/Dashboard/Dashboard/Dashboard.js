@@ -19,9 +19,11 @@ import { useSelector } from "react-redux";
 const Dashboard = (props) => {
   const location = useLocation();
   const history = useHistory();
-  const { isLoggedin } = useSelector((state) => state);
+
+  const { loggedin } = useSelector((state) => state);
+
   useEffect(() => {
-    if (!isLoggedin) {
+    if (!loggedin.status) {
       history.push("/login");
     } else {
       if (location.pathname === "/dashboard") {
@@ -31,7 +33,15 @@ const Dashboard = (props) => {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [loggedin]);
+
+  // useEffect(() => {
+  //   if (!isLoggedin) {
+  //     history.push("/login");
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [isLoggedin]);
+
   let content = null;
   let path = location.pathname.split("/")[2];
 

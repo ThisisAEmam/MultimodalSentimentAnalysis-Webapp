@@ -11,7 +11,7 @@ export default configureStore({
     currentUser: CurrentUserReducer,
     likedModels: LikedModelsReducer,
     bookmarkedModels: BookmarkedModelsReducer,
-    isLoggedin: LoggedinReducer,
+    loggedin: LoggedinReducer,
   },
   devTools: process.env.NODE_ENV !== "production",
 });

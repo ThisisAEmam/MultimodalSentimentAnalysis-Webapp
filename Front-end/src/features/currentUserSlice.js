@@ -1,8 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { UserCookie } from "../app/cookie";
+
+let initialState = { username: "", firstname: "", lastname: "", email: "" };
+const userCookie = new UserCookie();
+if (userCookie.get()) {
+  const user = userCookie.get();
+  initialState = { username: user.username, firstname: user.firstname, lastname: user.lastname, email: user.email };
+}
 
 export const currentUserSlice = createSlice({
   name: "currentUser",
-  initialState: { userName: "swilam20", firstName: "Mahmoud", lastName: "Swilam", email: "mahmoud.swilam.2020@gmail.com" },
+  initialState: initialState,
   reducers: {
     setCurrentUser: (state, action) => (state = action.payload),
   },

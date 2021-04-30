@@ -54,9 +54,10 @@ const Navbar = (props) => {
               <img src="/logo-placeholder.png" alt="logo" className={classes.logo} />
             </Link>
           </div>
+          {!isMobile ? <NavbarItems PCType="pages" /> : null}
         </div>
         <div className={classes.rightSide}>
-          {isMobile ? hamburgerMenu : <NavbarItems />}
+          {isMobile ? hamburgerMenu : <NavbarItems PCType="login" />}
           {isMobileNavOpen ? <div className={classes.blackOverlay} onClick={() => setMobileNavOpen(false)}></div> : null}
           <animated.div className={classes.mobileNavBtnsContainer} style={mobileNavFadeIn}>
             <NavbarItems mobile />

@@ -4,7 +4,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--primary);
-  perspective: 1000;
+  overflow-x: hidden;
 }
 
 code {
@@ -27,6 +27,8 @@ code {
   --primary-hover: #213147;
   --alert: #e24343;
   --success: #5ec09a;
+  --main-bg: #f0f0f0;
+  --secondary-bg: #f4f4f4;
 }
 
 ::-webkit-scrollbar {
@@ -44,6 +46,12 @@ code {
 }
 
 @media (min-width: 767px) and (max-width: 1367px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 767px) {
   html {
     font-size: 12px;
   }

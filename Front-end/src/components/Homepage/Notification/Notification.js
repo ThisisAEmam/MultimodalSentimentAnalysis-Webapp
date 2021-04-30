@@ -17,11 +17,11 @@ const Notification = (props) => {
     config: config.default,
   });
 
-  //   useEffect(() => {
-  //     setTimeout(() => {
-  //       setShown(false);
-  //     }, 5000);
-  //   }, []);
+  useEffect(() => {
+    setTimeout(() => {
+      setShown(false);
+    }, 5000);
+  }, []);
 
   useEffect(() => {
     if (!shown) {

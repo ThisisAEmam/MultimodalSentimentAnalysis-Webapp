@@ -1,5 +1,5 @@
 .navBtns a {
-  margin-left: 5rem;
+  margin-left: 3rem;
   color: var(--primary);
   text-decoration: none;
   font-weight: 500;
@@ -29,6 +29,26 @@
   color: var(--primary-text);
   font-weight: bold;
   border-color: var(--secondary);
+}
+
+.navBtns.PCNavBtns {
+  justify-content: space-between;
+}
+
+.navBtns .toBtn {
+  margin-left: 1.5rem;
+  color: #fff;
+  padding: 0.65rem 2.5rem;
+  border-radius: 25px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+.navBtns .loginBtn {
+  background-color: var(--secondary);
+}
+
+.navBtns .signupBtn {
+  background-color: var(--primary-text);
 }
 
 @media (min-width: 768px) {

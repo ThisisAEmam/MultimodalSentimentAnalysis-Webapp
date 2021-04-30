@@ -7,10 +7,14 @@ import Homepage from "./pages/Homepage/Homepage";
 import Dashboard from "./pages/Dashboard/Dashboard/Dashboard";
 import Game from "./pages/Game/Game";
 import AboutUS from "./pages/AboutUS/AboutUS";
-import LoginPage from "./pages/LoginPage/LoginPage";
+import LoginPage from "./pages/LoginAndSignup/LoginPage/LoginPage";
+import ForgotPassword from "./pages/LoginAndSignup/ForgotPassword/ForgotPassword";
+import axios from "axios";
 
 const App = () => {
   const screenDispatch = useDispatch(setScreen);
+
+  axios.defaults.baseURL = "http://localhost:5000/api";
 
   window.addEventListener("resize", () => {
     if (window.outerWidth < 1000) {
@@ -42,7 +46,7 @@ const App = () => {
           <Route path="/game" exact component={Game} />
           <Route path="/about" exact component={AboutUS} />
           <Route path="/login" exact component={LoginPage} />
-          <Route path="/login" exact component={LoginPage} />
+          <Route path="/forgot_password" exact component={ForgotPassword} />
         </Switch>
       </Router>
     </div>

@@ -9,7 +9,7 @@ const Overview = (props) => {
   const { currentUser } = useSelector((state) => state);
 
   useEffect(() => {
-    setName(currentUser.firstName);
+    setName(currentUser.firstname);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

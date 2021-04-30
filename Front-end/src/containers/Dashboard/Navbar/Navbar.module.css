@@ -13,7 +13,7 @@
 .container {
   max-width: 90%;
   height: 100%;
-  margin: auto;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -31,6 +31,15 @@
 
 .logo {
   height: 3rem;
+}
+
+.rightSide {
+  display: flex;
+  align-items: center;
+}
+
+.homeBtn {
+  height: fit-content;
 }
 
 .myAccount {
