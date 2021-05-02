@@ -3,16 +3,6 @@
   position: relative;
   padding: 10rem 0;
 }
-.circle1 {
-  position: absolute;
-  top: calc(-80%);
-  left: calc(60%);
-  border-radius: 50%;
-  width: 100rem;
-  height: 100rem;
-  background-color: var(--primary);
-  z-index: -1;
-}
 
 .container {
   width: 70%;
@@ -24,7 +14,7 @@
 }
 
 .bannerImage {
-  z-index: 100;
+  z-index: 1;
   width: 50rem;
   transform: translateX(5rem);
 }

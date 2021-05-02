@@ -1,4 +1,9 @@
+.Overview {
+  width: 100%;
+}
+
 .body {
+  width: 100%;
   display: grid;
   grid:
     "welcome welcome"
@@ -47,4 +52,13 @@
   width: fit-content;
   padding-bottom: 0.25rem;
   margin-bottom: 2rem;
+}
+
+@media (max-width: 767px) {
+  .body {
+    grid:
+      "welcome"
+      "myModels"
+      "models";
+  }
 }

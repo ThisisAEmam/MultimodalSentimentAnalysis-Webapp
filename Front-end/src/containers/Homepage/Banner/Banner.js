@@ -11,8 +11,6 @@ const Banner = (props) => {
         </div>
         <img src="/video_sentiment.png" alt="bannerImage" className={classes.bannerImage} />
       </div>
-      <div className={classes.circle1}></div>
-      <div className={classes.circle2}></div>
     </div>
   );
 };

@@ -1,12 +1,26 @@
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
+import { setMobileDashNavOpen } from "../../../features/mobileDashNavSlice";
+import { useSpring, config, animated } from "react-spring";
 import DBNavItem from "../../../components/Dashboard/DBNavItem/DBNavItem";
 import classes from "./DashboardNav.module.css";
 
 const DashboardNav = (props) => {
   const [selected, setSelected] = useState(null);
+  const [isMobile, setMobile] = useState(false);
+  const [showMobileNav, setShowMobileNav] = useState(false);
+
+  const { screen, isMobileDashNavOpen } = useSelector((state) => state);
+  const dispatch = useDispatch(setMobileDashNavOpen);
+
+  useEffect(() => {
+    if (screen === "Mobile") {
+      setMobile(true);
+    } else {
+      setMobile(false);
+    }
+  }, [screen]);
 
   let location = useLocation();
 
@@ -21,8 +35,54 @@ const DashboardNav = (props) => {
     setSelected(label);
   };
 
-  return (
-    <div className={classes.DashboardNav}>
+  const overlayRef = useRef();
+
+  useEffect(() => {
+    if (isMobileDashNavOpen) {
+      setShowMobileNav(true);
+    } else {
+      setShowMobileNav(false);
+    }
+  }, [isMobileDashNavOpen]);
+
+  const bodyClickHandler = (e) => {
+    e.preventDefault();
+    if (e.target === overlayRef.current) {
+      console.log("Entered");
+      dispatch(setMobileDashNavOpen(false));
+      setShowMobileNav(false);
+    }
+  };
+
+  useEffect(() => {
+    document.querySelector("body").addEventListener("click", bodyClickHandler);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const overlaySpring = useSpring({
+    from: {
+      pointerEvents: "None",
+      opacity: 0,
+    },
+    to: {
+      pointerEvents: showMobileNav ? "All" : "None",
+      opacity: showMobileNav ? 1 : 0,
+    },
+    config: config.default,
+  });
+
+  const mobileSpring = useSpring({
+    from: {
+      transform: "translateX(-100%)",
+    },
+    to: {
+      transform: showMobileNav ? "translateX(0)" : "translateX(-100%)",
+    },
+    config: config.default,
+  });
+
+  const content = (
+    <>
       <div>
         <div className={classes.section}>
           <h3>Overview</h3>
@@ -47,8 +107,20 @@ const DashboardNav = (props) => {
         <p>Graduation Project &copy; 2021</p>
         <p>All rights reserved.</p>
       </div>
-    </div>
+    </>
   );
+
+  const container = isMobile ? (
+    <animated.div style={overlaySpring} ref={overlayRef} className={[classes.overlay, showMobileNav ? classes.showOverlay : null].join(" ")}>
+      <animated.div style={mobileSpring} className={[classes.DashboardNav, classes.mobile].join(" ")}>
+        {content}
+      </animated.div>
+    </animated.div>
+  ) : (
+    <div className={classes.DashboardNav}>{content}</div>
+  );
+
+  return container;
 };
 
 export default DashboardNav;

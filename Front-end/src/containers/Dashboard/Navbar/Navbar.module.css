@@ -3,15 +3,15 @@
   top: 0;
   left: 0;
   height: 4rem;
-  width: 100vw;
-  z-index: 1000;
+  width: 100%;
+  z-index: 100;
   background-color: #fcfcfc;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .container {
-  max-width: 90%;
+  width: 90%;
   height: 100%;
   margin: 0 auto;
   display: flex;
@@ -23,19 +23,20 @@
   height: 100%;
   display: flex;
   align-items: center;
-}
-
-.logoContainer a {
-  height: fit-content;
+  justify-content: center;
 }
 
 .logo {
-  height: 3rem;
+  height: 80%;
 }
 
-.rightSide {
-  display: flex;
-  align-items: center;
+.logo img {
+  height: 100%;
+}
+
+.hamburgerIcon i {
+  font-size: 1.3rem;
+  padding: 0.5rem;
 }
 
 .homeBtn {
@@ -73,8 +74,17 @@
   font-size: 1.1rem;
 }
 
+.myAccountBtn.mobileIcon i {
+  padding: 0.5rem;
+  font-size: 1.3rem;
+}
+
 .myAccountBtn:hover {
   background-color: #f0f0f0;
+}
+
+.myAccountBtn.mobileIcon:hover {
+  background-color: transparent;
 }
 
 .myAccountList {
@@ -85,8 +95,7 @@
   pointer-events: none;
   background-color: #fcfcfc;
   border-radius: 10px;
-  padding: 1rem 0.5rem;
-  width: 13rem;
+  padding: 0.5rem;
   border: 1px solid rgba(0, 0, 0, 0.1);
   list-style: none;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
@@ -94,13 +103,14 @@
 
 .myAccountList li {
   border-radius: 5px;
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
   text-transform: capitalize;
   font-size: 1rem;
   font-weight: 500;
   transition: all 0.25s ease;
   cursor: pointer;
   margin-bottom: 0.25rem;
+  white-space: nowrap;
 }
 
 .myAccountList li a {
@@ -114,7 +124,6 @@
 
 .myAccountList li:last-child {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
-  margin-top: 1rem;
 }
 
 .myAccountList li i {
@@ -154,7 +163,24 @@
 }
 
 @media (max-width: 767px) {
+  .Navbar {
+    width: 100vw;
+    height: 5rem;
+  }
+
+  .container {
+    width: 95%;
+  }
+
   .logo {
-    height: 40%;
+    height: 60%;
+  }
+
+  .myAccountList {
+    top: 100%;
+  }
+
+  .myAccountList li {
+    font-size: 1.2rem;
   }
 }
