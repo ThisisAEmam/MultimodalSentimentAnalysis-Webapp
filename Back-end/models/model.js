@@ -2,8 +2,8 @@ const createUsersTable = `
 CREATE TABLE users
 (
     uid VARCHAR PRIMARY KEY NOT NULL UNIQUE,
-    firstName VARCHAR(32) NOT NULL,
-    lastName VARCHAR(32) NOT NULL,
+    firstname VARCHAR(32) NOT NULL,
+    lastname VARCHAR(32) NOT NULL,
     email VARCHAR(128) NOT NULL UNIQUE,
     username VARCHAR(64) NOT NULL UNIQUE,
     organization VARCHAR(128),
@@ -25,8 +25,8 @@ CREATE TABLE Question
 
 `
 {
-    "firstName": "Tester",
-    "lastName": "Testing",
+    "firstname": "Tester",
+    "lastname": "Testing",
     "username": "test",
     "email": "test@test.com",
     "password": "abdoemam",
@@ -35,8 +35,8 @@ CREATE TABLE Question
 `;
 `
 {
-    "firstName": "AbdelRahman",
-    "lastName": "Emam",
+    "firstname": "AbdelRahman",
+    "lastname": "Emam",
     "username": "Emamoz",
     "email": "abdoemamofficial@gmail.com",
     "password": "abdoemam",

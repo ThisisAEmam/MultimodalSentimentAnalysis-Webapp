@@ -3,7 +3,7 @@
 -- CREATE TABLE users
 -- (
 --     uid VARCHAR PRIMARY KEY UNIQUE,
---     firstName VARCHAR(32) NOT NULL,
+--     firstname VARCHAR(32) NOT NULL,
 --     lastName VARCHAR(32) NOT NULL,
 --     email VARCHAR(128) NOT NULL UNIQUE,
 --     username VARCHAR(64) NOT NULL UNIQUE,

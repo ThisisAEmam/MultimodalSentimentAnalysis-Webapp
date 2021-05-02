@@ -6,8 +6,8 @@
             "port": 5432,
             "driver": "PostgreSQL",
             "name": "MSA",
-            "database": "msa_db",
-            "username": "postgres",
+            "database": "msaDB",
+            "username": "emamoz",
             "password": "abdoemam"
         }
     ]

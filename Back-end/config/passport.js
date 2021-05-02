@@ -2,7 +2,7 @@ const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
 const fs = require("fs");
 const path = require("path");
-const pool = require("./database");
+const User = require("../database/models/User");
 
 const pathToKey = path.join(__dirname, "..", "id_rsa_pub.pem");
 const PUB_KEY = fs.readFileSync(pathToKey, "utf8");
@@ -20,40 +20,24 @@ module.exports = (passport) => {
   passport.use(
     "admin",
     new JwtStrategy(options, function (jwt_payload, done) {
-      // We will assign the `sub` property on the JWT to the database ID of user
-      pool
-        .connect()
-        .then((client) => {
-          client
-            .query("SELECT * FROM users WHERE uid = $1 AND admin = TRUE;", [jwt_payload.sub])
-            .then((user) => {
-              if (user.rowCount === 0) return done(null, false);
-              const returnedUser = user.rows[0];
-              return done(null, returnedUser);
-            })
-            .catch((err) => done(err, false));
+      User.findOne({ where: { id: jwt_payload.sub, admin: true } })
+        .then((user) => {
+          if (!user) return done(null, false);
+          return done(null, user);
         })
-        .catch((err) => console.log(`Pool error: ${err}`));
+        .catch((err) => done(err, false));
     })
   );
 
   passport.use(
     "user",
     new JwtStrategy(options, function (jwt_payload, done) {
-      // We will assign the `sub` property on the JWT to the database ID of user
-      pool
-        .connect()
-        .then((client) => {
-          client
-            .query("SELECT * FROM users WHERE uid = $1", [jwt_payload.sub])
-            .then((user) => {
-              if (user.rowCount === 0) return done(null, false);
-              const returnedUser = user.rows[0];
-              return done(null, returnedUser);
-            })
-            .catch((err) => done(err, false));
+      User.findOne({ where: { id: jwt_payload.sub } })
+        .then((user) => {
+          if (!user) return done(null, false);
+          return done(null, user);
         })
-        .catch((err) => console.log(`Pool error: ${err}`));
+        .catch((err) => done(err, false));
     })
   );
 };
