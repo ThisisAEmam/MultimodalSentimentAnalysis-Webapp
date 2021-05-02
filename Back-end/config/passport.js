@@ -25,7 +25,7 @@ module.exports = (passport) => {
         .connect()
         .then((client) => {
           client
-            .query("SELECT * FROM users WHERE user_id = $1 AND admin = TRUE;", [jwt_payload.sub])
+            .query("SELECT * FROM users WHERE uid = $1 AND admin = TRUE;", [jwt_payload.sub])
             .then((user) => {
               if (user.rowCount === 0) return done(null, false);
               const returnedUser = user.rows[0];
@@ -45,7 +45,7 @@ module.exports = (passport) => {
         .connect()
         .then((client) => {
           client
-            .query("SELECT * FROM users WHERE user_id = $1", [jwt_payload.sub])
+            .query("SELECT * FROM users WHERE uid = $1", [jwt_payload.sub])
             .then((user) => {
               if (user.rowCount === 0) return done(null, false);
               const returnedUser = user.rows[0];

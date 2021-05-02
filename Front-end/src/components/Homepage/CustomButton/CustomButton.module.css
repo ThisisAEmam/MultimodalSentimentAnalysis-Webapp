@@ -22,3 +22,9 @@
   margin-right: 0.5rem;
   color: #fff;
 }
+
+@media (max-width: 767px) {
+  .CustomButton {
+    width: 8rem;
+  }
+}

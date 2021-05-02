@@ -10,11 +10,14 @@ import AboutUS from "./pages/AboutUS/AboutUS";
 import LoginPage from "./pages/LoginAndSignup/LoginPage/LoginPage";
 import ForgotPassword from "./pages/LoginAndSignup/ForgotPassword/ForgotPassword";
 import axios from "axios";
+import Logout from "./pages/LoginAndSignup/Logout/Logout";
+import NotFound404 from "./pages/NotFound404/NotFound404";
+import ResetPassword from "./pages/LoginAndSignup/ResetPassword/ResetPassword";
 
 const App = () => {
   const screenDispatch = useDispatch(setScreen);
 
-  axios.defaults.baseURL = "http://localhost:5000/api";
+  axios.defaults.baseURL = "http://192.168.1.2:5000/api";
 
   window.addEventListener("resize", () => {
     if (window.outerWidth < 1000) {
@@ -47,6 +50,9 @@ const App = () => {
           <Route path="/about" exact component={AboutUS} />
           <Route path="/login" exact component={LoginPage} />
           <Route path="/forgot_password" exact component={ForgotPassword} />
+          <Route path="/reset_password/:token" exact component={ResetPassword} />
+          <Route path="/logout" exact component={Logout} />
+          <Route component={NotFound404} />
         </Switch>
       </Router>
     </div>

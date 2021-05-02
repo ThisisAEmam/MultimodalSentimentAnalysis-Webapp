@@ -39,7 +39,16 @@
 }
 
 .homeBtn {
-  height: fit-content;
+  margin-right: 2rem;
+  font-weight: 500;
+  font-size: 1.2rem;
+  color: var(--primary);
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.homeBtn:hover {
+  opacity: 0.8;
 }
 
 .myAccount {

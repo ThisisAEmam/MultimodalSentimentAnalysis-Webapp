@@ -26,7 +26,7 @@ code {
   --text: #93a0ad;
   --primary-hover: #213147;
   --alert: #e24343;
-  --success: #5ec09a;
+  --success: #57b363;
   --main-bg: #f0f0f0;
   --secondary-bg: #f4f4f4;
 }
@@ -53,6 +53,6 @@ code {
 
 @media (max-width: 767px) {
   html {
-    font-size: 12px;
+    font-size: 14px;
   }
 }

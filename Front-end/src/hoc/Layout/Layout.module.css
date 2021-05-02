@@ -1,5 +1,5 @@
 .Layout {
-  margin-left: 15%;
-  width: 85%;
+  width: 100%;
   padding: 6rem 10rem 2rem 10rem;
+  position: relative;
 }

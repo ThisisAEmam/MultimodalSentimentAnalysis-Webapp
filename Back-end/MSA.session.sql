@@ -2,7 +2,7 @@
 
 -- CREATE TABLE users
 -- (
---     user_id SERIAL PRIMARY KEY UNIQUE,
+--     uid VARCHAR PRIMARY KEY UNIQUE,
 --     firstName VARCHAR(32) NOT NULL,
 --     lastName VARCHAR(32) NOT NULL,
 --     email VARCHAR(128) NOT NULL UNIQUE,

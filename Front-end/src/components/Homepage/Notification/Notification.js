@@ -37,9 +37,15 @@ const Notification = (props) => {
   };
 
   return (
-    <animated.div style={spring} className={[classes.Notification, props.alert ? classes.alert : null, props.success ? classes.success : null].join(" ")}>
-      <p>{props.children}</p>
-      <i className="fa fa-times" onClick={clickHandler}></i>
+    <animated.div
+      style={spring}
+      className={[classes.Notification, props.type === "alert" ? classes.alert : null, props.type === "success" ? classes.success : null].join(" ")}>
+      <p>
+        <span>{props.type === "alert" ? "Failed!" : props.type === "success" ? "Successful!" : ""}</span> {props.children}
+      </p>
+      <div className={classes.icon} onClick={clickHandler}>
+        <i className="fa fa-times"></i>
+      </div>
     </animated.div>
   );
 };

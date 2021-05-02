@@ -1,12 +1,9 @@
 const router = require("express").Router();
-const pool = require("../config/database");
+const crypto = require("crypto");
+const pool = require("../../config/database");
 const passport = require("passport");
-const { validatePassword, issueJWT, genPassword } = require("../lib/utils");
+const { validatePassword, issueJWT, genPassword } = require("../../lib/utils");
 const Joi = require("joi");
-const getIdFromToken = require("../lib/getIdFromToken");
-const getPUTQuery = require("../lib/putQuery");
-
-const emailRegex = /^([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)$/;
 
 // RETURN THE CURRENT USER
 router.get("/", passport.authenticate("admin", { session: false }), (req, res, next) => {
@@ -20,19 +17,8 @@ router.get("/", passport.authenticate("admin", { session: false }), (req, res, n
     .catch((err) => res.send({ success: false, msg: err }));
 });
 
-router.get("/me", passport.authenticate("user", { session: false }), (req, res, next) => {
-  const id = getIdFromToken(req.headers.authorization);
-  pool
-    .query("SELECT * FROM users WHERE uid = $1", [id])
-    .then((users) => {
-      if (users.rowCount === 0) return res.send({ success: false, msg: `There is no user with id = ${id} registered in our database.` });
-      const user = users.rows[0];
-      res.send({ success: true, data: user });
-    })
-    .catch((err) => res.send({ success: false, msg: err }));
-});
-
 router.post("/login", (req, res, next) => {
+  const emailRegex = /^([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)$/;
   let query = "";
   if (emailRegex.test(req.body.username)) {
     query = "SELECT * FROM users WHERE email = $1";
@@ -64,8 +50,10 @@ router.post("/signup", (req, res, next) => {
 
   const { firstName, lastName, username, email, organization } = req.body;
   const { salt, hash } = genPassword(req.body.password);
+  const id = crypto.randomBytes(16).toString("hex");
   pool
-    .query("INSERT INTO users (firstName, lastName, username, email, organization, hash, salt) VALUES($1, $2, $3, $4, $5, $6, $7);", [
+    .query("INSERT INTO users (uid, firstName, lastName, username, email, organization, hash, salt) VALUES($1, $2, $3, $4, $5, $6, $7, $8);", [
+      id,
       firstName,
       lastName,
       username,
@@ -75,42 +63,7 @@ router.post("/signup", (req, res, next) => {
       salt,
     ])
     .then((response) => {
-      res.send({ success: true, msg: req.body });
-    })
-    .catch((err) => res.send({ success: false, msg: err }));
-});
-
-router.put("/me", passport.authenticate("user", { session: false }), (req, res, next) => {
-  const id = getIdFromToken(req.headers.authorization);
-  const { query, colsArr } = getPUTQuery("users", req.body, "uid", id);
-
-  pool
-    .query(query, colsArr)
-    .then((response) => {
-      res.send({ success: true, msg: `All changes have been saved!` });
-    })
-    .catch((err) => res.send({ success: false, msg: err }));
-});
-
-router.delete("/me", passport.authenticate("user", { session: false }), (req, res, next) => {
-  const id = getIdFromToken(req.headers.authorization);
-  pool
-    .query("SELECT * FROM users WHERE uid = $1", [id])
-    .then((response) => {
-      const user = response.rows[0];
-      const isValid = validatePassword(req.body.password, user.hash, user.salt);
-
-      if (isValid) {
-        pool
-          .query("DELETE FROM users WHERE uid = $1", [id])
-          .then((resp) => {
-            res.send({ success: true, msg: "User has been deleted successfully!", user: user });
-          })
-          .catch((err) => res.send({ success: false, msg: err }));
-      } else {
-        res.send({ success: false, msg: "You have entered a wrong password." });
-      }
-      // res.send({ success: true, data:  });
+      res.send({ success: true, msg: "You have signed up successfully." });
     })
     .catch((err) => res.send({ success: false, msg: err }));
 });

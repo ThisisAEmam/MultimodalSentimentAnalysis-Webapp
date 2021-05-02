@@ -7,7 +7,7 @@
 }
 
 .backToHomeBtn {
-  position: absolute;
+  position: fixed;
   top: 5%;
   left: 5%;
   transition: all 0.25s ease;

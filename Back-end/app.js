@@ -42,6 +42,9 @@ app.use(cors());
 
 // Imports all of the routes from ./routes/index.js
 app.use("/api", require("./routes"));
+app.get("/", (req, res) => {
+  res.send("Welcome to home");
+});
 
 /**
  * -------------- SERVER ----------------

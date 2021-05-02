@@ -12,7 +12,6 @@ const NavbarItems = (props) => {
   const { loggedin } = useSelector((state) => state);
 
   useEffect(() => {
-    console.log("We are here!");
     if (props.PCType === "pages") {
       setNavItems(navItems1);
     }

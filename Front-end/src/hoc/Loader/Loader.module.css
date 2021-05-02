@@ -9,11 +9,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  pointer-events: none;
 }
 
-.LoaderContainer.fullPage {
-  width: 100vw;
-  height: 100vh;
+.LoaderContainer.transparent {
+  background-color: transparent;
 }
 
 .ldsGrid {

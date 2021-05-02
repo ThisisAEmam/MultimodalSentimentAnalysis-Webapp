@@ -1,17 +1,10 @@
 import React from "react";
 import { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import classes from "./Navbar.module.css";
-import { setLoggedin } from "../../../features/LoggedinSlice";
-import { setCurrentUser } from "../../../features/currentUserSlice";
-import { useDispatch } from "react-redux";
-import { JWTCookie, UserCookie } from "../../../app/cookie";
 
 const Navbar = (props) => {
   const [isMyAccountOpen, setMyAccountOpen] = useState(null);
-  const loginDispatch = useDispatch(setLoggedin);
-  const currentUserDispatch = useDispatch(setLoggedin);
-  const history = useHistory();
 
   const myAccountClickHandler = () => {
     if (isMyAccountOpen === null || !isMyAccountOpen) {
@@ -19,15 +12,6 @@ const Navbar = (props) => {
     } else {
       setMyAccountOpen(false);
     }
-  };
-  const logoutHandler = () => {
-    currentUserDispatch(setCurrentUser({ username: "", firstname: "", lastname: "", email: "" }));
-    loginDispatch(setLoggedin({ status: false, token: "" }));
-    const jwt = new JWTCookie();
-    const user = new UserCookie();
-    jwt.remove();
-    user.remove();
-    history.push("/");
   };
 
   return (
@@ -58,8 +42,10 @@ const Navbar = (props) => {
                   <i className="fa fa-cog"></i>Account Settings
                 </Link>
               </li>
-              <li onClick={logoutHandler}>
-                <i className="fa fa-sign-out-alt"></i>Log Out
+              <li>
+                <Link to="/logout">
+                  <i className="fa fa-sign-out-alt"></i>Log Out
+                </Link>
               </li>
             </ul>
           </div>

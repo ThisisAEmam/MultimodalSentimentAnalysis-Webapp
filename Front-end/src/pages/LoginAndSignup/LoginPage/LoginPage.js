@@ -67,6 +67,7 @@ const LoginPage = (props) => {
   }, [password, email, btnClicked]);
 
   const loginHandler = () => {
+    setLoader(true);
     const data = {
       username: email,
       password: password,
@@ -74,7 +75,6 @@ const LoginPage = (props) => {
     axios
       .post("/users/login", data)
       .then((res) => {
-        setLoader(true);
         if (res.data.success) {
           const jwtCookie = new JWTCookie();
           const userCookie = new UserCookie();
@@ -89,9 +89,9 @@ const LoginPage = (props) => {
           setWrongCredentialsMsg(res.data.msg);
           setWrongCredentials(true);
         }
-        setLoader(false);
       })
       .catch((err) => console.log(err));
+    setLoader(false);
   };
 
   const notificationShowHandler = (e) => {
@@ -128,8 +128,8 @@ const LoginPage = (props) => {
           </CustomButton>
         </div>
         {wrongCredentials ? (
-          <Notification shown={notificationShowHandler} alert>
-            <span>Failed!</span> {wrongCredentialsMsg}
+          <Notification shown={notificationShowHandler} type="alert">
+            {wrongCredentialsMsg}
           </Notification>
         ) : null}
       </WhiteContainer>
