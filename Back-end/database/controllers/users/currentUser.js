@@ -5,7 +5,7 @@ const Joi = require("joi");
 
 const getCurrentUser = (req, res) => {
   const id = getIdFromToken(req.headers.authorization);
-  User.findByPk(+id)
+  User.findByPk(id)
     .then((user) => {
       if (!user) return res.send({ success: false, msg: "User not found." });
       const data = {
@@ -17,7 +17,7 @@ const getCurrentUser = (req, res) => {
       };
       res.send({ success: true, data: data });
     })
-    .catch((err) => res.send({ success: false, msg: err }));
+    .catch((err) => res.send({ success: false, msg: "There was an error.", error: err }));
 };
 
 const updateCurrentUser = (req, res, next) => {
@@ -25,7 +25,7 @@ const updateCurrentUser = (req, res, next) => {
   if (validationError) return res.send({ success: false, msg: validationError.details[0].message });
 
   const id = getIdFromToken(req.headers.authorization);
-  User.findByPk(+id)
+  User.findByPk(id)
     .then((user) => {
       if (!user) return res.send({ success: false, msg: "User not found." });
       user
@@ -40,14 +40,14 @@ const updateCurrentUser = (req, res, next) => {
           };
           res.send({ success: true, data: data });
         })
-        .catch((err) => res.send({ success: false, msg: err }));
+        .catch((err) => res.send({ success: false, msg: "There was an error.", error: err }));
     })
-    .catch((err) => res.send({ success: false, msg: err }));
+    .catch((err) => res.send({ success: false, msg: "There was an error.", error: err }));
 };
 
 const deleteCurrentUser = (req, res, next) => {
   const id = getIdFromToken(req.headers.authorization);
-  User.findByPk(+id)
+  User.findByPk(id)
     .then((user) => {
       if (!user) return res.send({ success: false, msg: "User not found." });
       if (!req.body.password || req.body.password.length === 0) return res.send({ success: false, msg: "Please enter a password." });
@@ -56,12 +56,12 @@ const deleteCurrentUser = (req, res, next) => {
         user
           .destroy()
           .then(() => res.send({ success: true, data: "User has been deleted successfully!" }))
-          .catch((err) => res.send({ success: false, msg: err }));
+          .catch((err) => res.send({ success: false, msg: "There was an error.", error: err }));
       } else {
         res.send({ success: false, msg: "You have entered a wrong password." });
       }
     })
-    .catch((err) => res.send({ success: false, msg: err }));
+    .catch((err) => res.send({ success: false, msg: "There was an error.", error: err }));
 };
 
 const validateUpdate = (data) => {

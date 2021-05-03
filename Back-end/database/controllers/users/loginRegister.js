@@ -23,11 +23,11 @@ const loginUser = (req, res) => {
     type = "email";
     User.findOne({ where: { email: req.body.username } })
       .then((user) => loginHandler(user))
-      .catch((err) => res.send({ success: false, msg: err }));
+      .catch((err) => res.send({ success: false, msg: "There was an error.", error: err }));
   } else {
     User.findOne({ where: { username: req.body.username } })
       .then((user) => loginHandler(user))
-      .catch((err) => res.send({ success: false, msg: err }));
+      .catch((err) => res.send({ success: false, msg: "There was an error.", error: err }));
   }
 };
 
@@ -50,13 +50,13 @@ const createUser = (req, res) => {
     salt: salt,
   })
     .then(() => res.status(201).send({ success: true, msg: "You have signed up successfully." }))
-    .catch((err) => res.send({ success: false, msg: err.errors[0].message }));
+    .catch((err) => res.send({ success: false, msg: "There was an error.", error: err }));
 };
 
 const getAllUsers = (req, res) => {
   User.findAll()
-    .then((users) => res.send(users))
-    .catch((err) => res.send(err));
+    .then((users) => res.send({ success: true, data: users }))
+    .catch((err) => res.send({ success: false, msg: "There was an error.", error: err }));
 };
 
 const validateRegister = (data) => {

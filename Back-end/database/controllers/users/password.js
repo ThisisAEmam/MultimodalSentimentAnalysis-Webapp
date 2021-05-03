@@ -27,7 +27,7 @@ const changePassword = (req, res) => {
   const id = getIdFromToken(req.headers.authorization);
   const { password, newPassword, confirmPassword } = req.body;
 
-  User.findByPk(+id)
+  User.findByPk(id)
     .then((user) => {
       if (!user) return res.send({ success: false, msg: "User not found." });
       const isValid = validatePassword(password, user.hash, user.salt);
@@ -36,7 +36,7 @@ const changePassword = (req, res) => {
         const { salt, hash } = genPassword(newPassword);
         user
           .update({ hash: hash, salt: salt })
-          .then((resp) => {
+          .then(() => {
             res.send({ success: true, msg: "Password updated successfully!" });
           })
           .catch((err) => res.send({ success: false, msg: err }));
@@ -44,7 +44,7 @@ const changePassword = (req, res) => {
         res.send({ success: false, msg: "You have entered a wrong current password." });
       }
     })
-    .catch((err) => res.send({ success: false, msg: err }));
+    .catch((err) => res.send({ success: false, msg: "There was an error.", error: err }));
 };
 
 const forgotPassword = (req, res) => {
@@ -76,14 +76,14 @@ const forgotPassword = (req, res) => {
 
       transport.sendMail(message, (err, info) => {
         if (err) {
-          res.send({ success: false, msg: err });
+          res.send({ success: false, msg: "There was an error.", error: err });
         } else {
           res.send({ success: true, msg: "An email has been sent to your inbox." });
         }
       });
       // res.send({ success: true, data:  });
     })
-    .catch((err) => res.send({ success: false, msg: err }));
+    .catch((err) => res.send({ success: false, msg: "There was an error.", error: err }));
 };
 
 const resetPassword = (req, res) => {
@@ -100,7 +100,7 @@ const resetPassword = (req, res) => {
 
   const id = getIdFromToken(token);
 
-  User.findByPk(+id)
+  User.findByPk(id)
     .then((user) => {
       if (!user) return res.send({ success: false, msg: "User not found." });
       if (password !== confirmPassword) return res.send({ success: false, msg: "New password and confirm password don't match." });
@@ -108,9 +108,9 @@ const resetPassword = (req, res) => {
       user
         .update({ hash: hash, salt: salt })
         .then((resp) => res.send({ success: true, msg: "Password updated successfully!" }))
-        .catch((err) => res.send({ success: false, msg: err }));
+        .catch((err) => res.send({ success: false, msg: "There was an error.", error: err }));
     })
-    .catch((err) => res.send({ success: false, msg: err }));
+    .catch((err) => res.send({ success: false, msg: "There was an error.", error: err }));
 };
 
 const validateNewPassword = (data) => {
