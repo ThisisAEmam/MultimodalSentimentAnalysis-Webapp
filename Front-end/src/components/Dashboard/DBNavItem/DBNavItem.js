@@ -1,12 +1,19 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import classes from "./DBNavItem.module.css";
+import { setMobileDashNavOpen } from "../../../features/mobileDashNavSlice";
 
 const DBNavItem = (props) => {
   const [isNotification, setNotification] = useState(true);
+  const { screen } = useSelector((state) => state);
+  const dispatch = useDispatch(setMobileDashNavOpen);
   const clickHandler = () => {
     props.selHandler(props.label);
+    if (screen === "Mobile") {
+      dispatch(setMobileDashNavOpen(false));
+    }
   };
 
   useEffect(() => {

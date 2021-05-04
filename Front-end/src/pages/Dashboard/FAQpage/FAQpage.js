@@ -21,7 +21,7 @@ const FAQpage = (props) => {
     };
 
     axios
-      .get("/faq", config)
+      .get("/dashboard/faq", config)
       .then((res) => {
         if (res.data.success) {
           setDataFetched(true);
@@ -32,15 +32,21 @@ const FAQpage = (props) => {
           }
         } else {
           console.log(res.data.msg);
+          setTimeout(() => {
+            setNoData(true);
+          }, 5000);
         }
       })
       .catch((err) => console.log(err));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <div className={classes.FAQpage}>
       <PageTitle>Questions and Answers</PageTitle>
-      {dataFetched ? (
+      {noData ? (
+        <NoMatches>It seems there are no question in FAQ section right now.</NoMatches>
+      ) : dataFetched ? (
         data.map((item, index) => (
           <QACard key={index} id={item.qid} question={item.question}>
             {item.answer}
@@ -49,15 +55,6 @@ const FAQpage = (props) => {
       ) : (
         <Loader transparent />
       )}
-      {noData ? <NoMatches>It seems there are no question in FAQ section right now.</NoMatches> : null}
-      {/* <QACard question="How are you?">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus dignissimos laboriosam eligendi libero, nobis magnam id exercitationem illum totam
-        culpa?
-      </QACard>
-      <QACard question="Who are we?">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus dignissimos laboriosam eligendi libero, nobis magnam id exercitationem illum totam
-        culpa?
-      </QACard> */}
     </div>
   );
 };

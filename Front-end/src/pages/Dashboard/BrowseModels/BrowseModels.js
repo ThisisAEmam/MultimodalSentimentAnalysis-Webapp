@@ -3,7 +3,8 @@ import ModelsArray from "../../../containers/Dashboard/ModelsArray/ModelsArray";
 import NoMatches from "../../../components/Dashboard/NoMatches/NoMatches";
 import PageTitle from "../../../components/Dashboard/PageTitle/PageTitle";
 import classes from "./BrowseModels.module.css";
-import data from "./data";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 const BrowseModels = (props) => {
   const [models, setModels] = useState([]);
@@ -13,9 +14,26 @@ const BrowseModels = (props) => {
   const [noMatches, setNoMatches] = useState(false);
   const modelsFetchedPerLoad = 6;
 
+  const { loggedin } = useSelector((state) => state);
+
   useEffect(() => {
-    setModels([...data]);
-    setOriginalModels([...data]);
+    const config = {
+      headers: {
+        authorization: loggedin.token,
+      },
+    };
+    axios
+      .get("/models/", config)
+      .then((res) => {
+        if (res.data.success) {
+          setModels([...res.data.data]);
+          setOriginalModels([...res.data.data]);
+        } else {
+          console.log(res.data.msg);
+        }
+      })
+      .catch((error) => console.log(error));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -43,7 +61,7 @@ const BrowseModels = (props) => {
     }
     const re = RegExp(`.*${query.toLowerCase()}.*`);
     const modelMatches = originalModels.filter((v) => v.name.toLowerCase().match(re));
-    const userMatches = originalModels.filter((v) => v.user.toLowerCase().match(re));
+    const userMatches = originalModels.filter((v) => v.user.username.toLowerCase().match(re));
     const output = modelMatches.concat(userMatches);
     const matches = output.filter(function (item, pos) {
       return output.indexOf(item) === pos;

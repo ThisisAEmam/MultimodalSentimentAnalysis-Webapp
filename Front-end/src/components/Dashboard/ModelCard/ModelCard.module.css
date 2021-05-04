@@ -142,3 +142,12 @@
     transform: scale(1) rotate(0);
   }
 }
+
+@media (max-width: 767px) {
+  .likesCount {
+    width: fit-content;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 0.9rem;
+  }
+}

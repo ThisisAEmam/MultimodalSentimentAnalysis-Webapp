@@ -50,14 +50,8 @@ const DashboardNav = (props) => {
     if (e.target === overlayRef.current) {
       console.log("Entered");
       dispatch(setMobileDashNavOpen(false));
-      setShowMobileNav(false);
     }
   };
-
-  useEffect(() => {
-    document.querySelector("body").addEventListener("click", bodyClickHandler);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const overlaySpring = useSpring({
     from: {
@@ -111,7 +105,11 @@ const DashboardNav = (props) => {
   );
 
   const container = isMobile ? (
-    <animated.div style={overlaySpring} ref={overlayRef} className={[classes.overlay, showMobileNav ? classes.showOverlay : null].join(" ")}>
+    <animated.div
+      style={overlaySpring}
+      ref={overlayRef}
+      className={[classes.overlay, showMobileNav ? classes.showOverlay : null].join(" ")}
+      onClick={bodyClickHandler}>
       <animated.div style={mobileSpring} className={[classes.DashboardNav, classes.mobile].join(" ")}>
         {content}
       </animated.div>

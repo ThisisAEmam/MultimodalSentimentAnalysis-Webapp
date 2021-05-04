@@ -22,17 +22,6 @@ const Navbar = (props) => {
     }
   }, [screen]);
 
-  const bodyClickHandler = (e) => {
-    e.preventDefault();
-    if (e.target !== accListRef.current && e.target !== accBtnRef.current) {
-      setMyAccountOpen(false);
-    }
-  };
-
-  useEffect(() => {
-    document.querySelector("body").addEventListener("click", bodyClickHandler);
-  }, []);
-
   const myAccountClickHandler = () => {
     setMyAccountOpen(!isMyAccountOpen);
   };

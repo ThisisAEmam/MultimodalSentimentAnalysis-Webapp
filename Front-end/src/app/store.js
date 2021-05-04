@@ -5,6 +5,7 @@ import LikedModelsReducer from "../features/likedModelsSlice";
 import BookmarkedModelsReducer from "../features/bookmarkedModelsSlice";
 import LoggedinReducer from "../features/LoggedinSlice";
 import MobileDashNavReducer from "../features/mobileDashNavSlice";
+import RefreshPageReducer from "../features/refreshPageSlice";
 
 export default configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export default configureStore({
     bookmarkedModels: BookmarkedModelsReducer,
     loggedin: LoggedinReducer,
     isMobileDashNavOpen: MobileDashNavReducer,
+    refreshPage: RefreshPageReducer,
   },
   devTools: process.env.NODE_ENV !== "production",
 });

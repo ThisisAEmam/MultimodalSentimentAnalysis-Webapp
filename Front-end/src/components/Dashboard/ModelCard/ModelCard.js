@@ -5,63 +5,126 @@ import { Link } from "react-router-dom";
 import classes from "./ModelCard.module.css";
 import { setBookmarkedModels } from "../../../features/bookmarkedModelsSlice";
 import { setLikedModels } from "../../../features/likedModelsSlice";
+import { setRefreshPage } from "../../../features/refreshPageSlice";
+import axios from "axios";
 
 const ModelCard = (props) => {
   const [likes, setLikes] = useState(0);
   const [liked, setLiked] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
-  const { likedModels, bookmarkedModels } = useSelector((state) => state);
-  const likeDispatch = useDispatch(setLikedModels);
-  const bookmarkDispatch = useDispatch(setBookmarkedModels);
+  const { likedModels, bookmarkedModels, loggedin } = useSelector((state) => state);
+  const likeDispatch = useDispatch();
+  const bookmarkDispatch = useDispatch();
+  const refreshDispatch = useDispatch();
+
+  const config = {
+    headers: {
+      authorization: loggedin.token,
+    },
+  };
 
   useEffect(() => {
-    setLikes(props.likes);
+    axios
+      .get(`/models/likes/${props.id}`, config)
+      .then((res) => {
+        if (res.data.success) {
+          setLikes(res.data.data);
+        } else {
+          console.log("Unsuccessful");
+        }
+      })
+      .catch((err) => console.log(err));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [liked]);
 
   useEffect(() => {
-    const ifLiked = likedModels.findIndex((el) => el.id === props.id);
-    if (ifLiked !== -1) {
-      setLiked(true);
-    }
-    const ifBookmarked = bookmarkedModels.findIndex((el) => el.id === props.id);
-    if (ifBookmarked !== -1) {
-      setBookmarked(true);
-    }
+    axios
+      .get("/models/bookmarksId", config)
+      .then((res) => {
+        if (res.data.success) {
+          if (res.data.data.includes(props.id)) {
+            setBookmarked(true);
+          } else {
+            setBookmarked(false);
+          }
+        }
+      })
+      .catch((err) => console.log(err));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [likedModels, bookmarkedModels]);
+  }, [bookmarked, bookmarkedModels]);
+
+  useEffect(() => {
+    axios
+      .get("/models/likesId", config)
+      .then((res) => {
+        if (res.data.success) {
+          if (res.data.data.includes(props.id)) {
+            setLiked(true);
+          } else {
+            setLiked(false);
+          }
+        }
+      })
+      .catch((err) => console.log(err));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [liked, likedModels]);
 
   const likeClickHandler = () => {
     if (!liked) {
-      const tempModel = props.model;
-      tempModel.likes += 1;
-      likeDispatch(setLikedModels([...likedModels, tempModel]));
+      axios
+        .post("/models/like", { modelId: props.id }, config)
+        .then((res) => {
+          if (res.data.success) {
+            setLiked(true);
+            likeDispatch(setLikedModels(likedModels + 1));
+          } else {
+            console.log(res.data.msg);
+          }
+        })
+        .catch((err) => console.log(err));
     } else {
-      const thisModelIndex = likedModels.findIndex((el) => el.id === props.id);
-      const temp = [...likedModels];
-      temp.splice(thisModelIndex, 1);
-      likeDispatch(setLikedModels([...temp]));
+      axios
+        .post("/models/unlike", { modelId: props.id }, config)
+        .then((res) => {
+          if (res.data.success) {
+            setLiked(false);
+            likeDispatch(setLikedModels(likedModels - 1));
+            refreshDispatch(setRefreshPage(true));
+            refreshDispatch(setRefreshPage(false));
+          } else {
+            console.log(res.data.msg);
+          }
+        })
+        .catch((err) => console.log(err));
     }
-
-    if (liked) {
-      setLikes(likes - 1);
-    } else {
-      setLikes(likes + 1);
-    }
-    setLiked(!liked);
   };
 
   const bookmarkClickHandler = () => {
     if (!bookmarked) {
-      bookmarkDispatch(setBookmarkedModels([...bookmarkedModels, props.model]));
+      axios
+        .post("/models/bookmark", { modelId: props.id }, config)
+        .then((res) => {
+          if (res.data.success) {
+            bookmarkDispatch(setBookmarkedModels(bookmarkedModels + 1));
+          } else {
+            console.log(res.data.msg);
+          }
+        })
+        .catch((err) => console.log(err));
     } else {
-      const thisModelIndex = bookmarkedModels.findIndex((el) => el.id === props.id);
-      const temp = [...bookmarkedModels];
-      temp.splice(thisModelIndex, 1);
-      bookmarkDispatch(setBookmarkedModels([...temp]));
+      axios
+        .post("/models/unbookmark", { modelId: props.id }, config)
+        .then((res) => {
+          if (res.data.success) {
+            bookmarkDispatch(setBookmarkedModels(bookmarkedModels - 1));
+            refreshDispatch(setRefreshPage(true));
+            refreshDispatch(setRefreshPage(false));
+          } else {
+            console.log(res.data.msg);
+          }
+        })
+        .catch((err) => console.log(err));
     }
-
-    setBookmarked(!bookmarked);
   };
 
   return (
@@ -73,7 +136,7 @@ const ModelCard = (props) => {
           <p className={classes.user}>
             Created by{" "}
             <span>
-              <Link to={`/dashboard/models/users/${props.user}`}>{props.user}</Link>
+              <Link to={`/dashboard/users/${props.user}`}>{props.user}</Link>
             </span>
           </p>
         </div>

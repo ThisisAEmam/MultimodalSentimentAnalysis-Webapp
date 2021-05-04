@@ -37,7 +37,7 @@
   justify-content: center;
   margin-bottom: 2rem;
   background-color: #fafafa;
-  padding: 2rem 0;
+  padding: 2rem;
   border-radius: 5px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-bottom: 4px solid var(--primary);
@@ -45,14 +45,13 @@
 }
 
 .searchbarParent h2 {
-  margin-left: 2rem;
   margin-bottom: 1.5rem;
   font-size: 1.75rem;
   color: (--primary);
 }
 
 .searchbar {
-  width: 60%;
+  width: 100%;
   margin: 0 auto;
   display: flex;
   align-items: center;

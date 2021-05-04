@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const likedModelsSlice = createSlice({
   name: "likedModels",
-  initialState: [],
+  initialState: 0,
   reducers: {
     setLikedModels: (state, action) => (state = action.payload),
   },

@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const bookmarkedModelsSlice = createSlice({
   name: "bookmarkedModels",
-  initialState: [],
+  initialState: 0,
   reducers: {
     setBookmarkedModels: (state, action) => (state = action.payload),
   },

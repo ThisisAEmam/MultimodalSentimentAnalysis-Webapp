@@ -35,13 +35,6 @@ const Dashboard = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedin]);
 
-  // useEffect(() => {
-  //   if (!isLoggedin) {
-  //     history.push("/login");
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [isLoggedin]);
-
   let content = null;
   let path = location.pathname.split("/")[2];
 
@@ -77,6 +70,7 @@ const Dashboard = (props) => {
       content = <div className={classes.default}></div>;
       break;
   }
+
   return (
     <div className={classes.Dashboard}>
       <Navbar />

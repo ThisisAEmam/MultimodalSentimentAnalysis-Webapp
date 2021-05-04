@@ -1,4 +1,6 @@
+import axios from "axios";
 import React, { useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import Notification from "../../../components/Dashboard/Notification/Notification";
 import PageTitle from "../../../components/Dashboard/PageTitle/PageTitle";
 import classes from "./Newsletter.module.css";
@@ -9,6 +11,9 @@ const Newsletter = (props) => {
   const nameRef = useRef();
   const emailRef = useRef();
   const [notification, setNotification] = useState(false);
+  const [notificationMsg, setNotificationMsg] = useState("");
+
+  const { loggedin } = useSelector((state) => state);
 
   const clickHandler = () => {
     const name = nameRef.current.value;
@@ -27,9 +32,24 @@ const Newsletter = (props) => {
       }
       return;
     }
+    const config = {
+      headers: {
+        Authorization: loggedin.token,
+      },
+    };
+    axios
+      .post("/dashboard/newsletter", { name: name, email: email }, config)
+      .then((res) => {
+        if (res.data.success) {
+          setNotificationMsg(res.data.msg);
+        } else {
+          setNotificationMsg(res.data.msg);
+        }
+      })
+      .catch((err) => console.log(err));
+    setNotification(true);
     nameRef.current.value = "";
     emailRef.current.value = "";
-    setNotification(true);
   };
 
   return (
@@ -50,9 +70,9 @@ const Newsletter = (props) => {
             <button onClick={clickHandler}>Submit</button>
           </div>
         </div>
-        <img src="/newsletter.svg" alt="newsletter" />
+        <img src="/newsletter.svg" alt="newsletter" className={classes.newsImg} />
       </div>
-      {notification ? <Notification>Congratulations! You are now subscribed in our newsletter.</Notification> : null}
+      {notification ? <Notification>{notificationMsg}</Notification> : null}
     </div>
   );
 };
