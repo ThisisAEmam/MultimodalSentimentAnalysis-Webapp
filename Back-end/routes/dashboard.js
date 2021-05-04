@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const passport = require("passport");
-const controllers = require("../database/controllers");
+const controllers = require("../database/controllers/dashboard");
 
 // FAQ
 router.get("/faq", passport.authenticate("user", { session: false }), controllers.getAllQuestions);

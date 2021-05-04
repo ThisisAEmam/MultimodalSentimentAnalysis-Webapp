@@ -1,4 +1,3 @@
-const db = require("../../config");
 const User = require("../../models/User");
 const { validatePassword, issueJWT, genPassword } = require("../../../lib/utils");
 const Joi = require("joi");
