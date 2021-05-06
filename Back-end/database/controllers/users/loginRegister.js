@@ -12,7 +12,14 @@ const loginUser = (req, res) => {
 
     if (isValid) {
       const tokenObject = issueJWT(user);
-      res.send({ success: true, user: user, token: tokenObject.token, expiresIn: tokenObject.expires });
+      const userSendData = {
+        id: user.id,
+        username: user.username,
+        firstname: user.firstname,
+        lastname: user.lastname,
+        email: user.email,
+      };
+      res.send({ success: true, user: userSendData, token: tokenObject.token, expiresIn: tokenObject.expires });
     } else {
       res.send({ success: false, msg: "You have entered a wrong password." });
     }

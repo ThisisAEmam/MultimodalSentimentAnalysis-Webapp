@@ -24,7 +24,7 @@ const createModel = (req, res) => {
 };
 
 const getAllModels = (req, res) => {
-  Model.findAll({ include: { model: User, attributes: ["username"] } })
+  Model.findAll({ include: { model: User, attributes: ["username"] }, order: [["createdAt", "DESC"]] })
     .then((models) => {
       if (!models) return res.send({ success: false, msg: "There was an error." });
       if (models.length === 0) return res.send({ success: false, msg: "No models found." });
@@ -55,6 +55,7 @@ const getUserModels = (req, res) => {
         },
       },
     ],
+    order: [["createdAt", "DESC"]],
   })
     .then((models) => {
       if (!models) return res.send({ success: false, msg: "There was an error." });

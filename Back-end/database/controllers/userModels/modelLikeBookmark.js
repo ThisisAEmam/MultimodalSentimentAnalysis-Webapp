@@ -81,7 +81,7 @@ const unbookmarkModel = (req, res) => {
 
 const getUserLikes = (req, res) => {
   const userId = getIdFromToken(req.headers.authorization);
-  db.query(`SELECT * FROM liked_models LEFT JOIN models ON liked_models.mid = models.id WHERE uid = '${userId}';`)
+  db.query(`SELECT * FROM liked_models LEFT JOIN models ON liked_models.mid = models.id WHERE uid = '${userId}' ORDER BY liked_models.created_at DESC;`)
     .then((models) => {
       const data = models[0];
       User.findByPk(userId)
@@ -109,7 +109,9 @@ const getModelLikes = (req, res) => {
 
 const getUserBookmarks = (req, res) => {
   const userId = getIdFromToken(req.headers.authorization);
-  db.query(`SELECT * FROM bookmarked_models LEFT JOIN models ON bookmarked_models.mid = models.id WHERE uid = '${userId}';`)
+  db.query(
+    `SELECT * FROM bookmarked_models LEFT JOIN models ON bookmarked_models.mid = models.id WHERE uid = '${userId}' ORDER BY bookmarked_models.created_at DESC;`
+  )
     .then((models) => {
       const data = models[0];
       User.findByPk(userId)

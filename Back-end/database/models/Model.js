@@ -35,8 +35,8 @@ Model.belongsTo(User, { foreignKey: "userId" });
 Model.belongsTo(ModelCategory, { foreignKey: "catId" });
 Model.belongsTo(ModelArch, { foreignKey: "archId" });
 
-const LikedModels = db.define("liked_models", {}, { timestamps: false });
-const BookmarkedModels = db.define("bookmarked_models", {}, { timestamps: false });
+const LikedModels = db.define("liked_models", {}, { timestamps: true, underscored: true });
+const BookmarkedModels = db.define("bookmarked_models", {}, { timestamps: true, underscored: true });
 
 User.belongsToMany(Model, { through: LikedModels, foreignKey: "uid" });
 Model.belongsToMany(User, { through: LikedModels, foreignKey: "mid" });
