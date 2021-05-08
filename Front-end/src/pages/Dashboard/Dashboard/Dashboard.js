@@ -15,6 +15,7 @@ import Overview from "../Overview/Overview";
 import GettingStarted from "../GettingStarted/GettingStarted";
 import classes from "./Dashboard.module.css";
 import { useSelector } from "react-redux";
+import CreateModel from "../CreateModel/CreateModel";
 
 const Dashboard = (props) => {
   const location = useLocation();
@@ -36,7 +37,7 @@ const Dashboard = (props) => {
   }, [loggedin]);
 
   let content = null;
-  let path = location.pathname.split("/")[2];
+  let path = location.pathname.split("/")[location.pathname.split("/").length - 1];
 
   switch (path) {
     case "overview":
@@ -47,6 +48,9 @@ const Dashboard = (props) => {
       break;
     case "my_models":
       content = <MyModels />;
+      break;
+    case "create":
+      content = <CreateModel />;
       break;
     case "models":
       content = <BrowseModels />;

@@ -129,7 +129,7 @@ const ModelCard = (props) => {
 
   return (
     <div className={classes.ModelCard}>
-      <img src={`/${props.index}.jpg`} alt="brain" />
+      <img src={props.hasImage ? props.model.image : `/${props.index}.jpg`} alt="model_image" />
       <div className={classes.container}>
         <div className={classes.names}>
           <h3 className={classes.name}>{props.name}</h3>

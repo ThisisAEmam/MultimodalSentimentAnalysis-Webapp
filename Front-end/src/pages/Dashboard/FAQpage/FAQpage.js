@@ -34,7 +34,7 @@ const FAQpage = (props) => {
           console.log(res.data.msg);
           setTimeout(() => {
             setNoData(true);
-          }, 5000);
+          }, 3000);
         }
       })
       .catch((err) => console.log(err));

@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   margin-bottom: 2rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .formGroup:last-of-type {
@@ -14,6 +13,10 @@
   color: var(--primary-text);
   font-size: 1.1rem;
   font-weight: 500;
+}
+
+.formGroup.noPH label {
+  margin-bottom: 0;
 }
 
 .formGroup input {
@@ -30,6 +33,10 @@
 
 .formGroup input.empty {
   border-color: var(--alert);
+}
+
+.formGroup input::placeholder {
+  opacity: 0.6;
 }
 
 .formGroup input.empty::placeholder {

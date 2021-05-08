@@ -18,7 +18,16 @@ const ModelsArray = (props) => {
     <div className={classes.ModelsArray}>
       {!noData ? (
         props.models.map((item, index) => (
-          <ModelCard key={index} id={item.id} index={(index % 8) + 1} name={item.name} user={item.user.username} likes={item.likes} model={item} />
+          <ModelCard
+            key={index}
+            id={item.id}
+            index={(index % 8) + 1}
+            hasImage={item.image !== null}
+            name={item.name}
+            user={item.user.username}
+            likes={item.likes}
+            model={item}
+          />
         ))
       ) : (
         <Loader />

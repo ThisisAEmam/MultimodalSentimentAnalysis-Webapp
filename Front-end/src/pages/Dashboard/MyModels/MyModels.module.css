@@ -26,7 +26,7 @@
 
 .createNewModelBtn:hover {
   padding: 0 2rem;
-  width: 15rem;
+  width: 16rem;
   transition: all 0.5s ease-in-out;
 }
 
@@ -44,5 +44,4 @@
   text-overflow: clip;
   overflow: hidden;
   white-space: nowrap;
-  pointer-events: none;
 }

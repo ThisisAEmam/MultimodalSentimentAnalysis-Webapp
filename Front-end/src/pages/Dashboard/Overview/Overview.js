@@ -21,9 +21,9 @@ const Overview = (props) => {
   useEffect(() => {
     setName(currentUser.firstname);
     axios.all([axios.get("/models/likes", config), axios.get("/models/bookmarks", config), axios.get("/models/me", config)]).then((res) => {
-      setLikes(res[0].data.data.length);
-      setBookmarks(res[1].data.data.length);
-      setCreated(res[2].data.data.length);
+      if (res[0].data.data) setLikes(res[0].data.data.length);
+      if (res[1].data.data) setBookmarks(res[1].data.data.length);
+      if (res[2].data.data) setCreated(res[2].data.data.length);
     });
     // axios
     //   .get("/models/bookmarks", config)
@@ -61,8 +61,8 @@ const Overview = (props) => {
           <OverviewCounter end={created} icon="plus-circle">
             Models created
           </OverviewCounter>
-          <OverviewCounter end={2} icon="spinner">
-            Models in progress
+          <OverviewCounter end={0} icon="spinner">
+            Models still training
           </OverviewCounter>
         </div>
         <div className={[classes.models, classes.bg].join(" ")}>

@@ -7,12 +7,15 @@ import classes from "./MyModels.module.css";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import Loader from "../../../hoc/Loader/Loader";
+import { useHistory } from "react-router-dom";
 
 const MyModels = (props) => {
   const [hovered, setHovered] = useState(null);
   const { loggedin } = useSelector((state) => state);
   const [data, setData] = useState([]);
   const [noData, setNoData] = useState(false);
+
+  const history = useHistory();
 
   const config = {
     headers: {
@@ -26,8 +29,6 @@ const MyModels = (props) => {
       .then((res) => {
         if (res.data.success) {
           setData(res.data.data);
-        } else {
-          console.log(res.data.msg);
         }
       })
       .catch((error) => console.log(error));
@@ -46,6 +47,10 @@ const MyModels = (props) => {
     }
   }, [data]);
 
+  const createNewModelHandler = () => {
+    history.push("/dashboard/create");
+  };
+
   return (
     <div className={classes.MyModels}>
       <PageTitle>My Models</PageTitle>
@@ -56,9 +61,13 @@ const MyModels = (props) => {
       ) : (
         <ModelsArray models={data} />
       )}
-      <div className={[classes.createNewModelBtn].join(" ")} onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
+      <div
+        className={[classes.createNewModelBtn].join(" ")}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        onClick={createNewModelHandler}>
         <p className={classes.plus}>+</p>
-        {hovered ? <p className={classes.cnmText}>Create new model</p> : null}
+        {hovered ? <p className={classes.cnmText}>Create a new model</p> : null}
       </div>
     </div>
   );

@@ -68,7 +68,17 @@
 
 @media (max-width: 767px) {
   .SecondaryPageContainer.signup {
+    height: 115vh;
     overflow-y: scroll;
+  }
+
+  .backToHomeBtn {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    transition: all 0.25s ease;
+    border-bottom: 1px solid transparent;
+    z-index: 100;
   }
 
   .singleCircles1 {

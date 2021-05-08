@@ -12,6 +12,7 @@ const BrowseModels = (props) => {
   const [fetchedModels, setFetchedModels] = useState([]);
   const [allFetched, setAllFetched] = useState(false);
   const [noMatches, setNoMatches] = useState(false);
+  const [noModelsYet, setNoModelsYet] = useState(false);
   const modelsFetchedPerLoad = 6;
 
   const { loggedin } = useSelector((state) => state);
@@ -29,7 +30,11 @@ const BrowseModels = (props) => {
           setModels([...res.data.data]);
           setOriginalModels([...res.data.data]);
         } else {
-          console.log(res.data.msg);
+          if (res.data.data.length === 0) {
+            setNoModelsYet(true);
+          } else {
+            setNoModelsYet(false);
+          }
         }
       })
       .catch((error) => console.log(error));
@@ -84,7 +89,13 @@ const BrowseModels = (props) => {
           <i className="fa fa-search"></i>
         </div>
       </div>
-      {noMatches ? <NoMatches>Sorry! we can't find any models that meet your search keywords.</NoMatches> : <ModelsArray models={fetchedModels} />}
+      {noModelsYet ? (
+        <NoMatches>There are no models created yet. Create the first ever model now!</NoMatches>
+      ) : noMatches ? (
+        <NoMatches>Sorry! we can't find any models that meet your search keywords.</NoMatches>
+      ) : (
+        <ModelsArray models={fetchedModels} />
+      )}
 
       {!allFetched ? (
         <div className={classes.loadMoreBtn}>

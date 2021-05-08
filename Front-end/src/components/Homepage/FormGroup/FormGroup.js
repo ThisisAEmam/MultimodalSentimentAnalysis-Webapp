@@ -42,14 +42,14 @@ const FormGroup = (props) => {
   };
 
   return (
-    <div className={classes.formGroup}>
+    <div className={[classes.formGroup, props.noPlaceholder ? classes.noPH : null].join(" ")}>
       <label htmlFor={props.name}>{props.children}: </label>
       <input
         ref={inputRef}
         className={emptyInput ? classes.empty : null}
         type={props.type}
         name={props.name}
-        placeholder={`Enter your ${props.name}`}
+        placeholder={props.noPlaceholder ? "" : `Enter your ${props.name}`}
         onChange={onChangeHandler}
         onFocus={enterClickHandler}
       />
