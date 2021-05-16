@@ -1,0 +1,213 @@
+.modelWrapper {
+  position: fixed;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.8);
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.model {
+  width: 90%;
+  height: 90%;
+  background-color: var(--main-bg);
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  overflow-y: scroll;
+  padding: 1rem 2rem;
+}
+
+.header {
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.formGroup .status {
+  text-transform: lowercase;
+  font-weight: 500;
+}
+
+.status.readyStatus {
+  color: var(--success);
+}
+
+.status.trainingStatus {
+  color: rgb(233, 195, 70);
+}
+
+.status.notTrainedStatus {
+  color: var(--alert);
+}
+
+.name {
+  display: flex;
+  align-items: baseline;
+  color: var(--primary);
+}
+
+.name h1 {
+  font-size: 2.2rem;
+}
+
+.name .dot {
+  font-size: 2rem;
+  margin: 0 1rem;
+}
+
+.name .username {
+  font-size: 1.2rem;
+  transform: translateY(-0.25rem);
+}
+
+.name .username a {
+  text-decoration: none;
+  color: var(--secondary);
+  transition: all 0.25s ease;
+}
+
+.name .username a:hover {
+  opacity: 0.8;
+}
+
+.xIcon {
+  font-size: 2rem;
+  color: var(--primary);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.xIcon:hover {
+  opacity: 0.8;
+}
+
+.body {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 5fr 5fr;
+  column-gap: 1rem;
+  margin-top: 2rem;
+}
+
+.formGroup {
+  width: 100%;
+  position: relative;
+  display: grid;
+  grid-template-columns: 3fr 9fr;
+  column-gap: 1rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+  align-items: center;
+}
+
+.formGroup.isOwner {
+  grid-template-columns: 4fr 12fr 2fr;
+}
+
+.formGroup.notToBeAligned {
+  align-items: flex-start;
+}
+
+.formGroup:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.formGroup p {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--primary-text);
+  text-transform: uppercase;
+}
+
+.formGroup input,
+.formGroup textarea {
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  color: var(--primary);
+  outline: none;
+  background-color: var(--main-bg);
+  color: var(--secondary-disabled);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 5px;
+}
+
+.formGroup textarea {
+  padding: 0.35rem 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  resize: none;
+  font-family: "Segoe UI", "Roboto", "Oxygen", "Ubuntu";
+}
+
+.formGroup input.invalid,
+.formGroup textarea.invalid {
+  border-color: var(--alert);
+}
+
+.formGroup img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  /* object-fit: contain; */
+}
+
+.formGroup .editDiv {
+  width: 100%;
+  display: flex;
+  color: #fff;
+  height: fit-content;
+  padding: 0.25rem 0;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  background-color: var(--primary);
+  border: 1px solid var(--primary);
+}
+
+.formGroup .editDiv.saveDiv {
+  background-color: var(--success);
+  border: 1px solid var(--success);
+}
+
+.formGroup .editDiv:hover {
+  opacity: 0.8;
+}
+
+.formGroup .editDiv p {
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: capitalize;
+  color: #fff;
+}
+
+.formGroup .editDiv i {
+  margin-right: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.formGroup .imageBtns > div {
+  margin-bottom: 0.5rem;
+}
+
+.formGroup .imageBtns > div:last-child {
+  margin-bottom: 0;
+}
+
+.formGroup .imageBtns .removeDiv {
+  background-color: var(--alert);
+  border-color: var(--alert);
+}

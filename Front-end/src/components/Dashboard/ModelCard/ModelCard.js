@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
@@ -7,21 +7,39 @@ import { setBookmarkedModels } from "../../../features/bookmarkedModelsSlice";
 import { setLikedModels } from "../../../features/likedModelsSlice";
 import { setRefreshPage } from "../../../features/refreshPageSlice";
 import axios from "axios";
+import ModelDetails from "../ModelDetails/ModelDetails";
 
 const ModelCard = (props) => {
   const [likes, setLikes] = useState(0);
   const [liked, setLiked] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
+  const [showModel, setShowModel] = useState(false);
+  const [name, setName] = useState("");
+  const [user, setUser] = useState("");
+  const [image, setImage] = useState("");
+  const [updatedImage, setUpdatedImage] = useState("");
+  const [hasImage, setHasImage] = useState(false);
+
   const { likedModels, bookmarkedModels, loggedin } = useSelector((state) => state);
   const likeDispatch = useDispatch();
   const bookmarkDispatch = useDispatch();
   const refreshDispatch = useDispatch();
+
+  const imageUpdateRef = useRef();
 
   const config = {
     headers: {
       authorization: loggedin.token,
     },
   };
+
+  useEffect(() => {
+    setName(props.name);
+    setUser(props.user);
+    setImage(props.model.image);
+    setHasImage(props.hasImage);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     axios
@@ -127,16 +145,52 @@ const ModelCard = (props) => {
     }
   };
 
+  const updateCardHandler = () => {
+    axios
+      .get(`/models/${props.id}`, config)
+      .then((res) => {
+        if (res.data.success) {
+          const data = res.data.data;
+          setHasImage(data.image !== null);
+          setName(data.name);
+          setUser(data.user.username);
+          setImage("");
+          setImage(data.image);
+        } else {
+          console.log(res.data.msg);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const imageUpdateHandler = (e) => {
+    e.preventDefault();
+    if (e.target.files[0]) {
+      setUpdatedImage(e.target.files[0]);
+    }
+  };
+
   return (
     <div className={classes.ModelCard}>
-      <img src={props.hasImage ? props.model.image : `/${props.index}.jpg`} alt="model_image" />
+      <ModelDetails
+        show={showModel}
+        hideDetails={() => setShowModel(false)}
+        model={props.model}
+        update={updateCardHandler}
+        imageUpload={() => imageUpdateRef.current.click()}
+        updatedImage={updatedImage}
+      />
+      <img src={hasImage ? image : "/modelNoImage.jpg"} alt="model_image" />
+      {/* <img src={hasImage ? image : `/${props.index}.jpg`} alt="model_image" /> */}
       <div className={classes.container}>
         <div className={classes.names}>
-          <h3 className={classes.name}>{props.name}</h3>
+          <h3 className={classes.name} onClick={() => setShowModel(true)}>
+            {name}
+          </h3>
           <p className={classes.user}>
             Created by{" "}
             <span>
-              <Link to={`/dashboard/users/${props.user}`}>{props.user}</Link>
+              <Link to={`/dashboard/users/${user}`}>{user}</Link>
             </span>
           </p>
         </div>
@@ -147,6 +201,7 @@ const ModelCard = (props) => {
               <div className={classes.triangle}></div>
               <span className={classes.count}>{likes}</span> people liked this model!
             </div>
+            <input type="file" style={{ display: "none" }} ref={imageUpdateRef} onChange={imageUpdateHandler} />
           </div>
           <i className={[`fa${bookmarked ? "" : "r"} fa-bookmark`, bookmarked ? classes.bookmarked : null].join(" ")} onClick={bookmarkClickHandler}></i>
         </div>

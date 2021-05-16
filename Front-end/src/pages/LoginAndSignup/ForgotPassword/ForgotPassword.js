@@ -21,7 +21,6 @@ const ForgotPassword = (props) => {
 
   const getEmailValue = (value) => {
     setEmail(value);
-    console.log(email);
   };
 
   const clickHandler = () => {

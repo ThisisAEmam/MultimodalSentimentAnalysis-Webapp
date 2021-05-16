@@ -27,6 +27,12 @@
 .name {
   font-size: 1.8rem;
   color: var(--primary);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.name:hover {
+  color: var(--primary-text);
 }
 
 .user {

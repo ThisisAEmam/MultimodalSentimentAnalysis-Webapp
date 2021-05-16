@@ -11,13 +11,13 @@ const CreateModel = (props) => {
   const [modelArchs, setModelArchs] = useState([]);
   const [selectedArch, setSelectedArch] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState(1);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(false);
   const [refreshCats, setRefreshCats] = useState(true);
   const [modelCats, setModelCats] = useState([]);
   const [paperLinkHref, setPaperLinkHref] = useState("");
   const [addACategory, setAddACategory] = useState(false);
   const [name, setName] = useState("");
-  const [description, setDescription] = useState(null);
+  const [description, setDescription] = useState("");
   const [driveLink, setDriveLink] = useState("");
   const [emptyName, setEmptyName] = useState(false);
   const [emptyDriveLink, setEmptyDriveLink] = useState(false);
@@ -139,7 +139,7 @@ const CreateModel = (props) => {
     if (notification) {
       setTimeout(() => {
         setNotification(false);
-      }, 3000);
+      }, 4000);
     }
   }, [notification]);
 
@@ -156,6 +156,8 @@ const CreateModel = (props) => {
     if (name === "" || driveLink === "") {
       if (name === "") setEmptyName(true);
       if (driveLink === "") setEmptyDriveLink(true);
+      setNotification(true);
+      setNotificationMsg("Please fill the required fields.");
       return;
     }
 
@@ -173,7 +175,7 @@ const CreateModel = (props) => {
       catId: selectedCategory,
       archId: selectedArch,
     };
-    if (description !== null && description !== "") {
+    if (description !== "") {
       data.description = description;
     }
 
@@ -181,7 +183,7 @@ const CreateModel = (props) => {
       .post("/models/create", data, axiosConfig)
       .then((res) => {
         if (res.data.success) {
-          if (selectedImage !== null) {
+          if (selectedImage) {
             axios
               .post(`/models/image/${res.data.id}`, formData, imageConfig)
               .then((res) => {
@@ -190,7 +192,7 @@ const CreateModel = (props) => {
                   setNotification(true);
                   setTimeout(() => {
                     history.push("/dashboard/my_models");
-                  }, 3000);
+                  }, 3500);
                 } else {
                   setNotificationMsg(res.data.msg);
                   setNotification(true);
@@ -292,11 +294,11 @@ const CreateModel = (props) => {
               <input type="file" name="image" accept="image/*" multiple={false} placeholder="Name" onChange={uploadImageHandler} />
             </div>
             <div className={classes.imagePreview}>
-              {!selectedImage ? <p className={classes.noSelectedImage}>No selected Image</p> : <p>Selected image:</p>}
+              {selectedImage ? <p>Selected image:</p> : <p className={classes.noSelectedImage}>No selected Image</p>}
               {selectedImage ? (
                 <div>
                   <img ref={imagePreviewRef} src="" alt="" />
-                  <p className={classes.removeSelectedImage} onClick={() => setSelectedImage(null)}>
+                  <p className={classes.removeSelectedImage} onClick={() => setSelectedImage(false)}>
                     <i className="fa fa-trash-alt"></i> remove
                   </p>
                 </div>

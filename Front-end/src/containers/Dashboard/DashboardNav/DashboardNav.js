@@ -48,7 +48,6 @@ const DashboardNav = (props) => {
   const bodyClickHandler = (e) => {
     e.preventDefault();
     if (e.target === overlayRef.current) {
-      console.log("Entered");
       dispatch(setMobileDashNavOpen(false));
     }
   };
