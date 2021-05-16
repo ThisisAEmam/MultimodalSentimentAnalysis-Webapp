@@ -9,7 +9,7 @@ const Banner = (props) => {
           <h1>Multimodal Sentiment Analysis</h1>
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis.</p>
         </div>
-        <img src="/video_sentiment.png" alt="bannerImage" className={classes.bannerImage} />
+        <img src="/images/video_sentiment.png" alt="bannerImage" className={classes.bannerImage} />
       </div>
     </div>
   );

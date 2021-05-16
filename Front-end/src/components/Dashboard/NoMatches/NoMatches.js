@@ -5,7 +5,7 @@ const NoMatches = (props) => {
   return (
     <div className={classes.NoMatches}>
       <p>{props.children}</p>
-      <img src="/noMatches.svg" alt="No Matches" />
+      <img src="/images/noMatches.svg" alt="No Matches" />
     </div>
   );
 };

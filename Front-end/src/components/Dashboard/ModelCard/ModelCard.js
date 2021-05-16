@@ -39,7 +39,7 @@ const ModelCard = (props) => {
     setImage(props.model.image);
     setHasImage(props.hasImage);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [props.model]);
 
   useEffect(() => {
     axios

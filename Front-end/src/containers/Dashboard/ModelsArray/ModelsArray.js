@@ -5,9 +5,12 @@ import Loader from "../../../hoc/Loader/Loader";
 
 const ModelsArray = (props) => {
   const [noData, setNoData] = useState(true);
+  const [models, setModels] = useState([]);
   useEffect(() => {
+    console.log(props.models);
     if (props.models) {
       if (props.models.length > 0) {
+        setModels(props.models);
         setNoData(false);
       } else {
         setNoData(true);
@@ -17,7 +20,7 @@ const ModelsArray = (props) => {
   return (
     <div className={classes.ModelsArray}>
       {!noData ? (
-        props.models.map((item, index) => (
+        models.map((item, index) => (
           <ModelCard
             key={index}
             id={item.id}

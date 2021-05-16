@@ -81,7 +81,7 @@ const Newsletter = (props) => {
           )}
           {/* {subscribed ? <p className={classes.text2}>Note: You are already subscribed to our newsletter.</p> : null} */}
         </div>
-        <img src="/newsletter.svg" alt="newsletter" className={classes.newsImg} />
+        <img src="/images/newsletter.svg" alt="newsletter" className={classes.newsImg} />
       </div>
       {notification ? <Notification>{notificationMsg}</Notification> : null}
     </div>

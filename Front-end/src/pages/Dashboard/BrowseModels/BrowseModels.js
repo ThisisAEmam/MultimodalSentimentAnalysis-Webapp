@@ -62,21 +62,21 @@ const BrowseModels = (props) => {
     e.preventDefault();
     const query = e.target.value;
     if (query.trim() === "") {
-      setModels([...originalModels]);
+      setModels(originalModels);
     }
     const re = RegExp(`.*${query.toLowerCase()}.*`);
     const modelMatches = originalModels.filter((v) => v.name.toLowerCase().match(re));
     const userMatches = originalModels.filter((v) => v.user.username.toLowerCase().match(re));
     const output = modelMatches.concat(userMatches);
-    const matches = output.filter(function (item, pos) {
+    const matches = output.filter((item, pos) => {
       return output.indexOf(item) === pos;
     });
     if (matches.length === 0) {
       setNoMatches(true);
     } else {
       setNoMatches(false);
+      setModels(matches);
     }
-    setModels([...matches]);
   };
 
   return (

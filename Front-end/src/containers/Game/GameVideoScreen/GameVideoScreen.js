@@ -30,17 +30,17 @@ const GameVideoScreen = (props) => {
         </div>
         <div className={classes.videoContainer}>
           <video ref={videoRef} controls>
-            <source src={`GameVideos/${props.levelNum}.mp4`} type="video/mp4" />
+            <source src={`images/GameVideos/${props.levelNum}.mp4`} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>
         <div className={classes.buttonsContainer}>
           <div className={[classes.negativeBtn, classes.button].join(" ")} onClick={negativeClickHandler}>
-            <img src="/GameVideos/negative-review.jpg" alt="positive" />
+            <img src="/images/GameVideos/negative-review.jpg" alt="positive" />
             <p>Negative</p>
           </div>
           <div className={[classes.positiveBtn, classes.button].join(" ")} onClick={positiveClickHandler}>
-            <img src="/GameVideos/positive-review.jpg" alt="positive" />
+            <img src="/images/GameVideos/positive-review.jpg" alt="positive" />
             <p>Positive</p>
           </div>
         </div>

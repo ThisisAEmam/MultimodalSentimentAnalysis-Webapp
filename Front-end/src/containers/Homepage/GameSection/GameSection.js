@@ -18,10 +18,10 @@ const GameSection = (props) => {
             </Link>
           </div>
         </div>
-        <img className={classes.sectionImage} src="/video_influencer.png" alt="video_influencer" />
+        <img className={classes.sectionImage} src="/images/video_influencer.png" alt="video_influencer" />
       </div>
-      <img className={classes.singleCircles1} src="/single_circles.png" alt="circles" />
-      <img className={classes.doubleCircles1} src="/double_circles.png" alt="circles" />
+      <img className={classes.singleCircles1} src="/images/single_circles.png" alt="circles" />
+      <img className={classes.doubleCircles1} src="/images/double_circles.png" alt="circles" />
     </div>
   );
 };

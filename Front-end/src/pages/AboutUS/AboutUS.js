@@ -1,4 +1,5 @@
 import React from "react";
+import TeamMembers from "../../containers/Aboutpage/TeamMembers/TeamMembers";
 import Navbar from "../../containers/Homepage/Navbar/Navbar";
 import classes from "./AboutUS.module.css";
 
@@ -6,7 +7,9 @@ const AboutUS = (props) => {
   return (
     <div className={classes.AboutUS}>
       <Navbar />
-      <p>Hello From About Us</p>
+      <div className={classes.body}>
+        <TeamMembers />
+      </div>
     </div>
   );
 };

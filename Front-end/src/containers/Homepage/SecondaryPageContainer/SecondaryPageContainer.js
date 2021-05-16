@@ -33,8 +33,8 @@ const SecondaryPageContainer = (props) => {
         </Link>
       </div>
       <div className={classes.container}>{props.children}</div>
-      <animated.img style={scaleUp} className={classes.singleCircles1} src="/single_circles.png" alt="single_circles" />
-      <animated.img style={scaleUp} className={classes.doubleCircles1} src="/double_circles.png" alt="double_circles" />
+      <animated.img style={scaleUp} className={classes.singleCircles1} src="/images/single_circles.png" alt="single_circles" />
+      <animated.img style={scaleUp} className={classes.doubleCircles1} src="/images/double_circles.png" alt="double_circles" />
     </div>
   );
 };

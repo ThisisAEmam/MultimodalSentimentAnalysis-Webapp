@@ -6,7 +6,7 @@ const MSASection = (props) => {
   return (
     <div className={classes.MSASection}>
       <div className={classes.container}>
-        <img className={classes.sectionImage} src="/phone_sentiment.png" alt="phone_sentiment" />
+        <img className={classes.sectionImage} src="/images/phone_sentiment.png" alt="phone_sentiment" />
         <div className={classes.textContainer}>
           <SectionHeader>What is Multimodal Sentiment Analysis?</SectionHeader>
           <div className={classes.textBody}>
@@ -14,7 +14,7 @@ const MSASection = (props) => {
           </div>
         </div>
       </div>
-      <img className={classes.singleCircles1} src="/single_circles.png" alt="circles" />
+      <img className={classes.singleCircles1} src="/images/single_circles.png" alt="circles" />
     </div>
   );
 };
