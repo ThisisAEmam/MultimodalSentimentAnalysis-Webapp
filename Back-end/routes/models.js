@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const passport = require("passport");
 const modelControllers = require("../database/controllers/userModels");
+const fileUpload = require("express-fileupload");
 
 // Model Archs
 router.get("/arch", passport.authenticate("user", { session: false }), modelControllers.getModelArchs);
@@ -12,7 +13,7 @@ router.delete("/arch/:id", passport.authenticate("admin", { session: false }), m
 // Model Categories
 router.get("/category", passport.authenticate("user", { session: false }), modelControllers.getModelCategories);
 router.get("/category/:id", passport.authenticate("user", { session: false }), modelControllers.getOneModelCategory);
-router.post("/category", passport.authenticate("admin", { session: false }), modelControllers.createModelCategory);
+router.post("/category", passport.authenticate("user", { session: false }), modelControllers.createModelCategory);
 router.put("/category/:id", passport.authenticate("admin", { session: false }), modelControllers.updateModelCategory);
 router.delete("/category/:id", passport.authenticate("admin", { session: false }), modelControllers.deleteModelCategory);
 
@@ -29,9 +30,16 @@ router.get("/bookmarksId", passport.authenticate("user", { session: false }), mo
 router.post("/bookmark", passport.authenticate("user", { session: false }), modelControllers.bookmarkModel);
 router.post("/unbookmark", passport.authenticate("user", { session: false }), modelControllers.unbookmarkModel);
 
+// Model Image
+router.use(fileUpload());
+router.post("/image/:modelId", passport.authenticate("user", { session: false }), modelControllers.uploadImage);
+router.delete("/image/:modelId", passport.authenticate("user", { session: false }), modelControllers.removeImage);
+
 // Model
 router.get("/", passport.authenticate("user", { session: false }), modelControllers.getAllModels);
 router.get("/me", passport.authenticate("user", { session: false }), modelControllers.getUserModels);
+router.get("/me/:id", passport.authenticate("user", { session: false }), modelControllers.getOneUserModel);
+router.get("/isOwner/:id", passport.authenticate("user", { session: false }), modelControllers.getIsModelOwner);
 router.get("/:id", passport.authenticate("user", { session: false }), modelControllers.getOneModel);
 router.post("/create", passport.authenticate("user", { session: false }), modelControllers.createModel);
 router.put("/:id", passport.authenticate("user", { session: false }), modelControllers.updateModel);

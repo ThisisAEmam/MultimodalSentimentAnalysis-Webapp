@@ -2,7 +2,7 @@ const Joi = require("joi");
 const Question = require("../../models/Question");
 
 const getAllQuestions = (req, res) => {
-  Question.findAll({ order: [["createdAt", "ASC"]] })
+  Question.findAll({ order: [["created_at", "ASC"]] })
     .then((questions) => res.send({ success: true, data: questions }))
     .catch((err) => res.send({ success: false, msg: "There was an error.", error: err }));
 };

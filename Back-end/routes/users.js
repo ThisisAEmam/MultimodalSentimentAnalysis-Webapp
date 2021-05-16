@@ -5,6 +5,8 @@ const controllers = require("../database/controllers/users");
 // Login and Register
 router.post("/login", controllers.loginUser);
 router.post("/signup", controllers.createUser);
+router.post("/verify_email", controllers.verifyUser);
+router.post("/resend_verification_email", controllers.resendVerificationMail);
 router.get("/", passport.authenticate("admin", { session: false }), controllers.getAllUsers);
 
 // Current User

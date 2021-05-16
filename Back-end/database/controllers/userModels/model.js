@@ -3,6 +3,7 @@ const User = require("../../models/User");
 const Joi = require("joi");
 const crypto = require("crypto");
 const getIdFromToken = require("../../../lib/getIdFromToken");
+const ModelArch = require("../../models/ModelArch");
 
 const createModel = (req, res) => {
   const validationError = validateModel(req.body);
@@ -13,21 +14,20 @@ const createModel = (req, res) => {
     id: id,
     name: req.body.name,
     description: req.body.description,
-    likes: req.body.likes,
-    accuracy: req.body.accuracy,
-    archId: req.body.archId,
-    userId: userId,
-    catId: req.body.catId,
+    dataset_link: req.body.driveLink,
+    arch_id: req.body.archId,
+    user_id: userId,
+    cat_id: req.body.catId,
   })
-    .then(() => res.send({ success: true, msg: "Model created successfully!" }))
-    .catch((err) => res.send({ success: false, msg: "There was an error.", error: err }));
+    .then(() => res.send({ success: true, msg: "Model created successfully!", id: id }))
+    .catch((err) => res.send({ success: false, msg: "There was an error creating the model.", error: err }));
 };
 
 const getAllModels = (req, res) => {
   Model.findAll({ include: { model: User, attributes: ["username"] }, order: [["createdAt", "DESC"]] })
     .then((models) => {
       if (!models) return res.send({ success: false, msg: "There was an error." });
-      if (models.length === 0) return res.send({ success: false, msg: "No models found." });
+      if (models.length === 0) return res.send({ success: false, msg: "No models found.", data: [] });
       res.send({ success: true, data: models });
     })
     .catch((err) => res.send({ success: false, msg: "There was an error.", error: err }));
@@ -35,7 +35,13 @@ const getAllModels = (req, res) => {
 
 const getOneModel = (req, res) => {
   const id = req.params.id;
-  Model.findAll({ where: { id: id }, include: { model: User, attributes: ["username"] } })
+  Model.findOne({
+    where: { id: id },
+    include: [
+      { model: User, attributes: ["username"] },
+      { model: ModelArch, attributes: ["id", "name", "alias", "paper", "description"] },
+    ],
+  })
     .then((model) => {
       if (!model) return res.send({ success: false, msg: "No model found with this id." });
       res.send({ success: true, data: model });
@@ -55,12 +61,36 @@ const getUserModels = (req, res) => {
         },
       },
     ],
-    order: [["createdAt", "DESC"]],
+    order: [["created_at", "DESC"]],
   })
     .then((models) => {
       if (!models) return res.send({ success: false, msg: "There was an error." });
       if (models.length === 0) return res.send({ success: false, msg: "You don't have any created models." });
       res.send({ success: true, data: models });
+    })
+    .catch((err) => res.send({ success: false, msg: "There was an error.", error: err }));
+};
+
+const getOneUserModel = (req, res) => {
+  const modelId = req.params.id;
+  const userId = getIdFromToken(req.headers.authorization);
+  Model.findByPk(modelId)
+    .then((model) => {
+      if (!model) return res.send({ success: false, msg: "No model found with this id." });
+      if (userId !== model.user_id) return res.send({ success: false, msg: "You are not Authorized to get this model." });
+      res.send({ success: true, data: model });
+    })
+    .catch((err) => res.send({ success: false, msg: "There was an error.", error: err }));
+};
+
+const getIsModelOwner = (req, res) => {
+  const modelId = req.params.id;
+  const userId = getIdFromToken(req.headers.authorization);
+  Model.findByPk(modelId)
+    .then((model) => {
+      if (!model) return res.send({ success: false, msg: "No model found with this id." });
+      if (userId !== model.user_id) return res.send({ success: true, msg: "You are not the owner of this model.", data: false });
+      res.send({ success: true, msg: "You are the owner of this model.", data: true });
     })
     .catch((err) => res.send({ success: false, msg: "There was an error.", error: err }));
 };
@@ -74,14 +104,11 @@ const updateModel = (req, res) => {
   Model.findByPk(modelId)
     .then((model) => {
       if (!model) return res.send({ success: false, msg: "No model found with this id." });
-      if (model.userId === userId) {
-        model
-          .update(req.body)
-          .then(() => res.send({ success: true, data: model, msg: "Updated successfully!" }))
-          .catch((err) => res.send({ success: false, msg: "There was an error.", error: err }));
-      } else {
-        res.send({ success: false, msg: "Not Authorized." });
-      }
+      if (userId !== model.user_id) return res.send({ success: false, msg: "You are not Authorized to update this model." });
+      model
+        .update(req.body)
+        .then(() => res.send({ success: true, data: model, msg: "Updated successfully!" }))
+        .catch((err) => res.send({ success: false, msg: "There was an error.", error: err }));
     })
     .catch((err) => res.send({ success: false, msg: "There was an error.", error: err }));
 };
@@ -93,14 +120,11 @@ const deleteModel = (req, res) => {
   Model.findByPk(modelId)
     .then((model) => {
       if (!model) return res.send({ success: false, msg: "No model found with this id." });
-      if (model.userId === userId) {
-        model
-          .destroy()
-          .then(() => res.send({ success: true, data: model, msg: "Deleted successfully!" }))
-          .catch((err) => res.send({ success: false, msg: "There was an error.", error: err }));
-      } else {
-        res.send({ success: false, msg: "Not Authorized." });
-      }
+      if (userId !== model.user_id) return res.send({ success: false, msg: "You are not Authorized to delete this model." });
+      model
+        .destroy()
+        .then(() => res.send({ success: true, data: model, msg: "Deleted successfully!" }))
+        .catch((err) => res.send({ success: false, msg: "There was an error.", error: err }));
     })
     .catch((err) => res.send({ success: false, msg: "There was an error.", error: err }));
 };
@@ -109,8 +133,7 @@ const validateModel = (data) => {
   const schema = Joi.object({
     name: Joi.string().required(),
     description: Joi.string().optional(),
-    likes: Joi.number().required(),
-    accuracy: Joi.number().required(),
+    driveLink: Joi.string().required(),
     archId: Joi.number().required(),
     catId: Joi.number().required(),
   });
@@ -123,8 +146,7 @@ const validateUpdateModel = (data) => {
   const schema = Joi.object({
     name: Joi.string().optional(),
     description: Joi.string().optional(),
-    likes: Joi.number().optional(),
-    accuracy: Joi.number().optional(),
+    driveLink: Joi.string().optional(),
     archId: Joi.number().optional(),
     catId: Joi.number().optional(),
   });
@@ -137,6 +159,8 @@ module.exports = {
   createModel,
   getAllModels,
   getUserModels,
+  getOneUserModel,
+  getIsModelOwner,
   getOneModel,
   updateModel,
   deleteModel,

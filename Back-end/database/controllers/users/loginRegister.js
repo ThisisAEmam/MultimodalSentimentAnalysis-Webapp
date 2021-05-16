@@ -2,12 +2,30 @@ const User = require("../../models/User");
 const { validatePassword, issueJWT, genPassword } = require("../../../lib/utils");
 const Joi = require("joi");
 const crypto = require("crypto");
+const path = require("path");
+const nodemailer = require("nodemailer");
+const fs = require("fs");
+const jwt = require("jsonwebtoken");
+require("dotenv/config");
+
+const PRIV_KEY = fs.readFileSync(path.join(__dirname, "..", "..", "..", "id_rsa_priv.pem"), "utf8");
+const PUB_KEY = fs.readFileSync(path.join(__dirname, "..", "..", "..", "id_rsa_pub.pem"), "utf8");
+
+const transport = nodemailer.createTransport({
+  host: "smtp.mailtrap.io",
+  port: 587,
+  auth: {
+    user: process.env.MAILER_USER,
+    pass: process.env.MAILER_PASSWORD,
+  },
+});
 
 const loginUser = (req, res) => {
   const emailRegex = /^([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)$/;
 
   const loginHandler = (user) => {
-    if (user === null) return res.send({ success: false, msg: "This username / email is not registered in our database." });
+    if (!user) return res.send({ success: false, msg: "This username / email is not registered in our database." });
+    if (!user.verified_email) return res.send({ success: false, msg: "Please verify your email first." });
     const isValid = validatePassword(req.body.password, user.hash, user.salt);
 
     if (isValid) {
@@ -41,7 +59,7 @@ const createUser = (req, res) => {
   const validationError = validateRegister(req.body);
   if (validationError) return res.send({ success: false, msg: validationError.details[0].message });
 
-  const { username, firstname, lastname, email, organization } = req.body;
+  const { username, firstname, lastname, email } = req.body;
   const { salt, hash } = genPassword(req.body.password);
   const id = crypto.randomBytes(10).toString("hex");
 
@@ -51,12 +69,51 @@ const createUser = (req, res) => {
     firstname: firstname,
     lastname: lastname,
     email: email,
-    organization: organization,
     hash: hash,
     salt: salt,
   })
-    .then(() => res.status(201).send({ success: true, msg: "You have signed up successfully." }))
-    .catch((err) => res.send({ success: false, msg: "There was an error.", error: err }));
+    .then((user) => {
+      const error = sendMail(res, user.id, user.email);
+      if (error) return res.send({ success: false, msg: "There was an error.", error: error });
+      return res.status(201).send({ success: true, msg: "An email has been sent to your inbox to validate your account." });
+    })
+    .catch((err) => res.send({ success: false, msg: "We can't complete the signup process. Please try again!", error: err }));
+};
+
+const resendVerificationMail = (req, res) => {
+  const id = req.body.id;
+
+  User.findByPk(id)
+    .then((user) => {
+      if (!user) return res.send({ success: false, msg: "User not found." });
+      if (user.verified_email) return res.send({ success: false, msg: "You already verified your email." });
+      sendMail(res, user.id, user.email);
+      res.status(201).send({ success: true, msg: "The verification email has been re-sent to your inbox." });
+    })
+    .catch((err) => res.send({ success: false, msg: "We can't re-send the verification email!", error: err }));
+};
+
+const verifyUser = (req, res) => {
+  const validationError = validateUserVerification(req.body);
+  if (validationError) return res.send({ success: false, msg: validationError.details[0].message });
+
+  const { id, token } = req.body;
+
+  User.findByPk(id)
+    .then((user) => {
+      if (!user) return res.send({ success: false, msg: "User not found." });
+      if (user.verified_email) return res.send({ success: false, msg: "You already verified your email." });
+      jwt.verify(token, PUB_KEY, (error) => {
+        if (error) {
+          return res.status().json({ status: false, msg: "Incorrect or expired token." });
+        }
+      });
+      user
+        .update({ verified_email: true })
+        .then(() => res.send({ success: true, msg: "Email verified successfully!" }))
+        .catch((err) => res.send({ success: false, msg: "We can't complete the signup process. Please try again!", error: err }));
+    })
+    .catch((err) => res.send({ success: false, msg: "We can't verify your email. Please try again!", error: err }));
 };
 
 const getAllUsers = (req, res) => {
@@ -72,10 +129,60 @@ const validateRegister = (data) => {
     username: Joi.string().required(),
     email: Joi.string().email().required(),
     password: Joi.string().min(8).required(),
-    organization: Joi.string().empty("").default("").optional(),
+    confirmPassword: Joi.string().min(8).required(),
+    // organization: Joi.string().empty("").default("").optional(),
   });
 
   const { error } = schema.validate(data);
+  return error;
+};
+
+const validateUserVerification = (data) => {
+  const schema = Joi.object({
+    token: Joi.string().required(),
+    id: Joi.string().required(),
+    // organization: Joi.string().empty("").default("").optional(),
+  });
+
+  const { error } = schema.validate(data);
+  return error;
+};
+
+const createMail = (recipients, subject, html) => {
+  return {
+    from: "admin@msa.com",
+    to: recipients,
+    subject: subject,
+    html: html,
+  };
+};
+
+const sendMail = (res, id, email) => {
+  let error = false;
+  const payload = {
+    sub: id,
+    iat: Date.now(),
+  };
+  const signedToken = jwt.sign(payload, PRIV_KEY, { expiresIn: "1h", algorithm: "RS256" });
+  const resetLink = `${process.env.DOMAIN_URL}/verify_email/${id}/${signedToken}`;
+  const html = `
+      <h1>Verify your email now.</h1>
+      <p>An account registered to our web app using this email. If it is not you, just forget about this mail.</p>
+      <p>If it is you, you can verify your email using the following link in order to start using our services.</p>
+      <a href="${resetLink}">Click here</a>
+      <br />
+      <br />
+      <p>The link expires in 1 minute.</p>
+    `;
+
+  const message = createMail(email, "Email validation.", html);
+
+  transport.sendMail(message, (err, info) => {
+    if (err) {
+      error = err;
+    }
+  });
+
   return error;
 };
 
@@ -83,4 +190,6 @@ module.exports = {
   createUser,
   getAllUsers,
   loginUser,
+  verifyUser,
+  resendVerificationMail,
 };

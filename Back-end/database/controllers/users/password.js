@@ -15,8 +15,8 @@ const transport = nodemailer.createTransport({
   host: "smtp.mailtrap.io",
   port: 587,
   auth: {
-    user: "446a77eb2c5d25",
-    pass: "a8d7df4848b22a",
+    user: process.env.MAILER_USER,
+    pass: process.env.MAILER_PASSWORD,
   },
 });
 
@@ -76,7 +76,7 @@ const forgotPassword = (req, res) => {
 
       transport.sendMail(message, (err, info) => {
         if (err) {
-          res.send({ success: false, msg: "There was an error.", error: err });
+          res.send({ success: false, msg: "There was an error sending the email.", error: err });
         } else {
           res.send({ success: true, msg: "An email has been sent to your inbox." });
         }
@@ -94,7 +94,7 @@ const resetPassword = (req, res) => {
   const JWTToken = token.split(" ")[1];
   jwt.verify(JWTToken, PUB_KEY, (error) => {
     if (error) {
-      return res.status().json({ status: false, msg: "Incorrect token or expired." });
+      return res.status().json({ status: false, msg: "Incorrect or expired token." });
     }
   });
 

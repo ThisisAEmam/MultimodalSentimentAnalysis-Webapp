@@ -4,36 +4,58 @@ const User = require("./User");
 const ModelCategory = require("./ModelCategory");
 const ModelArch = require("./ModelArch");
 
-const Model = db.define("models", {
-  id: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    unique: true,
-    primaryKey: true,
+const Model = db.define(
+  "models",
+  {
+    id: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      unique: true,
+      primaryKey: true,
+    },
+    name: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    description: {
+      type: Sequelize.STRING(2000),
+      allowNull: true,
+    },
+    image: {
+      type: Sequelize.STRING,
+      allowNull: true,
+    },
+    dataset_link: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    likes: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
+    accuracy: {
+      type: Sequelize.FLOAT,
+      allowNull: false,
+      defaultValue: 0,
+    },
+    training: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
+    ready: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
   },
-  name: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-  description: {
-    type: Sequelize.STRING(2000),
-    allowNull: true,
-  },
-  likes: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    defaultValue: 0,
-  },
-  accuracy: {
-    type: Sequelize.FLOAT,
-    allowNull: false,
-    defaultValue: 0,
-  },
-});
+  { underscored: true }
+);
 
-Model.belongsTo(User, { foreignKey: "userId" });
-Model.belongsTo(ModelCategory, { foreignKey: "catId" });
-Model.belongsTo(ModelArch, { foreignKey: "archId" });
+Model.belongsTo(User, { foreignKey: "user_id", onDelete: "cascade" });
+Model.belongsTo(ModelCategory, { foreignKey: "cat_id" });
+Model.belongsTo(ModelArch, { foreignKey: "arch_id" });
 
 const LikedModels = db.define("liked_models", {}, { timestamps: true, underscored: true });
 const BookmarkedModels = db.define("bookmarked_models", {}, { timestamps: true, underscored: true });
