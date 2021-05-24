@@ -19,7 +19,7 @@
 .sectionImage {
   width: 85%;
   margin-left: auto;
-  z-index: 100;
+  z-index: 90;
 }
 
 .textContainer {
@@ -74,4 +74,27 @@
   width: 15rem;
   opacity: 0.5;
   z-index: 1;
+}
+
+@media (max-width: 767px) {
+  .GameSection {
+    padding: 4rem 0;
+  }
+
+  .container {
+    width: 90%;
+    grid-template-columns: 1fr;
+    column-gap: 0;
+    row-gap: 3rem;
+  }
+
+  .sectionImage {
+    width: 100%;
+    grid-row: 2;
+  }
+
+  .singleCircles1,
+  .doubleCircles1 {
+    display: none;
+  }
 }

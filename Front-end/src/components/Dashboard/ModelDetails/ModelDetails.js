@@ -299,7 +299,7 @@ const ModelDetails = (props) => {
           </div>
           <div className={[classes.formGroup, classes.notToBeAligned, isOwner ? classes.isOwner : null].join(" ")}>
             <p>Model Image:</p>
-            <img src={!image || image === "" ? "/modelNoImage.jpg" : image} alt="model_image" />
+            <img src={!image || image === "" ? "/images/modelNoImage.jpg" : image} alt="model_image" />
             {isOwner ? (
               imageEdit ? (
                 <div className={classes.imageBtns}>

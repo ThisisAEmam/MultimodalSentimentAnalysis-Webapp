@@ -2,7 +2,7 @@
   padding: 10rem 0;
   width: 100%;
   position: relative;
-  background-color: #f4f4f4;
+  background-color: #f3f3f3;
 }
 
 .container {
@@ -75,4 +75,27 @@
   width: 12rem;
   opacity: 0.5;
   z-index: 1;
+}
+
+@media (max-width: 767px) {
+  .MSASection {
+    padding: 4rem 0;
+  }
+
+  .container {
+    width: 90%;
+    grid-template-columns: 1fr;
+    column-gap: 0;
+    row-gap: 3rem;
+  }
+
+  .sectionImage {
+    width: 100%;
+    grid-row: 2;
+  }
+
+  .singleCircles1,
+  .doubleCircles1 {
+    display: none;
+  }
 }

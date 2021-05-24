@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import classes from "./Banner.module.css";
+import classes from "./Banner2.module.css";
 import { useSpring, animated, config, useChain } from "react-spring";
 
-const Banner = (props) => {
+const Banner2 = (props) => {
   const [bgLoad, setBGLoad] = useState(false);
 
   useEffect(() => {
@@ -56,18 +56,13 @@ const Banner = (props) => {
       <div className={classes.container}>
         <animated.div style={textSpring} className={classes.text}>
           <h1>Multimodal Sentiment Analysis</h1>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt ut explicabo quasi laborum ea dignissimos, a natus nobis fugiat adipisci.</p>
-          <div className={classes.btnContainer}>
-            <button className={classes.startBtn}>Start now</button>
-          </div>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis.</p>
+          <button className={classes.startBtn}>Start now</button>
         </animated.div>
-        <animated.div style={imageSpring}>
-          <img src="/images/banner_image1.svg" alt="bannerImage" className={[classes.bannerImage].join(" ")} />
-        </animated.div>
+        <animated.img style={imageSpring} src="/images/banner_image.svg" alt="bannerImage" className={classes.bannerImage} />
       </div>
-      <img src="/images/single_circles.png" alt="single_circle" className={[classes.singleCircles1, classes.circles].join(" ")} />
     </div>
   );
 };
 
-export default Banner;
+export default Banner2;

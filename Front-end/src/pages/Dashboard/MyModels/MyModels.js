@@ -61,11 +61,7 @@ const MyModels = (props) => {
       ) : (
         <ModelsArray models={data} />
       )}
-      <div
-        className={[classes.createNewModelBtn].join(" ")}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        onClick={createNewModelHandler}>
+      <div className={classes.createNewModelBtn} onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)} onClick={createNewModelHandler}>
         <p className={classes.plus}>+</p>
         {hovered ? <p className={classes.cnmText}>Create a new model</p> : null}
       </div>

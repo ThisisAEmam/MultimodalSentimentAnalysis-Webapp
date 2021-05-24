@@ -12,14 +12,14 @@ const data = [
       "I loved working with all my team members, or let me say 'my second family'. It was a long yet great journey for us all. I learned alot and I hope working with them again.",
   },
   {
-    name: "Abdullah Ahmed Mohamed",
+    name: "Abdullah Ahmed Farhana",
     responsibilities: [
       "Helped in creating the front-end of the web application",
       "Helped in creating the back-end of the web application",
       "Helped in implementing the MulT model archeticture",
       "Helped in feature extraction for the models' archetictures",
     ],
-    image: "emam.jpg",
+    image: "farhana.jpg",
     qoute:
       "I loved working with all my team members, or let me say 'my second family'. It was a long yet great journey for us all. I learned alot and I hope working with them again.",
   },
@@ -55,7 +55,7 @@ const data = [
       "Helped in implementing the MulT model archeticture",
       "Helped in feature extraction for the models' archetictures",
     ],
-    image: "emam.jpg",
+    image: "swilam.jpg",
     qoute:
       "I loved working with all my team members, or let me say 'my second family'. It was a long yet great journey for us all. I learned alot and I hope working with them again.",
   },
@@ -91,7 +91,7 @@ const data = [
       "Helped in implementing the MulT model archeticture",
       "Helped in feature extraction for the models' archetictures",
     ],
-    image: "emam.jpg",
+    image: "mohamedElSayed.jpeg",
     qoute:
       "I loved working with all my team members, or let me say 'my second family'. It was a long yet great journey for us all. I learned alot and I hope working with them again.",
   },

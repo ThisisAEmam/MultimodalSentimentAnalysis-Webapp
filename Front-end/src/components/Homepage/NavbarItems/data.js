@@ -12,6 +12,13 @@ const about = {
   type: "standard",
 };
 
+const tool = {
+  text: "Our Tool",
+  icon: "tools",
+  url: "/tool",
+  type: "standard",
+};
+
 const login = {
   text: "Login",
   icon: "sign-in-alt",
@@ -40,10 +47,10 @@ const logout = {
   type: "signup",
 };
 
-const navItems1 = [home, about];
+const navItems1 = [home, about, tool];
 const navItems2 = [login, signup];
-const mobileNavItems = [home, about, login, signup];
-const mobileLoggedinNavItems = [home, about, dashboard, logout];
+const mobileNavItems = [home, about, tool, login, signup];
+const mobileLoggedinNavItems = [home, about, tool, dashboard, logout];
 const loggedInNavItems = [dashboard, logout];
 
 export { navItems1, navItems2, mobileNavItems, mobileLoggedinNavItems, loggedInNavItems };

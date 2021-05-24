@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { JWTCookie } from "../app/cookie";
 
-let initialState = { status: false, token: "" };
+const initialState = { status: false, token: "" };
 const jwt = new JWTCookie();
 if (jwt.get()) {
-  initialState = { status: true, token: jwt.get() };
+  initialState.status = true;
+  initialState.token = jwt.get();
 }
 
 export const LoggedinSlice = createSlice({

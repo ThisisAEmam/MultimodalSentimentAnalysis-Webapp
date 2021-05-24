@@ -4,8 +4,8 @@
   left: 0;
   width: 100%;
   height: 5rem;
-  z-index: 100;
-  background-color: #f0f0f0;
+  z-index: 200;
+  /* background-color: #f0f0f0; */
 }
 
 .container {
@@ -59,7 +59,7 @@
 
 .mobileNav {
   position: fixed;
-  z-index: 100;
+  z-index: 200;
   background-color: #fafafa;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);

@@ -180,7 +180,7 @@ const ModelCard = (props) => {
         imageUpload={() => imageUpdateRef.current.click()}
         updatedImage={updatedImage}
       />
-      <img src={hasImage ? image : "/modelNoImage.jpg"} alt="model_image" />
+      <img src={hasImage ? image : "/images/modelNoImage.jpg"} alt="model_image" />
       {/* <img src={hasImage ? image : `/${props.index}.jpg`} alt="model_image" /> */}
       <div className={classes.container}>
         <div className={classes.names}>
