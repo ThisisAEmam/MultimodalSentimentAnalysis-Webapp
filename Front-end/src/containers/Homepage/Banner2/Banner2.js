@@ -56,11 +56,16 @@ const Banner2 = (props) => {
       <div className={classes.container}>
         <animated.div style={textSpring} className={classes.text}>
           <h1>Multimodal Sentiment Analysis</h1>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis.</p>
-          <button className={classes.startBtn}>Start now</button>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt ut explicabo quasi laborum ea dignissimos, a natus nobis fugiat adipisci.</p>
+          <div className={classes.btnContainer}>
+            <button className={classes.startBtn}>Start now</button>
+          </div>
         </animated.div>
-        <animated.img style={imageSpring} src="/images/banner_image.svg" alt="bannerImage" className={classes.bannerImage} />
+        <animated.div style={imageSpring}>
+          <img src="/images/banner_image2.svg" alt="bannerImage" className={[classes.bannerImage].join(" ")} />
+        </animated.div>
       </div>
+      <img src="/images/single_circles.png" alt="single_circle" className={[classes.singleCircles1, classes.circles].join(" ")} />
     </div>
   );
 };

@@ -221,6 +221,20 @@ const ModelDetails = (props) => {
       .catch((err) => console.log(err));
   };
 
+  const downloadModelClickHandler = () => {
+    axios
+      .get(`/models/files/${id}`, axiosConfig)
+      .then((res) => {
+        //http://192.168.1.2:5000/static/models_files/e8e59784b653938415ec/model.h5
+        if (res.data.success) {
+          window.open(res.data.path);
+        } else {
+          console.log(res.data.msg);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
   const content = (
     <div className={classes.container}>
       <div className={classes.header}>
@@ -337,8 +351,43 @@ const ModelDetails = (props) => {
             ) : null}
           </div>
         </div>
-        <div className={classes.rightSide}></div>
+        <div className={classes.rightSide}>
+          <div className={[classes.formGroup, isOwner ? classes.isOwner : null].join(" ")}>
+            <p>Status:</p>
+            {model.ready ? (
+              <p className={[classes.status, classes.readyStatus].join(" ")}>Ready</p>
+            ) : model.training ? (
+              <p className={[classes.status, classes.trainingStatus].join(" ")}>Training...</p>
+            ) : (
+              <p className={[classes.status, classes.notTrainedStatus].join(" ")}>Not trained yet</p>
+            )}
+          </div>
+          <div className={[classes.formGroup, isOwner ? classes.isOwner : null].join(" ")}>
+            <p>Status:</p>
+            {model.ready ? (
+              <p className={[classes.status, classes.readyStatus].join(" ")}>Ready</p>
+            ) : model.training ? (
+              <p className={[classes.status, classes.trainingStatus].join(" ")}>Training...</p>
+            ) : (
+              <p className={[classes.status, classes.notTrainedStatus].join(" ")}>Not trained yet</p>
+            )}
+          </div>
+        </div>
       </div>
+      {model.ready || isOwner ? (
+        <div className={classes.btnsContainer}>
+          {isOwner ? (
+            <button className={classes.deleteBtn}>
+              <i className="fa fa-trash-alt"></i> Delete Model
+            </button>
+          ) : null}
+          {!model.ready ? (
+            <button className={classes.downloadBtn} onClick={downloadModelClickHandler}>
+              <i className="fa fa-download"></i> Dowload .h5 File
+            </button>
+          ) : null}
+        </div>
+      ) : null}
     </div>
   );
 

@@ -107,7 +107,7 @@ const CreateModel = (props) => {
     modelCats.map((item) => modelCategories.push(item.category.toLowerCase()));
     if (!modelCategories.includes(text.toLowerCase())) {
       axios
-        .post("/models/category", { category: text }, config)
+        .post("/models/category", { category: text }, axiosConfig)
         .then((res) => {
           if (res.data.success) {
             setRefreshCats(true);

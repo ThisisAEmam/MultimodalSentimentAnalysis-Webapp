@@ -7,7 +7,6 @@ const ModelsArray = (props) => {
   const [noData, setNoData] = useState(true);
   const [models, setModels] = useState([]);
   useEffect(() => {
-    console.log(props.models);
     if (props.models) {
       if (props.models.length > 0) {
         setModels(props.models);
