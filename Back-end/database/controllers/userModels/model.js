@@ -4,6 +4,10 @@ const Joi = require("joi");
 const crypto = require("crypto");
 const getIdFromToken = require("../../../lib/getIdFromToken");
 const ModelArch = require("../../models/ModelArch");
+const fs = require("fs");
+const path = require("path");
+
+const MODELS_FILES_DIR_PATH = path.join(__dirname, "..", "..", "..", "static", "models_files");
 
 const createModel = (req, res) => {
   const validationError = validateModel(req.body);
@@ -19,7 +23,18 @@ const createModel = (req, res) => {
     user_id: userId,
     cat_id: req.body.catId,
   })
-    .then(() => res.send({ success: true, msg: "Model created successfully!", id: id }))
+    .then(() => {
+      const filePath = path.join(MODELS_FILES_DIR_PATH, id);
+      fs.mkdir(filePath, (err) => {
+        if (err) {
+          return console.error(err);
+        }
+        Model.findByPk(id)
+          .then((model) => model.update({ filePath: filePath }))
+          .catch((err) => console.log(err));
+      });
+      res.send({ success: true, msg: "Model created successfully!", id: id });
+    })
     .catch((err) => res.send({ success: false, msg: "There was an error creating the model.", error: err }));
 };
 

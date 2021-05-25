@@ -4,6 +4,7 @@ const Joi = require("joi");
 const createModelCategory = (req, res) => {
   const validationError = validateModelCategory(req.body);
   if (validationError) return res.send({ success: false, msg: validationError.details[0].message });
+  console.log(req.body);
   ModelCategory.create({
     category: req.body.category,
   })

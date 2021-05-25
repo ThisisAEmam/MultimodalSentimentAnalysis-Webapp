@@ -49,6 +49,11 @@ const Model = db.define(
       allowNull: false,
       defaultValue: false,
     },
+    filePath: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      defaultValue: "",
+    },
   },
   { underscored: true }
 );

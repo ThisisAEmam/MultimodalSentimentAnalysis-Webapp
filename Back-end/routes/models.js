@@ -35,6 +35,10 @@ router.use(fileUpload());
 router.post("/image/:modelId", passport.authenticate("user", { session: false }), modelControllers.uploadImage);
 router.delete("/image/:modelId", passport.authenticate("user", { session: false }), modelControllers.removeImage);
 
+// Model H5
+router.get("/files/:modelId", passport.authenticate("user", { session: false }), modelControllers.getModelFile);
+router.delete("/files/:modelId", passport.authenticate("admin", { session: false }), modelControllers.removeImage);
+
 // Model
 router.get("/", passport.authenticate("user", { session: false }), modelControllers.getAllModels);
 router.get("/me", passport.authenticate("user", { session: false }), modelControllers.getUserModels);
