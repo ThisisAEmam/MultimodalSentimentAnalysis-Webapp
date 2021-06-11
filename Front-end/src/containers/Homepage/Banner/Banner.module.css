@@ -23,11 +23,24 @@
   width: 70%;
   height: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: 4rem;
+  grid-template-columns: 4fr 5fr;
+  column-gap: 1rem;
   justify-content: space-between;
   align-items: center;
   z-index: 100;
+}
+
+.container .header {
+  color: var(--secondary-disabled);
+  font-size: 1.7rem;
+  font-weight: 500;
+}
+
+.container .header span {
+  color: var(--primary-text);
+  display: block;
+  font-size: 4rem;
+  font-weight: 600;
 }
 
 .bannerImage {

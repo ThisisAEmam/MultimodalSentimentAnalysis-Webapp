@@ -1,7 +1,6 @@
 import React from "react";
 import BackToTop from "../../components/Homepage/BackToTop/BackToTop";
 import Banner from "../../containers/Homepage/Banner/Banner";
-import Banner2 from "../../containers/Homepage/Banner2/Banner2";
 import Footer from "../../containers/Homepage/Footer/Footer";
 import GameSection from "../../containers/Homepage/GameSection/GameSection";
 import MSASection from "../../containers/Homepage/MSASection/MSASection";
@@ -13,8 +12,7 @@ const Homepage = (props) => {
   return (
     <div className={classes.Homepage}>
       <Navbar />
-      {/* <Banner /> */}
-      <Banner2 />
+      <Banner />
       <WhatWeOfferSection />
       <MSASection />
       <GameSection />

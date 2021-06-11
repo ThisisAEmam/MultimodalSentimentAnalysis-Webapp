@@ -6,7 +6,6 @@ require("dotenv/config");
 const getModelFile = (req, res) => {
   const id = req.params.modelId;
   const DIR_PATH = process.env.SERVER_URL + "/static" + "/models_files" + "/" + id;
-  console.log(DIR_PATH);
   Model.findByPk(id)
     .then((model) => {
       if (!model) return res.send({ success: false, msg: "There is no model with this id." });

@@ -6,8 +6,10 @@ const getIdFromToken = require("../../../lib/getIdFromToken");
 const ModelArch = require("../../models/ModelArch");
 const fs = require("fs");
 const path = require("path");
+const { validatePassword } = require("../../../lib/utils");
 
 const MODELS_FILES_DIR_PATH = path.join(__dirname, "..", "..", "..", "static", "models_files");
+const MODELS_IMAGES_DIR_PATH = path.join(__dirname, "..", "..", "..", "static", "images", "models");
 
 const createModel = (req, res) => {
   const validationError = validateModel(req.body);
@@ -132,13 +134,35 @@ const deleteModel = (req, res) => {
   const modelId = req.params.id;
   const userId = getIdFromToken(req.headers.authorization);
 
-  Model.findByPk(modelId)
-    .then((model) => {
-      if (!model) return res.send({ success: false, msg: "No model found with this id." });
-      if (userId !== model.user_id) return res.send({ success: false, msg: "You are not Authorized to delete this model." });
-      model
-        .destroy()
-        .then(() => res.send({ success: true, data: model, msg: "Deleted successfully!" }))
+  const password = req.body.password;
+  if (password === "" || !password) return res.send({ success: false, msg: "Wrong Password" });
+
+  User.findByPk(userId)
+    .then((user) => {
+      if (!user) return res.send({ success: false, msg: "No user found with this id." });
+      Model.findByPk(modelId)
+        .then((model) => {
+          if (!model) return res.send({ success: false, msg: "No model found with this id." });
+          if (userId !== model.user_id) return res.send({ success: false, msg: "You are not Authorized to delete this model." });
+          const isValid = validatePassword(password, user.hash, user.salt);
+          if (isValid) {
+            model
+              .destroy()
+              .then(() => {
+                const images = fs.readdirSync(MODELS_IMAGES_DIR_PATH);
+                images.forEach((file) => {
+                  if (file.startsWith(modelId)) {
+                    fs.unlinkSync(path.join(MODELS_IMAGES_DIR_PATH, file));
+                  }
+                });
+                removeDir(MODELS_FILES_DIR_PATH + "/" + modelId);
+                res.send({ success: true, data: model, msg: "Deleted successfully!" });
+              })
+              .catch((err) => res.send({ success: false, msg: "There was an error.", error: err }));
+          } else {
+            res.send({ success: false, msg: "Wrong Password" });
+          }
+        })
         .catch((err) => res.send({ success: false, msg: "There was an error.", error: err }));
     })
     .catch((err) => res.send({ success: false, msg: "There was an error.", error: err }));
@@ -168,6 +192,27 @@ const validateUpdateModel = (data) => {
 
   const { error } = schema.validate(data);
   return error;
+};
+
+const removeDir = (path) => {
+  if (fs.existsSync(path)) {
+    const files = fs.readdirSync(path);
+
+    if (files.length > 0) {
+      files.forEach(function (filename) {
+        if (fs.statSync(path + "/" + filename).isDirectory()) {
+          removeDir(path + "/" + filename);
+        } else {
+          fs.unlinkSync(path + "/" + filename);
+        }
+      });
+      fs.rmdirSync(path);
+    } else {
+      fs.rmdirSync(path);
+    }
+  } else {
+    console.log("Directory path not found.");
+  }
 };
 
 module.exports = {

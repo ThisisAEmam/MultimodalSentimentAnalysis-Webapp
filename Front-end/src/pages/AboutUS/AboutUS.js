@@ -4,6 +4,7 @@ import TeamMembers from "../../containers/Aboutpage/TeamMembers/TeamMembers";
 import Navbar from "../../containers/Homepage/Navbar/Navbar";
 import Footer from "../../containers/Homepage/Footer/Footer";
 import classes from "./AboutUS.module.css";
+import BackToTop from "../../components/Homepage/BackToTop/BackToTop";
 
 const AboutUS = (props) => {
   return (
@@ -13,6 +14,7 @@ const AboutUS = (props) => {
         <AboutUsSection />
         <TeamMembers />
       </div>
+      <BackToTop />
       <Footer />
     </div>
   );

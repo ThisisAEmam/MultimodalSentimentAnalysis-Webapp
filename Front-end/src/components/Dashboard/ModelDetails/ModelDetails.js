@@ -4,12 +4,15 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { config, useSpring, animated, useChain } from "react-spring";
 import Loader from "../../../hoc/Loader/Loader";
+import DeleteModel from "../DeleteModel/DeleteModel";
 import classes from "./ModelDetails.module.css";
 
 const ModelDetails = (props) => {
   const [isOwner, setIsOwner] = useState(false);
   const [update, setUpdate] = useState(false);
   const [model, setModel] = useState({});
+  const [arch, setArch] = useState({});
+  const [category, setCategory] = useState({});
   const [image, setImage] = useState("");
   const [originalImage, setOriginalImage] = useState("");
   const [nameEdit, setNameEdit] = useState(false);
@@ -18,6 +21,8 @@ const ModelDetails = (props) => {
   const [invalidDesc, setInvalidDesc] = useState(false);
   const [imageEdit, setImageEdit] = useState(false);
   const [saveImage, setSaveImage] = useState(false);
+  const [deleteModel, setDeleteModel] = useState(false);
+
   const wrapperRef = useRef();
   const wrapperRefTwo = useRef();
   const modelRef = useRef();
@@ -39,6 +44,22 @@ const ModelDetails = (props) => {
       .then((res) => {
         if (res[0].data.success) {
           setModel(res[0].data.data);
+          axios
+            .all([axios.get(`/models/arch/${res[0].data.data.arch_id}`, axiosConfig), axios.get(`/models/category/${res[0].data.data.cat_id}`, axiosConfig)])
+            .then((resp) => {
+              if (resp[0].data.success) {
+                setArch(resp[0].data.data);
+              } else {
+                console.log(resp[0].data.msg);
+              }
+
+              if (resp[1].data.success) {
+                setCategory(resp[1].data.data);
+              } else {
+                console.log(resp[1].data.msg);
+              }
+            })
+            .catch((err) => console.log(err));
         } else {
           console.log(res[0].data.msg);
         }
@@ -91,16 +112,7 @@ const ModelDetails = (props) => {
 
   useEffect(() => {
     if (update) {
-      axios
-        .get(`/models/${id}`, axiosConfig)
-        .then((res) => {
-          if (res.data.success) {
-            setModel(res.data.data);
-          } else {
-            console.log(res.data.msg);
-          }
-        })
-        .catch((err) => console.log(err));
+      requestsHandler();
       setUpdate(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -132,7 +144,7 @@ const ModelDetails = (props) => {
     config: config.gentle,
   });
 
-  useChain([wrapperRef, modelRef]);
+  useChain(props.show ? [wrapperRef, modelRef] : [modelRef, wrapperRef], [0, 2]);
 
   const wrapperClichHandler = (e) => {
     e.preventDefault();
@@ -352,32 +364,50 @@ const ModelDetails = (props) => {
           </div>
         </div>
         <div className={classes.rightSide}>
-          <div className={[classes.formGroup, isOwner ? classes.isOwner : null].join(" ")}>
-            <p>Status:</p>
-            {model.ready ? (
-              <p className={[classes.status, classes.readyStatus].join(" ")}>Ready</p>
-            ) : model.training ? (
-              <p className={[classes.status, classes.trainingStatus].join(" ")}>Training...</p>
-            ) : (
-              <p className={[classes.status, classes.notTrainedStatus].join(" ")}>Not trained yet</p>
-            )}
+          <div className={[classes.rightFormGroup, isOwner ? classes.isOwner : null].join(" ")}>
+            <h3>Model Archeticture:</h3>
+            <div className={classes.dash}></div>
+            <div className={classes.keyValuePair}>
+              <p className={classes.key}>alias:</p>
+              <p className={classes.value}>{arch.alias}</p>
+            </div>
+            <div className={classes.keyValuePair}>
+              <p className={classes.key}>name:</p>
+              <p className={classes.value}>{arch.name}</p>
+            </div>
+            <div className={classes.keyValuePair}>
+              <p className={classes.key}>paper:</p>
+              <p onClick={() => window.open(arch.paper, "_blank")} className={[classes.value, classes.archPaper].join(" ")}>
+                {arch.paper}
+              </p>
+            </div>
           </div>
-          <div className={[classes.formGroup, isOwner ? classes.isOwner : null].join(" ")}>
-            <p>Status:</p>
-            {model.ready ? (
-              <p className={[classes.status, classes.readyStatus].join(" ")}>Ready</p>
-            ) : model.training ? (
-              <p className={[classes.status, classes.trainingStatus].join(" ")}>Training...</p>
-            ) : (
-              <p className={[classes.status, classes.notTrainedStatus].join(" ")}>Not trained yet</p>
-            )}
+          <div className={[classes.rightFormGroup, isOwner ? classes.isOwner : null].join(" ")}>
+            <h3>Model Category:</h3>
+            <div className={classes.dash}></div>
+            <div className={classes.keyValuePair}>
+              <p className={classes.key}>name:</p>
+              <p className={classes.value}>{category.category}</p>
+            </div>
+          </div>
+          <div className={[classes.rightFormGroup, isOwner ? classes.isOwner : null].join(" ")}>
+            <h3>Model Summary:</h3>
+            <div className={classes.dash}></div>
+            <div className={classes.keyValuePair}>
+              <p className={classes.key}>likes:</p>
+              <p className={classes.value}>{model.likes}</p>
+            </div>
+            <div className={classes.keyValuePair}>
+              <p className={classes.key}>accuracy:</p>
+              <p className={classes.value}>{model.accuracy === 0 ? "Not trained yet" : `${model.accuracy}%`}</p>
+            </div>
           </div>
         </div>
       </div>
       {model.ready || isOwner ? (
         <div className={classes.btnsContainer}>
           {isOwner ? (
-            <button className={classes.deleteBtn}>
+            <button className={classes.deleteBtn} onClick={() => setDeleteModel(true)}>
               <i className="fa fa-trash-alt"></i> Delete Model
             </button>
           ) : null}
@@ -393,7 +423,8 @@ const ModelDetails = (props) => {
 
   return (
     <animated.div style={wrapperSpring} ref={wrapperRefTwo} className={classes.modelWrapper} onClick={wrapperClichHandler}>
-      <animated.div style={modelSpring} className={classes.model}>
+      <animated.div style={modelSpring} className={[classes.model, deleteModel ? classes.hide : classes.show].join(" ")}>
+        <DeleteModel id={id} show={deleteModel} setShow={(e) => setDeleteModel(e)} />
         {!model ? <Loader transparent /> : content}
       </animated.div>
     </animated.div>

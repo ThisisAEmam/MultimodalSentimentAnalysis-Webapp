@@ -5,7 +5,7 @@ const Footer = (props) => {
   return (
     <div className={classes.Footer}>
       <div className={classes.body}>
-        <p>Graduation Project &copy; 2021.</p>
+        <p>Sentimeter &copy; 2021.</p>
         <p className={classes.rights}>All rights reserved.</p>
       </div>
     </div>

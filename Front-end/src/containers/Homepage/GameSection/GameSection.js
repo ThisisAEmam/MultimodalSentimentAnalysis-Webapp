@@ -8,7 +8,7 @@ const GameSection = (props) => {
     <div className={classes.GameSection}>
       <div className={classes.container}>
         <div className={classes.textContainer}>
-          <SectionHeader>Multimodal Sentiment Analysis: The Game</SectionHeader>
+          <SectionHeader>Sentimeter: The Game</SectionHeader>
           <div className={classes.textBody}>
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Qui error laudantium sequi quae maxime? Nobis?</p>
           </div>

@@ -47,6 +47,6 @@ router.get("/isOwner/:id", passport.authenticate("user", { session: false }), mo
 router.get("/:id", passport.authenticate("user", { session: false }), modelControllers.getOneModel);
 router.post("/create", passport.authenticate("user", { session: false }), modelControllers.createModel);
 router.put("/:id", passport.authenticate("user", { session: false }), modelControllers.updateModel);
-router.delete("/:id", passport.authenticate("user", { session: false }), modelControllers.deleteModel);
+router.post("/delete/:id", passport.authenticate("user", { session: false }), modelControllers.deleteModel);
 
 module.exports = router;

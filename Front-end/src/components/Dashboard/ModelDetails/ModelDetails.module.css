@@ -131,7 +131,8 @@
   border-bottom: none;
 }
 
-.formGroup p {
+.formGroup p,
+.rightFormGroup h3 {
   font-size: 1.25rem;
   font-weight: 600;
   color: var(--primary-text);
@@ -219,6 +220,49 @@
 .formGroup .imageBtns .removeDiv {
   background-color: var(--alert);
   border-color: var(--alert);
+}
+
+.rightFormGroup {
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.rightFormGroup:last-child {
+  padding-bottom: 0;
+  margin-bottom: 0;
+  border-bottom: none;
+}
+
+.rightFormGroup .dash {
+  margin: 0.5rem 0 1rem 0;
+  width: 5rem;
+  height: 0.2rem;
+  background-color: var(--secondary);
+}
+
+.keyValuePair {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 8fr;
+  column-gap: 1rem;
+  padding-bottom: 0.75rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--primary-text);
+}
+
+.keyValuePair .value {
+  color: var(--secondary);
+}
+
+.archPaper {
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.archPaper:hover {
+  opacity: 0.8;
 }
 
 .btnsContainer {

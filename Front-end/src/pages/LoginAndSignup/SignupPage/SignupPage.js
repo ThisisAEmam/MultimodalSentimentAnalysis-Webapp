@@ -72,6 +72,7 @@ const SignupPage = (props) => {
         } else {
           setNotificationType("alert");
           setNotificationMsg(res.data.msg);
+          console.log(res.data.error);
         }
         setShowNotification(true);
       })

@@ -6,7 +6,7 @@ import classes from "./DBNavItem.module.css";
 import { setMobileDashNavOpen } from "../../../features/mobileDashNavSlice";
 
 const DBNavItem = (props) => {
-  const [isNotification, setNotification] = useState(true);
+  const [isNotification, setNotification] = useState(false);
   const { screen } = useSelector((state) => state);
   const dispatch = useDispatch(setMobileDashNavOpen);
   const clickHandler = () => {

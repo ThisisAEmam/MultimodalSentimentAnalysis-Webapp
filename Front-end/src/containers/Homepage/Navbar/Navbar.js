@@ -51,7 +51,7 @@ const Navbar = (props) => {
         <div className={classes.leftSide}>
           <div className={classes.logoContainer}>
             <Link to="/">
-              <img src="/images/logo-placeholder.png" alt="logo" className={classes.logo} />
+              <img src="/images/logo.png" alt="logo" className={classes.logo} />
             </Link>
           </div>
           {!isMobile ? <NavbarItems PCType="pages" /> : null}
