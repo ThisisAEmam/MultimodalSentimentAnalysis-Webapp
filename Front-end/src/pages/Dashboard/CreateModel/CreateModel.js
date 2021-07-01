@@ -163,6 +163,7 @@ const CreateModel = (props) => {
 
     const formData = new FormData();
     formData.append("image", selectedImage);
+    console.log(formData);
     const imageConfig = {
       headers: {
         Authorization: loggedin.token,

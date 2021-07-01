@@ -19,7 +19,7 @@ import VerifyEmail from "./pages/LoginAndSignup/VerifyEmail/VerifyEmail";
 const App = () => {
   const screenDispatch = useDispatch(setScreen);
 
-  axios.defaults.baseURL = "http://192.168.1.2:5000/api";
+  axios.defaults.baseURL = "https://lazy-cow-17.loca.lt/api";
 
   window.addEventListener("resize", () => {
     if (window.outerWidth < 1000) {

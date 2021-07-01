@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AboutUsSection from "../../containers/Aboutpage/AboutUsSection/AboutUsSection";
 import TeamMembers from "../../containers/Aboutpage/TeamMembers/TeamMembers";
 import Navbar from "../../containers/Homepage/Navbar/Navbar";
@@ -7,6 +7,10 @@ import classes from "./AboutUS.module.css";
 import BackToTop from "../../components/Homepage/BackToTop/BackToTop";
 
 const AboutUS = (props) => {
+  useEffect(() => {
+    document.title = "Sentimeter | About us";
+  }, []);
+
   return (
     <div className={classes.AboutUS}>
       <Navbar />

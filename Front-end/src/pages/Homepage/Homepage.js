@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import BackToTop from "../../components/Homepage/BackToTop/BackToTop";
 import Banner from "../../containers/Homepage/Banner/Banner";
 import Footer from "../../containers/Homepage/Footer/Footer";
@@ -9,6 +9,10 @@ import WhatWeOfferSection from "../../containers/Homepage/WhatWeOfferSection/Wha
 import classes from "./Homepage.module.css";
 
 const Homepage = (props) => {
+  useEffect(() => {
+    document.title = "Sentimeter";
+  }, []);
+
   return (
     <div className={classes.Homepage}>
       <Navbar />

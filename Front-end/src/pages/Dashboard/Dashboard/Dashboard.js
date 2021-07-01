@@ -24,6 +24,10 @@ const Dashboard = (props) => {
   const { loggedin } = useSelector((state) => state);
 
   useEffect(() => {
+    document.title = "Sentimeter | Dashboard";
+  }, []);
+
+  useEffect(() => {
     if (!loggedin.status) {
       history.push("/login");
     } else {

@@ -15,7 +15,7 @@ const Game = (props) => {
   const labels = ["positive", "negative", "negative", "positive", "negative"];
 
   useEffect(() => {
-    document.title = "MSA | The Game";
+    document.title = "Sentimeter | The Game";
   }, []);
 
   const videoButtonClickHandler = (choice) => {
