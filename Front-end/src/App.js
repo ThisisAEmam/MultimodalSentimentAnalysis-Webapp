@@ -15,11 +15,12 @@ import Logout from "./pages/LoginAndSignup/Logout/Logout";
 import NotFound404 from "./pages/NotFound404/NotFound404";
 import ResetPassword from "./pages/LoginAndSignup/ResetPassword/ResetPassword";
 import VerifyEmail from "./pages/LoginAndSignup/VerifyEmail/VerifyEmail";
+import DatasetCreator from "./pages/DatasetCreator/DatasetCreator";
 
 const App = () => {
   const screenDispatch = useDispatch(setScreen);
 
-  axios.defaults.baseURL = "https://lazy-cow-17.loca.lt/api";
+  axios.defaults.baseURL = "http://api.sentimeter.dev/api";
 
   window.addEventListener("resize", () => {
     if (window.outerWidth < 1000) {
@@ -50,6 +51,7 @@ const App = () => {
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/game" exact component={Game} />
           <Route path="/about" exact component={AboutUS} />
+          <Route path="/dataset_creator" exact component={DatasetCreator} />
           <Route path="/login" exact component={LoginPage} />
           <Route path="/signup" exact component={SignupPage} />
           <Route path="/verify_email/:id/:token" exact component={VerifyEmail} />

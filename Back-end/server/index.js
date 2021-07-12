@@ -15,6 +15,9 @@ server.use(passport.initialize());
 
 server.use(cors());
 
+server.get("/", (req, res) => {
+  res.send("<h1>Hello World</h1>");
+});
 server.use("/api", routes);
 server.use("/static", express.static(path.join(__dirname, "..", "static")));
 

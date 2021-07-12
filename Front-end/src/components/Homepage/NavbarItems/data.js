@@ -13,9 +13,9 @@ const about = {
 };
 
 const tool = {
-  text: "Our Tool",
+  text: "Dataset Creator",
   icon: "tools",
-  url: "/tool",
+  url: "/dataset_creator",
   type: "standard",
 };
 

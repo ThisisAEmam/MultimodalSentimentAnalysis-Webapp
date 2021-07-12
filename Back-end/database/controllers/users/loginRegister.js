@@ -23,8 +23,6 @@ const transport = nodemailer.createTransport({
 const loginUser = (req, res) => {
   const emailRegex = /^([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)$/;
 
-  console.log("Logged in...");
-
   const loginHandler = (user) => {
     if (!user) return res.send({ success: false, msg: "This username / email is not registered in our database." });
     if (!user.verified_email) return res.send({ success: false, msg: "Please verify your email first." });
@@ -61,8 +59,9 @@ const createUser = (req, res) => {
   const validationError = validateRegister(req.body);
   if (validationError) return res.send({ success: false, msg: validationError.details[0].message });
 
-  const { username, firstname, lastname, email } = req.body;
-  const { salt, hash } = genPassword(req.body.password);
+  const { username, firstname, lastname, email, password, confirmPassword } = req.body;
+  if (password !== confirmPassword) return res.send({ success: false, msg: "Passwords don't match." });
+  const { salt, hash } = genPassword(password);
   const id = crypto.randomBytes(10).toString("hex");
 
   User.create({

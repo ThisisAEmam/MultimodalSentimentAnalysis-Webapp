@@ -8,7 +8,8 @@ import BackToTop from "../../components/Homepage/BackToTop/BackToTop";
 
 const AboutUS = (props) => {
   useEffect(() => {
-    document.title = "Sentimeter | About us";
+    document.title = "Sentimeter | About US";
+    return () => (document.title = "Sentimeter");
   }, []);
 
   return (
