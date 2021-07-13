@@ -12,8 +12,9 @@ const PRIV_KEY = fs.readFileSync(path.join(__dirname, "..", "..", "..", "id_rsa_
 const PUB_KEY = fs.readFileSync(path.join(__dirname, "..", "..", "..", "id_rsa_pub.pem"), "utf8");
 
 const transport = nodemailer.createTransport({
-  host: "smtp.mailtrap.io",
-  port: 587,
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
   auth: {
     user: process.env.MAILER_USER,
     pass: process.env.MAILER_PASSWORD,

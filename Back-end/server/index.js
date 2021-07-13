@@ -13,10 +13,10 @@ server.use(express.urlencoded({ extended: true }));
 
 server.use(passport.initialize());
 
-server.use(cors());
+server.use(cors({ origin: process.env.DOMAIN_URL }));
 
 server.get("/", (req, res) => {
-  res.send("<h1>Hello World</h1>");
+  res.send("<h1>Welcome to Sentimeter API</h1>");
 });
 server.use("/api", routes);
 server.use("/static", express.static(path.join(__dirname, "..", "static")));

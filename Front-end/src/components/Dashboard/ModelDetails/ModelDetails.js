@@ -29,7 +29,7 @@ const ModelDetails = (props) => {
   const nameInputRef = useRef();
   const descriptionInputRef = useRef();
 
-  const { loggedin } = useSelector((state) => state);
+  const { loggedin, screen } = useSelector((state) => state);
 
   const id = props.model.id;
   const axiosConfig = {
@@ -252,7 +252,7 @@ const ModelDetails = (props) => {
       <div className={classes.header}>
         <div className={classes.name}>
           <h1>{model.name}</h1>
-          {isOwner ? (
+          {isOwner & (screen !== "Mobile") ? (
             <>
               {" "}
               <p className={classes.dot}>&middot;</p>
@@ -267,7 +267,7 @@ const ModelDetails = (props) => {
       <div className={classes.body}>
         <div className={classes.leftSide}>
           <div className={[classes.formGroup, isOwner ? classes.isOwner : null].join(" ")}>
-            <p>Status:</p>
+            <p className={classes.groupName}>Status:</p>
             {model.ready ? (
               <p className={[classes.status, classes.readyStatus].join(" ")}>Ready</p>
             ) : model.training ? (
@@ -277,7 +277,7 @@ const ModelDetails = (props) => {
             )}
           </div>
           <div className={[classes.formGroup, isOwner ? classes.isOwner : null].join(" ")}>
-            <p>Model name:</p>
+            <p className={classes.groupName}>Model name:</p>
             <input
               type="text"
               ref={nameInputRef}
@@ -300,7 +300,7 @@ const ModelDetails = (props) => {
             ) : null}
           </div>
           <div className={[classes.formGroup, classes.notToBeAligned, isOwner ? classes.isOwner : null].join(" ")}>
-            <p>Model Description:</p>
+            <p className={classes.groupName}>Model Description:</p>
             <textarea
               type="text"
               ref={descriptionInputRef}
@@ -324,7 +324,7 @@ const ModelDetails = (props) => {
             ) : null}
           </div>
           <div className={[classes.formGroup, classes.notToBeAligned, isOwner ? classes.isOwner : null].join(" ")}>
-            <p>Model Image:</p>
+            <p className={classes.groupName}>Model Image:</p>
             <img src={!image || image === "" ? "/images/modelNoImage.jpg" : image} alt="model_image" />
             {isOwner ? (
               imageEdit ? (
@@ -365,7 +365,7 @@ const ModelDetails = (props) => {
         </div>
         <div className={classes.rightSide}>
           <div className={[classes.rightFormGroup, isOwner ? classes.isOwner : null].join(" ")}>
-            <h3>Model Archeticture:</h3>
+            <h3 className={classes.groupName}>Model Archeticture:</h3>
             <div className={classes.dash}></div>
             <div className={classes.keyValuePair}>
               <p className={classes.key}>alias:</p>
@@ -383,7 +383,7 @@ const ModelDetails = (props) => {
             </div>
           </div>
           <div className={[classes.rightFormGroup, isOwner ? classes.isOwner : null].join(" ")}>
-            <h3>Model Category:</h3>
+            <h3 className={classes.groupName}>Model Category:</h3>
             <div className={classes.dash}></div>
             <div className={classes.keyValuePair}>
               <p className={classes.key}>name:</p>
@@ -391,7 +391,7 @@ const ModelDetails = (props) => {
             </div>
           </div>
           <div className={[classes.rightFormGroup, isOwner ? classes.isOwner : null].join(" ")}>
-            <h3>Model Summary:</h3>
+            <h3 className={classes.groupName}>Model Summary:</h3>
             <div className={classes.dash}></div>
             <div className={classes.keyValuePair}>
               <p className={classes.key}>likes:</p>
@@ -406,14 +406,14 @@ const ModelDetails = (props) => {
       </div>
       {model.ready || isOwner ? (
         <div className={classes.btnsContainer}>
-          {isOwner ? (
-            <button className={classes.deleteBtn} onClick={() => setDeleteModel(true)}>
-              <i className="fa fa-trash-alt"></i> Delete Model
-            </button>
-          ) : null}
           {!model.ready ? (
             <button className={classes.downloadBtn} onClick={downloadModelClickHandler}>
-              <i className="fa fa-download"></i> Dowload .h5 File
+              {screen !== "Mobile" ? <i className="fa fa-download"></i> : null} Dowload Model
+            </button>
+          ) : null}
+          {isOwner ? (
+            <button className={classes.deleteBtn} onClick={() => setDeleteModel(true)}>
+              {screen !== "Mobile" ? <i className="fa fa-trash-alt"></i> : null} Delete Model
             </button>
           ) : null}
         </div>

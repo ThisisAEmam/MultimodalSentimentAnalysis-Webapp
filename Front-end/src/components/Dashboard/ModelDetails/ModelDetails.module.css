@@ -281,6 +281,7 @@
   font-size: 1.1rem;
   font-weight: 600;
   color: #fff;
+  background-color: transparent;
   cursor: pointer;
   transition: all 0.25s ease-in-out;
 }
@@ -305,4 +306,56 @@
 
 .btnsContainer .downloadBtn:hover {
   opacity: 0.9;
+}
+
+@media (max-width: 767px) {
+  .header {
+    padding-bottom: 1rem;
+  }
+
+  .name h1 {
+    font-size: 1.7rem;
+  }
+
+  .body {
+    grid-template-columns: 1fr;
+  }
+
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .formGroup > * {
+    margin-bottom: 1rem;
+  }
+
+  .formGroup > *:last-child {
+    margin-bottom: 0;
+  }
+
+  .formGroup .groupName,
+  .rightFormGroup .groupName {
+    font-size: 1.2rem;
+  }
+
+  .formGroup .editDiv {
+    width: fit-content;
+    padding: 0.25rem 1.5rem;
+  }
+
+  .btnsContainer > button {
+    padding: 0.5rem;
+  }
+
+  .formGroup:last-of-type {
+    padding-bottom: 1.5rem;
+  }
+
+  .rightSide {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding-top: 1.5rem;
+    padding-left: 0;
+  }
 }

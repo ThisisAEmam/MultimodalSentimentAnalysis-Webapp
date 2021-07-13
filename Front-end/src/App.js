@@ -20,7 +20,7 @@ import DatasetCreator from "./pages/DatasetCreator/DatasetCreator";
 const App = () => {
   const screenDispatch = useDispatch(setScreen);
 
-  axios.defaults.baseURL = "http://api.sentimeter.dev/api";
+  axios.defaults.baseURL = "http://localhost:5000/api";
 
   window.addEventListener("resize", () => {
     if (window.outerWidth < 1000) {
