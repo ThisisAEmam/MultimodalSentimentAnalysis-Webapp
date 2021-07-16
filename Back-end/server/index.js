@@ -8,12 +8,12 @@ require("../database/config");
 require("../config/passport")(passport);
 
 const server = express();
-server.use(express.json());
+server.use(express.json({ limit: "20gb" }));
 server.use(express.urlencoded({ extended: true }));
 
 server.use(passport.initialize());
 
-server.use(cors({ origin: process.env.DOMAIN_URL }));
+server.use(cors());
 
 server.get("/", (req, res) => {
   res.send("<h1>Welcome to Sentimeter API</h1>");

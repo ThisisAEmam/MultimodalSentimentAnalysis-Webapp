@@ -10,6 +10,8 @@ const uploadImage = (req, res) => {
   if (req.body.files === null) return res.send({ success: false, msg: "No file is uploaded!" });
   const id = req.params.modelId;
   const image = req.files.image;
+  console.log("image:");
+  console.log(req.files);
   const imageName = id + "." + image.name.split(".")[1];
   const imagePath = path.join(DIR_PATH, imageName);
 

@@ -28,15 +28,15 @@ const User = db.define(
       allowNull: false,
       unique: true,
     },
+    image: {
+      type: Sequelize.STRING,
+      allowNull: true,
+      defaultValue: null,
+    },
     admin: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
       defaultValue: false,
-    },
-    organization: {
-      type: Sequelize.STRING,
-      allowNull: true,
-      defaultValue: null,
     },
     verified_email: {
       type: Sequelize.BOOLEAN,

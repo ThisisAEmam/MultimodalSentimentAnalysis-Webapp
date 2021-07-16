@@ -2,6 +2,9 @@ const router = require("express").Router();
 const passport = require("passport");
 const controllers = require("../database/controllers/users");
 
+// User Data
+router.get("/users/:username", passport.authenticate("user", { session: false }), controllers.getUserDataByUsername);
+
 // Login and Register
 router.post("/login", controllers.loginUser);
 router.post("/signup", controllers.createUser);

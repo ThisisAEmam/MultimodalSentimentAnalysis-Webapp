@@ -4,7 +4,7 @@ const User = require("../../models/User");
 const nodemailer = require("nodemailer");
 
 const transport = nodemailer.createTransport({
-  host: "smtp.mailtrap.io",
+  host: "mail.privateemail.com",
   port: 587,
   auth: {
     user: process.env.MAILER_USER,
@@ -94,7 +94,7 @@ const unsubscribeNewsletter = (req, res) => {
 
 const createMail = (recipients, subject, html) => {
   return {
-    from: "admin@msa.com",
+    from: "support@sentimeter.dev",
     to: recipients,
     subject: subject,
     html: html,

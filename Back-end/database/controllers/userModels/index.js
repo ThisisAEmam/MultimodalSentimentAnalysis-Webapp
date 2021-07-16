@@ -4,6 +4,7 @@ const model = require("./model");
 const modelLikeBookmark = require("./modelLikeBookmark");
 const modelImage = require("./modelImage");
 const modelFile = require("./modelFile");
+const modelDataset = require("./modelDataset");
 
 module.exports = {
   ...modelArchs,
@@ -12,4 +13,5 @@ module.exports = {
   ...modelLikeBookmark,
   ...modelImage,
   ...modelFile,
+  ...modelDataset,
 };

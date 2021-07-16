@@ -20,14 +20,21 @@ const Model = db.define(
     description: {
       type: Sequelize.STRING(2000),
       allowNull: true,
+      defaultValue: "",
     },
     image: {
       type: Sequelize.STRING,
       allowNull: true,
     },
-    dataset_link: {
+    dataset_path: {
+      type: Sequelize.STRING,
+      allowNull: true,
+      defaultValue: null,
+    },
+    bucket_path: {
       type: Sequelize.STRING,
       allowNull: false,
+      defaultValue: "",
     },
     likes: {
       type: Sequelize.INTEGER,

@@ -20,7 +20,6 @@ const createModel = (req, res) => {
     id: id,
     name: req.body.name,
     description: req.body.description,
-    dataset_link: req.body.driveLink,
     arch_id: req.body.archId,
     user_id: userId,
     cat_id: req.body.catId,
@@ -172,7 +171,6 @@ const validateModel = (data) => {
   const schema = Joi.object({
     name: Joi.string().required(),
     description: Joi.string().optional(),
-    driveLink: Joi.string().required(),
     archId: Joi.number().required(),
     catId: Joi.number().required(),
   });
@@ -185,7 +183,6 @@ const validateUpdateModel = (data) => {
   const schema = Joi.object({
     name: Joi.string().optional(),
     description: Joi.string().optional(),
-    driveLink: Joi.string().optional(),
     archId: Joi.number().optional(),
     catId: Joi.number().optional(),
   });

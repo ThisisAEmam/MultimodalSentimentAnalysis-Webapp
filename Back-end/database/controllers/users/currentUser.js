@@ -13,7 +13,6 @@ const getCurrentUser = (req, res) => {
         firstname: user.firstname,
         lastname: user.lastname,
         email: user.email,
-        organization: user.organization,
       };
       res.send({ success: true, data: data });
     })
@@ -36,7 +35,6 @@ const updateCurrentUser = (req, res, next) => {
             firstname: result.firstname,
             lastname: result.lastname,
             email: result.email,
-            organization: result.organization,
           };
           res.send({ success: true, data: data });
         })
@@ -70,7 +68,6 @@ const validateUpdate = (data) => {
     lastname: Joi.string().min(1).optional(),
     username: Joi.string().min(1).optional(),
     email: Joi.string().min(1).email().optional(),
-    organization: Joi.string().empty("").default("").optional(),
   });
 
   const { error } = schema.validate(data);

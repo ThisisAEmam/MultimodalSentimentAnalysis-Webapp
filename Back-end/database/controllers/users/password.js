@@ -12,7 +12,7 @@ const PRIV_KEY = fs.readFileSync(path.join(__dirname, "..", "..", "..", "id_rsa_
 const PUB_KEY = fs.readFileSync(path.join(__dirname, "..", "..", "..", "id_rsa_pub.pem"), "utf8");
 
 const transport = nodemailer.createTransport({
-  host: "smtp.gmail.com",
+  host: "mail.privateemail.com",
   port: 465,
   secure: true,
   auth: {
@@ -70,7 +70,7 @@ const forgotPassword = (req, res) => {
           <a href="${resetLink}">Click here</a>
           <br />
           <br />
-          <p>The link expires in 1 minute.</p>
+          <p>The link expires in 1 hour.</p>
         `;
 
       const message = createMail(email, "Request to reset password", html);
@@ -147,7 +147,7 @@ const validateEmail = (data) => {
 
 const createMail = (recipients, subject, html) => {
   return {
-    from: "admin@msa.com",
+    from: "support@sentimeter.dev",
     to: recipients,
     subject: subject,
     html: html,

@@ -12,8 +12,9 @@ const PRIV_KEY = fs.readFileSync(path.join(__dirname, "..", "..", "..", "id_rsa_
 const PUB_KEY = fs.readFileSync(path.join(__dirname, "..", "..", "..", "id_rsa_pub.pem"), "utf8");
 
 const transport = nodemailer.createTransport({
-  host: "smtp.mailtrap.io",
-  port: 587,
+  host: "mail.privateemail.com",
+  port: 465,
+  secure: true,
   auth: {
     user: process.env.MAILER_USER,
     pass: process.env.MAILER_PASSWORD,
@@ -63,8 +64,7 @@ const createUser = (req, res) => {
   if (password !== confirmPassword) return res.send({ success: false, msg: "Passwords don't match." });
   const { salt, hash } = genPassword(password);
   const id = crypto.randomBytes(10).toString("hex");
-
-  User.create({
+  const userData = {
     id: id,
     username: username,
     firstname: firstname,
@@ -72,13 +72,19 @@ const createUser = (req, res) => {
     email: email,
     hash: hash,
     salt: salt,
-  })
+  };
+
+  // console.log(userData);
+  User.create(userData)
     .then((user) => {
       const error = sendMail(res, user.id, user.email);
-      if (error) return res.send({ success: false, msg: "There was an error.", error: error });
+      if (error) return res.send({ success: false, msg: "There was an error sending the verification mail.", error: error });
       return res.status(201).send({ success: true, msg: "An email has been sent to your inbox to validate your account." });
     })
-    .catch((err) => res.send({ success: false, msg: "We can't complete the signup process. Please try again!", error: err }));
+    .catch((err) => {
+      console.log(err);
+      res.send({ success: false, msg: "We can't complete the signup process. Please try again!", error: err });
+    });
 };
 
 const resendVerificationMail = (req, res) => {
@@ -131,7 +137,6 @@ const validateRegister = (data) => {
     email: Joi.string().email().required(),
     password: Joi.string().min(8).required(),
     confirmPassword: Joi.string().min(8).required(),
-    // organization: Joi.string().empty("").default("").optional(),
   });
 
   const { error } = schema.validate(data);
@@ -142,7 +147,6 @@ const validateUserVerification = (data) => {
   const schema = Joi.object({
     token: Joi.string().required(),
     id: Joi.string().required(),
-    // organization: Joi.string().empty("").default("").optional(),
   });
 
   const { error } = schema.validate(data);
@@ -151,7 +155,7 @@ const validateUserVerification = (data) => {
 
 const createMail = (recipients, subject, html) => {
   return {
-    from: "admin@msa.com",
+    from: "support@sentimeter.dev",
     to: recipients,
     subject: subject,
     html: html,
@@ -169,14 +173,14 @@ const sendMail = (res, id, email) => {
   const html = `
       <h1>Verify your email now.</h1>
       <p>An account registered to our web app using this email. If it is not you, just forget about this mail.</p>
-      <p>If it is you, you can verify your email using the following link in order to start using our services.</p>
+      <p>If it was you, you can verify your email using the following link in order to start using our services.</p>
       <a href="${resetLink}">Click here</a>
       <br />
       <br />
-      <p>The link expires in 1 minute.</p>
+      <p>The link expires in 1 hour.</p>
     `;
 
-  const message = createMail(email, "Email validation.", html);
+  const message = createMail(email, "Email Verification.", html);
 
   transport.sendMail(message, (err, info) => {
     if (err) {
