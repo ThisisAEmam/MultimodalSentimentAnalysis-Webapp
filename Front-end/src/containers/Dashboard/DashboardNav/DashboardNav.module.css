@@ -10,7 +10,7 @@
 }
 
 .DashboardNav.mobile {
-  z-index: 1000;
+  z-index: 1102;
   width: 70%;
   padding-top: 2rem;
 }
@@ -22,7 +22,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 999;
+  z-index: 1100;
 }
 
 .section {

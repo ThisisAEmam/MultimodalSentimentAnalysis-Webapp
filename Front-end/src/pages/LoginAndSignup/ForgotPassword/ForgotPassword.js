@@ -46,7 +46,6 @@ const ForgotPassword = (props) => {
       .post("/users/password/forgot", { email: email })
       .then((res) => {
         if (res.data.success) {
-          console.log(res.data.msg);
           setNotificationType("success");
         } else {
           setNotificationType("alert");

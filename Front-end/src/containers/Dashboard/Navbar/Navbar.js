@@ -8,7 +8,7 @@ const Navbar = (props) => {
   const [isMyAccountOpen, setMyAccountOpen] = useState(null);
   const [isMobile, setMobile] = useState(false);
 
-  const { screen, isMobileDashNavOpen } = useSelector((state) => state);
+  const { screen, isMobileDashNavOpen, currentUser } = useSelector((state) => state);
   const mobileDashNavDispatch = useDispatch(setMobileDashNavOpen);
 
   const accListRef = useRef();
@@ -57,7 +57,7 @@ const Navbar = (props) => {
             ref={accListRef}
             className={[classes.myAccountList, isMyAccountOpen ? classes.shown : isMyAccountOpen === false ? classes.hidden : null].join(" ")}>
             <li>
-              <Link to="/profile">
+              <Link to={`/users/${currentUser.username}`}>
                 <i className="fa fa-user"></i>My Profile
               </Link>
             </li>

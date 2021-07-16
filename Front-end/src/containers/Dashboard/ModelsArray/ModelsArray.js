@@ -7,6 +7,7 @@ const ModelsArray = (props) => {
   const [noData, setNoData] = useState(true);
   const [models, setModels] = useState([]);
   useEffect(() => {
+    console.log(props.models);
     if (props.models) {
       if (props.models.length > 0) {
         setModels(props.models);
@@ -20,16 +21,7 @@ const ModelsArray = (props) => {
     <div className={classes.ModelsArray}>
       {!noData ? (
         models.map((item, index) => (
-          <ModelCard
-            key={index}
-            id={item.id}
-            index={(index % 8) + 1}
-            hasImage={item.image !== null}
-            name={item.name}
-            user={item.user.username}
-            likes={item.likes}
-            model={item}
-          />
+          <ModelCard key={index} id={item.id} hasImage={item.image !== null} name={item.name} user={item.user.username} likes={item.likes} model={item} />
         ))
       ) : (
         <Loader />

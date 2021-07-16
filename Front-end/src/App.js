@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Homepage from "./pages/Homepage/Homepage";
 import Dashboard from "./pages/Dashboard/Dashboard/Dashboard";
+import UserPage from "./pages/Dashboard/UserPage/UserPage";
 import Game from "./pages/Game/Game";
 import AboutUS from "./pages/AboutUS/AboutUS";
 import LoginPage from "./pages/LoginAndSignup/LoginPage/LoginPage";
@@ -20,7 +21,8 @@ import DatasetCreator from "./pages/DatasetCreator/DatasetCreator";
 const App = () => {
   const screenDispatch = useDispatch(setScreen);
 
-  axios.defaults.baseURL = "http://localhost:5000/api";
+  axios.defaults.baseURL = "http://192.168.1.10:5000/api";
+  // axios.defaults.baseURL = "https://api.sentimeter.dev/api";
 
   window.addEventListener("resize", () => {
     if (window.outerWidth < 1000) {
@@ -58,6 +60,7 @@ const App = () => {
           <Route path="/forgot_password" exact component={ForgotPassword} />
           <Route path="/reset_password/:token" exact component={ResetPassword} />
           <Route path="/logout" exact component={Logout} />
+          <Route path="/users/:username" exact component={UserPage} />
           <Route component={NotFound404} />
         </Switch>
       </Router>

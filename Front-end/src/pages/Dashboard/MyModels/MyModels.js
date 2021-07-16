@@ -40,7 +40,7 @@ const MyModels = (props) => {
       setNoData(true);
       setTimeout(() => {
         setNoData(false);
-      }, 1000);
+      }, 500);
     } else {
       clearTimeout();
       setNoData(false);

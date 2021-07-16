@@ -6,6 +6,7 @@ import classes from "./CreateModel.module.css";
 import { useSpring, animated, config } from "react-spring";
 import { Link, useHistory } from "react-router-dom";
 import Notification from "../../../components/Dashboard/Notification/Notification";
+import ProgressBar from "@ramonak/react-progress-bar";
 
 const CreateModel = (props) => {
   const [modelArchs, setModelArchs] = useState([]);
@@ -18,11 +19,12 @@ const CreateModel = (props) => {
   const [addACategory, setAddACategory] = useState(false);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [driveLink, setDriveLink] = useState("");
+  const [datasetPath, setDatasetPath] = useState(false);
   const [emptyName, setEmptyName] = useState(false);
-  const [emptyDriveLink, setEmptyDriveLink] = useState(false);
+  const [emptyDatasetPath, setEmptyDatasetPath] = useState(false);
   const [notification, setNotification] = useState(false);
   const [notificationMsg, setNotificationMsg] = useState("");
+  const [datasetProgress, setDatasetProgress] = useState(0);
 
   const { loggedin } = useSelector((state) => state);
 
@@ -129,11 +131,11 @@ const CreateModel = (props) => {
   }, [name]);
 
   useEffect(() => {
-    if (driveLink !== "" && emptyDriveLink) {
-      setEmptyDriveLink(false);
+    if (datasetPath !== null && emptyDatasetPath) {
+      setEmptyDatasetPath(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [driveLink]);
+  }, [datasetPath]);
 
   useEffect(() => {
     if (notification) {
@@ -153,28 +155,43 @@ const CreateModel = (props) => {
   };
 
   const submitClickHandler = () => {
-    if (name === "" || driveLink === "") {
+    if (name === "" || datasetPath === false) {
       if (name === "") setEmptyName(true);
-      if (driveLink === "") setEmptyDriveLink(true);
+      if (datasetPath === false) setEmptyDatasetPath(true);
       setNotification(true);
       setNotificationMsg("Please fill the required fields.");
       return;
     }
 
-    const formData = new FormData();
-    formData.append("image", selectedImage);
-    const imageConfig = {
+    const datasetFormData = new FormData();
+    datasetPath.forEach((data) => {
+      datasetFormData.append("dataset", data);
+    });
+    const imageFormData = new FormData();
+    imageFormData.append("image", selectedImage);
+
+    const imageFormConfig = {
       headers: {
         Authorization: loggedin.token,
         "Content-Type": "multipart/form-data",
       },
     };
+    const datasetFormConfig = {
+      headers: {
+        Authorization: loggedin.token,
+        "Content-Type": "multipart/form-data",
+      },
+      onUploadProgress: (progressEvent) => {
+        const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+        setDatasetProgress(percentCompleted);
+      },
+    };
     const data = {
       name: name,
-      driveLink: driveLink,
       catId: selectedCategory,
       archId: selectedArch,
     };
+
     if (description !== "") {
       data.description = description;
     }
@@ -185,27 +202,30 @@ const CreateModel = (props) => {
         if (res.data.success) {
           if (selectedImage) {
             axios
-              .post(`/models/image/${res.data.id}`, formData, imageConfig)
+              .post(`/models/image/${res.data.id}`, imageFormData, imageFormConfig)
               .then((res) => {
-                if (res.data.success) {
-                  setNotificationMsg(`Model created successfully! You will be redirected to My Models page after 3 seconds.`);
-                  setNotification(true);
-                  setTimeout(() => {
-                    history.push("/dashboard/my_models");
-                  }, 3500);
-                } else {
+                if (!res.data.success) {
                   setNotificationMsg(res.data.msg);
                   setNotification(true);
                 }
               })
               .catch((err) => console.log(err));
-          } else {
-            setNotificationMsg(`Model created successfully! You will be redirected to My Models page after 3 seconds.`);
-            setNotification(true);
-            setTimeout(() => {
-              history.push("/dashboard/my_models");
-            }, 3000);
           }
+          axios
+            .post(`/models/dataset/${res.data.id}`, datasetFormData, datasetFormConfig)
+            .then((res) => {
+              if (res.data.success) {
+                setNotificationMsg(`Model created successfully! You will be redirected to My Models page after 3 seconds.`);
+                setNotification(true);
+                setTimeout(() => {
+                  history.push("/dashboard/my_models");
+                }, 3000);
+              } else {
+                setNotificationMsg(res.data.msg);
+                setNotification(true);
+              }
+            })
+            .catch((err) => console.log(err));
         } else {
           setNotificationMsg(res.data.msg);
           setNotification(true);
@@ -270,14 +290,16 @@ const CreateModel = (props) => {
           </div>
           <div className={classes.formGroup}>
             <label htmlFor="dataset">
-              <i className="fab fa-google-drive"></i> Dataset Link (Google Drive)<span className={classes.starIcon}>*</span>
+              <i className="fab fa-google-drive"></i> Dataset Path<span className={classes.starIcon}>*</span>
             </label>
             <input
-              type="text"
-              className={emptyDriveLink ? classes.empty : null}
+              type="file"
+              className={emptyDatasetPath ? classes.empty : null}
+              webkitdirectory=""
+              directory=""
               name="dataset"
-              placeholder="Dataset link"
-              onChange={(e) => setDriveLink(e.target.value.trim())}
+              placeholder="Dataset Path"
+              onChange={(e) => setDatasetPath([...e.target.files])}
             />
             <Link to="/dashboard/getting_started" className={classes.paperLink}>
               Don't know how to upload the dataset? click here to learn how to prepare and upload it.
@@ -308,6 +330,10 @@ const CreateModel = (props) => {
         </div>
       </div>
       <div className={classes.submitBtnContainer}>
+        <div className={classes.uploadProgress}>
+          <p>Upload progress:</p>
+          <ProgressBar className={classes.progressbar} completed={datasetProgress} bgColor="#4f97c7" labelColor="#1a3f66" transitionDuration="1s" />
+        </div>
         <button className={classes.submitBtn} onClick={submitClickHandler}>
           Create model
         </button>

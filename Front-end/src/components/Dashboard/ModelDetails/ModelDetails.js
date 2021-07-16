@@ -406,7 +406,7 @@ const ModelDetails = (props) => {
       </div>
       {model.ready || isOwner ? (
         <div className={classes.btnsContainer}>
-          {!model.ready ? (
+          {model.ready ? (
             <button className={classes.downloadBtn} onClick={downloadModelClickHandler}>
               {screen !== "Mobile" ? <i className="fa fa-download"></i> : null} Dowload Model
             </button>

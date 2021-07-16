@@ -66,7 +66,7 @@ const SignupPage = (props) => {
         if (res.data.success) {
           setNotificationType("success");
           setTimeout(() => {
-            history.replace("/");
+            history.push("/");
           }, 4000);
           setNotificationMsg(res.data.msg + " You will be redirected to homepage in 4 seconds.");
         } else {

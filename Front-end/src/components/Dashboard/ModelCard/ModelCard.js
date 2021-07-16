@@ -181,7 +181,6 @@ const ModelCard = (props) => {
         updatedImage={updatedImage}
       />
       <img src={hasImage ? image : "/images/modelNoImage.jpg"} alt="model_image" />
-      {/* <img src={hasImage ? image : `/${props.index}.jpg`} alt="model_image" /> */}
       <div className={classes.container}>
         <div className={classes.names}>
           <h3 className={classes.name} onClick={() => setShowModel(true)}>
@@ -190,7 +189,7 @@ const ModelCard = (props) => {
           <p className={classes.user}>
             Created by{" "}
             <span>
-              <Link to={`/dashboard/users/${user}`}>{user}</Link>
+              <Link to={`/users/${user}`}>{user}</Link>
             </span>
           </p>
         </div>

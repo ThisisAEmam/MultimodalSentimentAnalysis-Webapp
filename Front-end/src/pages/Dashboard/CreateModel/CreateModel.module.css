@@ -226,7 +226,23 @@
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   /* margin-bottom: 1rem; */
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+}
+
+.uploadProgress {
+  display: flex;
+  flex-direction: column;
+}
+
+.uploadProgress p {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--primary-text);
+  margin-bottom: 0.5rem;
+}
+
+.progressbar {
+  width: 30rem;
 }
 
 .submitBtn {
