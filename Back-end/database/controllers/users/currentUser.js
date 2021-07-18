@@ -13,13 +13,14 @@ const getCurrentUser = (req, res) => {
         firstname: user.firstname,
         lastname: user.lastname,
         email: user.email,
+        image: user.image,
       };
       res.send({ success: true, data: data });
     })
     .catch((err) => res.send({ success: false, msg: "There was an error.", error: err }));
 };
 
-const updateCurrentUser = (req, res, next) => {
+const updateCurrentUser = (req, res) => {
   const validationError = validateUpdate(req.body);
   if (validationError) return res.send({ success: false, msg: validationError.details[0].message });
 

@@ -237,7 +237,6 @@ const ModelDetails = (props) => {
     axios
       .get(`/models/files/${id}`, axiosConfig)
       .then((res) => {
-        //http://192.168.1.2:5000/static/models_files/e8e59784b653938415ec/model.h5
         if (res.data.success) {
           window.open(res.data.path);
         } else {

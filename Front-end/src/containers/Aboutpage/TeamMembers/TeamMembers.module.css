@@ -7,3 +7,9 @@
   padding-bottom: 3rem;
   z-index: 100;
 }
+
+@media (max-width: 767px) {
+  .TeamMembers {
+    grid-template-columns: 1fr;
+  }
+}

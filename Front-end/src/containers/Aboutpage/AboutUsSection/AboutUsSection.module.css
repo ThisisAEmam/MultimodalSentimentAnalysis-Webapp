@@ -5,6 +5,6 @@
 
 .body {
   font-size: 1.3rem;
-  color: var(--primary);
+  color: var(--primary-text);
   z-index: 100;
 }

@@ -73,8 +73,22 @@ const createUser = (req, res) => {
     hash: hash,
     salt: salt,
   };
+  User.findOne({ where: { username: username } })
+    .then((user) => {
+      if (user) {
+        res.send({ success: false, msg: "This username already exists." });
+      }
+    })
+    .catch((err) => res.send({ success: false, msg: "Error finding any user with that username", error: err }));
 
-  // console.log(userData);
+  User.findOne({ where: { email: email } })
+    .then((user) => {
+      if (user) {
+        res.send({ success: false, msg: "This email already exists." });
+      }
+    })
+    .catch((err) => res.send({ success: false, msg: "Error finding any user with that email", error: err }));
+
   User.create(userData)
     .then((user) => {
       const error = sendMail(res, user.id, user.email);
@@ -82,7 +96,6 @@ const createUser = (req, res) => {
       return res.status(201).send({ success: true, msg: "An email has been sent to your inbox to validate your account." });
     })
     .catch((err) => {
-      console.log(err);
       res.send({ success: false, msg: "We can't complete the signup process. Please try again!", error: err });
     });
 };

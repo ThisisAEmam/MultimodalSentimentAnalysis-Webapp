@@ -14,3 +14,9 @@
   margin: 0 auto;
   margin-bottom: 1.5rem;
 }
+
+@media (max-width: 767px) {
+  .sectionName {
+    font-size: 1.8rem;
+  }
+}
