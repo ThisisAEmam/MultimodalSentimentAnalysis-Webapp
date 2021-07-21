@@ -13,6 +13,7 @@ const getUserDataByUsername = (req, res) => {
             firstname: user.firstname,
             lastname: user.lastname,
             email: user.email,
+            image: user.image,
             models: models,
           };
           res.send({ success: true, data: data });

@@ -16,6 +16,7 @@ const createModel = (req, res) => {
   if (validationError) return res.send({ success: false, msg: validationError.details[0].message });
   const id = crypto.randomBytes(10).toString("hex");
   const userId = getIdFromToken(req.headers.authorization);
+  console.log(req.body);
   Model.create({
     id: id,
     name: req.body.name,
@@ -173,6 +174,7 @@ const validateModel = (data) => {
     description: Joi.string().optional(),
     archId: Joi.number().required(),
     catId: Joi.number().required(),
+    modelArch: Joi.string().required(),
   });
 
   const { error } = schema.validate(data);
@@ -185,6 +187,7 @@ const validateUpdateModel = (data) => {
     description: Joi.string().optional(),
     archId: Joi.number().optional(),
     catId: Joi.number().optional(),
+    modelArch: Joi.string().optional(),
   });
 
   const { error } = schema.validate(data);

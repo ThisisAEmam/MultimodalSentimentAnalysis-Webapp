@@ -38,6 +38,10 @@ router.delete("/image/:modelId", passport.authenticate("user", { session: false 
 // Model Dataset
 router.post("/dataset/:modelId", passport.authenticate("user", { session: false }), modelControllers.uploadDataset);
 
+// Model Predict
+router.post("/predict/:modelId", modelControllers.predictVideo);
+router.post("/predict/:modelId/predictions", modelControllers.videoPredictions);
+
 // Model H5
 router.get("/files/:modelId", passport.authenticate("user", { session: false }), modelControllers.getModelFile);
 router.delete("/files/:modelId", passport.authenticate("admin", { session: false }), modelControllers.removeImage);
@@ -47,7 +51,7 @@ router.get("/", passport.authenticate("user", { session: false }), modelControll
 router.get("/me", passport.authenticate("user", { session: false }), modelControllers.getUserModels);
 router.get("/me/:id", passport.authenticate("user", { session: false }), modelControllers.getOneUserModel);
 router.get("/isOwner/:id", passport.authenticate("user", { session: false }), modelControllers.getIsModelOwner);
-router.get("/:id", passport.authenticate("user", { session: false }), modelControllers.getOneModel);
+router.get("/:id", modelControllers.getOneModel);
 router.post("/create", passport.authenticate("user", { session: false }), modelControllers.createModel);
 router.put("/:id", passport.authenticate("user", { session: false }), modelControllers.updateModel);
 router.post("/delete/:id", passport.authenticate("user", { session: false }), modelControllers.deleteModel);

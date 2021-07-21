@@ -25,6 +25,8 @@ const changePassword = (req, res) => {
   const validationError = validateNewPassword(req.body);
   if (validationError) return res.send({ success: false, msg: validationError.details[0].message });
 
+  if (newPassword !== confirmPassword) return res.send({ success: false, msg: "New password and confirm password don't match." });
+
   const id = getIdFromToken(req.headers.authorization);
   const { password, newPassword, confirmPassword } = req.body;
 
@@ -33,7 +35,6 @@ const changePassword = (req, res) => {
       if (!user) return res.send({ success: false, msg: "User not found." });
       const isValid = validatePassword(password, user.hash, user.salt);
       if (isValid) {
-        if (newPassword !== confirmPassword) return res.send({ success: false, msg: "New password and confirm password don't match." });
         const { salt, hash } = genPassword(newPassword);
         user
           .update({ hash: hash, salt: salt })
