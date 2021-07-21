@@ -96,6 +96,8 @@
   text-align: center;
   cursor: pointer;
   transition: all 0.25s ease;
+  outline: none;
+  text-decoration: none;
 }
 
 .startBtn:hover {

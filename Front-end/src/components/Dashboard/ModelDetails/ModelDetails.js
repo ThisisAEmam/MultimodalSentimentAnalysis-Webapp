@@ -398,22 +398,27 @@ const ModelDetails = (props) => {
             </div>
             <div className={classes.keyValuePair}>
               <p className={classes.key}>accuracy:</p>
-              <p className={classes.value}>{model.accuracy === 0 ? "Not trained yet" : `${model.accuracy}%`}</p>
+              <p className={classes.value}>{model.accuracy === 0 ? "Not trained yet" : `${Math.round(model.accuracy * 100)}%`}</p>
             </div>
           </div>
         </div>
       </div>
       {model.ready || isOwner ? (
         <div className={classes.btnsContainer}>
-          {model.ready ? (
-            <button className={classes.downloadBtn} onClick={downloadModelClickHandler}>
-              {screen !== "Mobile" ? <i className="fa fa-download"></i> : null} Dowload Model
-            </button>
-          ) : null}
           {isOwner ? (
             <button className={classes.deleteBtn} onClick={() => setDeleteModel(true)}>
               {screen !== "Mobile" ? <i className="fa fa-trash-alt"></i> : null} Delete Model
             </button>
+          ) : null}
+          {!model.ready ? (
+            <div className={classes.downloadAndAPIBtns}>
+              <button className={classes.downloadBtn} onClick={downloadModelClickHandler}>
+                Dowload .h5 file
+              </button>
+              <Link className={classes.apiBtn} to={`/models/${model.id}/predict`}>
+                Use predictions API
+              </Link>
+            </div>
           ) : null}
         </div>
       ) : null}

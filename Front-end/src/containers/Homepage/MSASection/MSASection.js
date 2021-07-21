@@ -10,7 +10,10 @@ const MSASection = (props) => {
         <div className={classes.textContainer}>
           <SectionHeader>What is Multimodal Sentiment Analysis?</SectionHeader>
           <div className={classes.textBody}>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Qui error laudantium sequi quae maxime? Nobis?</p>
+            <p>
+              Multimodal sentiment analysis is a new dimension of the traditional text-based sentiment analysis, which goes beyond the analysis of texts, and
+              includes other modalities such as audio and visual data.
+            </p>
           </div>
         </div>
       </div>

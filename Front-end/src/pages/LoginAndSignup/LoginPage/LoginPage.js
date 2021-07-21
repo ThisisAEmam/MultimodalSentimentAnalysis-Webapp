@@ -80,8 +80,8 @@ const LoginPage = (props) => {
           const userCookie = new UserCookie();
           jwtCookie.save(res);
           userCookie.save(res);
-          const { username, firstname, lastname, email } = res.data.user;
-          currentUserDispatch(setCurrentUser({ username, firstname, lastname, email }));
+          const { username, firstname, lastname, email, image } = res.data.user;
+          currentUserDispatch(setCurrentUser({ username, firstname, lastname, email, image }));
           loginDispatch(setLoggedin({ success: true, token: res.data.token }));
           history.push("/");
           history.go();

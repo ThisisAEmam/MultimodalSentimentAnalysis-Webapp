@@ -10,7 +10,12 @@ const GameSection = (props) => {
         <div className={classes.textContainer}>
           <SectionHeader>Sentimeter: The Game</SectionHeader>
           <div className={classes.textBody}>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Qui error laudantium sequi quae maxime? Nobis?</p>
+            <p>
+              This is a demo game, showing how our models train to predict the sentiments of people's reviews videos. They extract the visual expressions
+              features, acoustic features, and the textual features of the spoken words. The models get to know that whether the person shouts or stays calm in
+              the video, is frown or smiling, and whether they say compliment or aggressive words, these will affect the sentiment prediction. You can simulate
+              how they work by watching and game's videos and try to tell the predictions yourself.
+            </p>
           </div>
           <div className={classes.btnContainer}>
             <Link to="/game">

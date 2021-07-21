@@ -17,6 +17,8 @@ import NotFound404 from "./pages/NotFound404/NotFound404";
 import ResetPassword from "./pages/LoginAndSignup/ResetPassword/ResetPassword";
 import VerifyEmail from "./pages/LoginAndSignup/VerifyEmail/VerifyEmail";
 import DatasetCreator from "./pages/DatasetCreator/DatasetCreator";
+import AccountSettings from "./pages/Dashboard/AccountSettings/AccountSettings";
+import PredictionPage from "./pages/PredictionPage/PredictionPage";
 
 const App = () => {
   const screenDispatch = useDispatch(setScreen);
@@ -61,6 +63,8 @@ const App = () => {
           <Route path="/reset_password/:token" exact component={ResetPassword} />
           <Route path="/logout" exact component={Logout} />
           <Route path="/users/:username" exact component={UserPage} />
+          <Route path="/account_settings" exact component={AccountSettings} />
+          <Route path="/models/:id/predict" exact component={PredictionPage} />
           <Route component={NotFound404} />
         </Switch>
       </Router>

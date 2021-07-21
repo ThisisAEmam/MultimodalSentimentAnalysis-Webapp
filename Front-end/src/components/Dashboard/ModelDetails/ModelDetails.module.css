@@ -271,9 +271,11 @@
   border-top: 1px solid rgba(0, 0, 0, 0.05);
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
-.btnsContainer > button {
+.btnsContainer > button,
+.apiBtn {
   padding: 0.5rem 2rem;
   border-radius: 5px;
   outline: none;
@@ -290,6 +292,16 @@
   margin-right: 0.25rem;
 }
 
+.apiBtn {
+  background-color: var(--secondary);
+  border-color: var(--secondary-disabled);
+  text-decoration: none;
+}
+
+.apiBtn:hover {
+  opacity: 0.9;
+}
+
 .btnsContainer .deleteBtn {
   color: var(--alert);
 }
@@ -299,13 +311,26 @@
   color: #fff;
 }
 
-.btnsContainer .downloadBtn {
-  background-color: var(--secondary);
-  border-color: var(--secondary-disabled);
+.downloadAndAPIBtns {
+  display: flex;
+  align-items: center;
 }
 
-.btnsContainer .downloadBtn:hover {
-  opacity: 0.9;
+.downloadBtn {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px dashed var(--secondary);
+  color: var(--secondary);
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-right: 1rem;
+  transition: all 0.25s ease;
+  outline: none;
+}
+
+.downloadBtn:hover {
+  opacity: 0.8;
 }
 
 @media (max-width: 767px) {
@@ -357,5 +382,30 @@
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     padding-top: 1.5rem;
     padding-left: 0;
+  }
+
+  .btnsContainer {
+    flex-direction: column-reverse;
+  }
+
+  .deleteBtn {
+    width: 100%;
+  }
+
+  .apiBtn {
+    margin-bottom: 0.5rem;
+    width: 100%;
+    text-align: center;
+    padding: 0.75rem 0;
+  }
+
+  .downloadBtn {
+    font-size: 1.1rem;
+  }
+
+  .downloadAndAPIBtns {
+    flex-direction: column-reverse;
+    margin-bottom: 1rem;
+    width: 100%;
   }
 }

@@ -103,3 +103,10 @@
   margin-left: 2rem;
   background-color: var(--primary);
 }
+
+@media (max-width: 767px) {
+  .DeleteModel {
+    top: 0;
+    left: 0;
+  }
+}

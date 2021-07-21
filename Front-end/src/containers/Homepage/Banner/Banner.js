@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import classes from "./Banner.module.css";
 import { useSpring, animated, config, useChain } from "react-spring";
+import { Link } from "react-router-dom";
 
 const Banner = (props) => {
   const [bgLoad, setBGLoad] = useState(false);
@@ -58,9 +59,14 @@ const Banner = (props) => {
           <h1 className={classes.header}>
             Welcome to <span>Sentimeter</span>
           </h1>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt ut explicabo quasi laborum ea dignissimos, a natus nobis fugiat adipisci.</p>
+          <p>
+            Sentimeter is a Multimodal Sentiment Analysis (MSA) platform that aims to help the user creating and labelling his own dataset, training his dataset
+            on one of the four model architectures provided, and using the trained model to make further predictions on new data.
+          </p>
           <div className={classes.btnContainer}>
-            <button className={classes.startBtn}>Start now</button>
+            <Link to="/dashboard/getting_started" className={classes.startBtn}>
+              Start now
+            </Link>
           </div>
         </animated.div>
         <animated.div style={imageSpring}>

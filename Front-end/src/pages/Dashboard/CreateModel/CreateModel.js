@@ -167,6 +167,8 @@ const CreateModel = (props) => {
     datasetPath.forEach((data) => {
       datasetFormData.append("dataset", data);
     });
+    const modelArch = modelArchs.filter((item) => item.id === selectedArch);
+    datasetFormData.append("arch", modelArch[0].alias);
     const imageFormData = new FormData();
     imageFormData.append("image", selectedImage);
 
