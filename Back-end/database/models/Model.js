@@ -31,11 +31,6 @@ const Model = db.define(
       allowNull: true,
       defaultValue: null,
     },
-    bucket_path: {
-      type: Sequelize.STRING,
-      allowNull: false,
-      defaultValue: "",
-    },
     likes: {
       type: Sequelize.INTEGER,
       allowNull: false,

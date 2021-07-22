@@ -2,6 +2,8 @@ const { Model } = require("../../models/Model");
 const path = require("path");
 const fs = require("fs");
 
+require("dotenv/config");
+
 const DIR_PATH = path.join(__dirname, "..", "..", "..", "static", "images", "models");
 const STATIC_PATH = `${process.env.SERVER_URL}/static/images/models/`;
 

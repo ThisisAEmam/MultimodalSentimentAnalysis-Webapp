@@ -8,21 +8,29 @@ const getCurrentUser = (req, res) => {
   User.findByPk(id)
     .then((user) => {
       if (!user) return res.send({ success: false, msg: "User not found." });
-      const data = {
-        username: user.username,
-        firstname: user.firstname,
-        lastname: user.lastname,
-        email: user.email,
-        image: user.image,
-      };
-      res.send({ success: true, data: data });
+      res.send({ success: true, data: user });
     })
-    .catch((err) => res.send({ success: false, msg: "There was an error.", error: err }));
+    .catch((err) => res.send({ success: false, msg: "There was an error finding your data using id.", error: err }));
 };
 
 const updateCurrentUser = (req, res) => {
   const validationError = validateUpdate(req.body);
   if (validationError) return res.send({ success: false, msg: validationError.details[0].message });
+
+  // if (req.body.email) {
+  //   User.findOne({ where: { email: req.body.email } })
+  //     .then((user) => {
+  //       if (user) return res.send({ success: false, msg: "Email already exists." });
+  //     })
+  //     .catch((err) => console.log(err));
+  // }
+  // if (req.body.username) {
+  //   User.findOne({ where: { username: req.body.username } })
+  //     .then((user) => {
+  //       if (user) return res.send({ success: false, msg: "Username already exists." });
+  //     })
+  //     .catch((err) => console.log(err));
+  // }
 
   const id = getIdFromToken(req.headers.authorization);
   User.findByPk(id)
@@ -37,11 +45,11 @@ const updateCurrentUser = (req, res) => {
             lastname: result.lastname,
             email: result.email,
           };
-          res.send({ success: true, data: data });
+          res.send({ success: true, msg: "Your data updated succesfully." });
         })
-        .catch((err) => res.send({ success: false, msg: "There was an error.", error: err }));
+        .catch((err) => res.send({ success: false, msg: "There was an error updating your data.", error: err }));
     })
-    .catch((err) => res.send({ success: false, msg: "There was an error.", error: err }));
+    .catch((err) => res.send({ success: false, msg: "There was an error getting your user.", error: err }));
 };
 
 const deleteCurrentUser = (req, res, next) => {

@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const passport = require("passport");
 const modelControllers = require("../database/controllers/userModels");
-const fileUpload = require("express-fileupload");
 
 // Model Archs
 router.get("/arch", passport.authenticate("user", { session: false }), modelControllers.getModelArchs);
@@ -24,14 +23,13 @@ router.get("/likes/:id", passport.authenticate("user", { session: false }), mode
 router.post("/like", passport.authenticate("user", { session: false }), modelControllers.likeModel);
 router.post("/unlike", passport.authenticate("user", { session: false }), modelControllers.unlikeModel);
 
-// Model Boomarks
+// Model Bookmarks
 router.get("/bookmarks", passport.authenticate("user", { session: false }), modelControllers.getUserBookmarks);
 router.get("/bookmarksId", passport.authenticate("user", { session: false }), modelControllers.getBookmarkedModelsId);
 router.post("/bookmark", passport.authenticate("user", { session: false }), modelControllers.bookmarkModel);
 router.post("/unbookmark", passport.authenticate("user", { session: false }), modelControllers.unbookmarkModel);
 
 // Model Image
-router.use(fileUpload());
 router.post("/image/:modelId", passport.authenticate("user", { session: false }), modelControllers.uploadImage);
 router.delete("/image/:modelId", passport.authenticate("user", { session: false }), modelControllers.removeImage);
 
@@ -40,11 +38,11 @@ router.post("/dataset/:modelId", passport.authenticate("user", { session: false 
 
 // Model Predict
 router.post("/predict/:modelId", modelControllers.predictVideo);
-router.post("/predict/:modelId/predictions", modelControllers.videoPredictions);
+router.get("/predict/:modelId/predictions", modelControllers.videoPredictions);
 
 // Model H5
 router.get("/files/:modelId", passport.authenticate("user", { session: false }), modelControllers.getModelFile);
-router.delete("/files/:modelId", passport.authenticate("admin", { session: false }), modelControllers.removeImage);
+router.delete("/files/:modelId", passport.authenticate("admin", { session: false }), modelControllers.removeModelFile);
 
 // Model
 router.get("/", passport.authenticate("user", { session: false }), modelControllers.getAllModels);

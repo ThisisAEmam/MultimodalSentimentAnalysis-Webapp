@@ -25,10 +25,10 @@ const changePassword = (req, res) => {
   const validationError = validateNewPassword(req.body);
   if (validationError) return res.send({ success: false, msg: validationError.details[0].message });
 
-  if (newPassword !== confirmPassword) return res.send({ success: false, msg: "New password and confirm password don't match." });
-
   const id = getIdFromToken(req.headers.authorization);
   const { password, newPassword, confirmPassword } = req.body;
+
+  if (newPassword !== confirmPassword) return res.send({ success: false, msg: "New password and confirm password don't match." });
 
   User.findByPk(id)
     .then((user) => {

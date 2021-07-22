@@ -44,10 +44,10 @@ const uploadDataset = (req, res) => {
     model_id: id,
     model_arch: model_arch,
   };
-  axios
-    .post(`${process.env.FLASK_URL}/create_model`, flaskData)
-    .then()
-    .catch((err) => console.log(err));
+  // axios
+  //   .post(`${process.env.FLASK_URL}/create_model`, flaskData)
+  //   .then()
+  //   .catch((err) => console.log(err));
 
   res.send({ success: true, msg: "Dataset created successfully!", num: filesNum });
 };

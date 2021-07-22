@@ -3,7 +3,10 @@ const path = require("path");
 const getIdFromToken = require("../../../lib/getIdFromToken");
 const fs = require("fs");
 
+require("dotenv/config");
+
 const STATIC_PATH = path.join(__dirname, "..", "..", "..", "static", "images", "users");
+const IMAGE_PATH = `${process.env.SERVER_URL}/static/images/users`;
 
 const uploadImage = (req, res) => {
   if (req.body.files === null) return res.send({ success: false, msg: "No file is uploaded!" });
@@ -11,6 +14,7 @@ const uploadImage = (req, res) => {
   const image = req.files.image;
   const imageName = id + "." + image.name.split(".")[1];
   const imagePath = path.join(STATIC_PATH, imageName);
+  const imagePathDB = IMAGE_PATH + "/" + imageName;
 
   const files = fs.readdirSync(STATIC_PATH);
   files.forEach((file) => {
@@ -27,11 +31,11 @@ const uploadImage = (req, res) => {
     .then((user) => {
       if (!user) return res.send({ success: false, msg: "No user found with this id." });
       user
-        .update({ image: imagePath })
-        .then(() => res.send({ success: true, msg: "User image updated successfully!" }))
+        .update({ image: imagePathDB })
+        .then(() => res.send({ success: true, msg: "Image updated successfully!" }))
         .catch((err) => res.send({ success: false, msg: "Error while updating model image", err: err }));
     })
-    .catch((err) => res.send({ success: false, msg: "Error while finding the model with the given id", err: err }));
+    .catch((err) => res.send({ success: false, msg: "Error while finding user with the given id", err: err }));
 };
 
 const removeImage = (req, res) => {
@@ -48,10 +52,10 @@ const removeImage = (req, res) => {
       if (!user) return res.send({ success: false, msg: "No user found with this id." });
       user
         .update({ image: null })
-        .then(() => res.send({ success: true, msg: "User image updated successfully!" }))
+        .then(() => res.send({ success: true, msg: "Image deleted successfully!" }))
         .catch((err) => res.send({ success: false, msg: "Error while updating model image", err: err }));
     })
-    .catch((err) => res.send({ success: false, msg: "Error while finding the model with the given id", err: err }));
+    .catch((err) => res.send({ success: false, msg: "Error while finding user with the given id", err: err }));
 };
 
 module.exports = {
