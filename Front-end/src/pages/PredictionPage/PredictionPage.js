@@ -5,6 +5,7 @@ import classes from "./PredictionPage.module.css";
 import axios from "axios";
 import Loader from "../../hoc/Loader/Loader";
 import { useSelector } from "react-redux";
+import ProgressBar from "@ramonak/react-progress-bar";
 
 const PredictionPage = (props) => {
   const { id } = useParams();
@@ -12,6 +13,10 @@ const PredictionPage = (props) => {
   const [showLoader, setShowLoader] = useState(true);
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [showVideo, setShowVideo] = useState(false);
+  const [uploadVideoPage, setUploadVideoPage] = useState(false);
+  const [predictClicked, setPredictClicked] = useState(false);
+  const [predictionsPage, setPredictionsPage] = useState(true);
+  const [prediction, setPrediction] = useState(70);
 
   const inputRef = useRef();
   const videoRef = useRef();
@@ -51,20 +56,34 @@ const PredictionPage = (props) => {
   };
 
   const predictClickHandler = () => {
-    const modelArch = model.arch;
-    const videoFormData = new FormData();
-    videoFormData.append("video", selectedVideo);
-    videoFormData.append("arch", modelArch);
-    axios
-      .post(`/models/predict/${model.id}`, videoFormData)
-      .then((res) => {
-        if (res.data.success) {
-          console.log(res.data.msg);
-        } else {
-          console.log(res.data.msg);
-        }
-      })
-      .catch((err) => console.log(err));
+    setPredictClicked(true);
+    setUploadVideoPage(false);
+    setTimeout(() => {
+      setPredictClicked(false);
+      setPredictionsPage(true);
+    }, 5000);
+    // const modelArch = model.arch;
+    // const videoFormData = new FormData();
+    // videoFormData.append("video", selectedVideo);
+    // videoFormData.append("arch", modelArch);
+    // axios
+    //   .post(`/models/predict/${model.id}`, videoFormData)
+    //   .then((res) => {
+    //     if (res.data.success) {
+    //       console.log(res.data.msg);
+    //     } else {
+    //       console.log(res.data.msg);
+    //     }
+    //   })
+    //   .catch((err) => console.log(err));
+    setSelectedVideo(false);
+    setShowVideo(false);
+  };
+
+  const returnToVideoHandler = () => {
+    setPredictClicked(false);
+    setPredictionsPage(false);
+    setUploadVideoPage(true);
   };
   return (
     <div className={classes.PredictionPage}>
@@ -75,26 +94,43 @@ const PredictionPage = (props) => {
         <div className={classes.container}>
           <h1 className={classes.header}>Predict the sentiment using {model.name} model</h1>
           <div className={classes.dash}></div>
-          <div className={[classes.body, selectedVideo ? classes.clearPadding : null].join(" ")}>
-            {showVideo ? (
-              <div className={classes.videoContainer}>
-                <video ref={videoRef} src="" controls></video>
+          {uploadVideoPage ? (
+            <div className={[classes.body, selectedVideo ? classes.clearPadding : null].join(" ")}>
+              {showVideo ? (
+                <div className={classes.videoContainer}>
+                  <video ref={videoRef} src="" controls></video>
+                </div>
+              ) : null}
+              <div className={classes.videoUploaderInput}>
+                <p>
+                  {screen !== "Mobile" ? <i className="fas fa-cloud-upload-alt"></i> : null} {!selectedVideo ? "Upload video" : "Upload another video"}
+                </p>
+                <input className={selectedVideo ? classes.marginInput : null} ref={inputRef} accept="video/mp4" type="file" onChange={videoSelectHandler} />
               </div>
-            ) : null}
-            <div className={classes.videoUploaderInput}>
-              <p>
-                {screen !== "Mobile" ? <i className="fas fa-cloud-upload-alt"></i> : null} {!selectedVideo ? "Upload video" : "Upload another video"}
-              </p>
-              <input className={selectedVideo ? classes.marginInput : null} ref={inputRef} accept="video/mp4" type="file" onChange={videoSelectHandler} />
+              {showVideo ? (
+                <div className={classes.predictBtnContainer}>
+                  <button className={classes.predictBtn} onClick={predictClickHandler}>
+                    Predict
+                  </button>
+                </div>
+              ) : null}
             </div>
-            {showVideo ? (
+          ) : predictClicked ? (
+            <div className={[classes.body, classes.predictingLoaderBody].join(" ")}>
+              <img src="/images/predicting_loader.gif" alt="loader" />
+              <p>Please wait until the model finishes predicting...</p>
+            </div>
+          ) : predictionsPage ? (
+            <div className={[classes.body, classes.predictionsPageBody].join(" ")}>
+              <ProgressBar className={classes.progressbar} completed={prediction} bgColor="#4f97c7" labelColor="#1a3f66" />
+              <p>Your video is {prediction}% positive</p>
               <div className={classes.predictBtnContainer}>
-                <button className={classes.predictBtn} onClick={predictClickHandler}>
-                  Predict
+                <button className={classes.predictBtn} onClick={returnToVideoHandler}>
+                  Predict on another video
                 </button>
               </div>
-            ) : null}
-          </div>
+            </div>
+          ) : null}
         </div>
       )}
     </div>

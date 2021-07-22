@@ -127,6 +127,43 @@
   opacity: 0.8;
 }
 
+.predictingLoaderBody {
+  padding: 1rem 0;
+  padding-top: 3rem;
+}
+
+.predictingLoaderBody p {
+  font-size: 2rem;
+  font-weight: 500;
+  margin-top: 2rem;
+  color: var(--primary-text);
+}
+
+.predictionsPageBody {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  padding-top: 3rem;
+  /* padding-left: 10%; */
+  /* padding-right: 10%; */
+}
+
+.predictionsPageBody p {
+  text-align: left;
+  font-size: 2rem;
+  font-weight: 500;
+  margin-top: 2rem;
+  color: var(--primary-text);
+  margin-bottom: 3rem;
+}
+
+.progressbar {
+  width: 90%;
+  margin-top: 3rem;
+}
+
 @media (max-width: 767px) {
   .container {
     margin-top: 4rem;
