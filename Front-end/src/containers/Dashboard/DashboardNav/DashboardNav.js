@@ -91,7 +91,7 @@ const DashboardNav = (props) => {
         </div>
         <div className={classes.section}>
           <h3>Support</h3>
-          <DBNavItem selected={selected} selHandler={selectHandler} label="faq" text="FAQ" icon="fa fa-question-circle" />
+          <DBNavItem selected={selected} selHandler={selectHandler} label="faq" text="Q & A" icon="fa fa-question-circle" />
           <DBNavItem selected={selected} selHandler={selectHandler} label="newsletter" text="Newsletter" icon="fa fa-newspaper" />
           {/* <DBNavItem selected={selected} selHandler={selectHandler} label="help" text="Help" icon="fa fa-info-circle" /> */}
         </div>

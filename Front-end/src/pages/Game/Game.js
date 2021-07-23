@@ -12,7 +12,7 @@ const Game = (props) => {
   const [isRight, setRight] = useState(null);
   const [isFinished, setFinished] = useState(false);
 
-  const labels = ["positive", "negative", "negative", "positive", "negative"];
+  const labels = ["positive", "negative", "positive", "positive", "negative"];
 
   useEffect(() => {
     document.title = "Sentimeter | The Game";

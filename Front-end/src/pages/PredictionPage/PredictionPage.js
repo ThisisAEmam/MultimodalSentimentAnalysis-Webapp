@@ -13,10 +13,10 @@ const PredictionPage = (props) => {
   const [showLoader, setShowLoader] = useState(true);
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [showVideo, setShowVideo] = useState(false);
-  const [uploadVideoPage, setUploadVideoPage] = useState(false);
+  const [uploadVideoPage, setUploadVideoPage] = useState(true);
   const [predictClicked, setPredictClicked] = useState(false);
-  const [predictionsPage, setPredictionsPage] = useState(true);
-  const [prediction, setPrediction] = useState(70);
+  const [predictionsPage, setPredictionsPage] = useState(false);
+  const [prediction, setPrediction] = useState(0);
 
   const inputRef = useRef();
   const videoRef = useRef();
@@ -58,31 +58,28 @@ const PredictionPage = (props) => {
   const predictClickHandler = () => {
     setPredictClicked(true);
     setUploadVideoPage(false);
-    setTimeout(() => {
-      setPredictClicked(false);
-      setPredictionsPage(true);
-    }, 5000);
-    // const modelArch = model.arch;
-    // const videoFormData = new FormData();
-    // videoFormData.append("video", selectedVideo);
-    // videoFormData.append("arch", modelArch);
-    // axios
-    //   .post(`/models/predict/${model.id}`, videoFormData)
-    //   .then((res) => {
-    //     if (res.data.success) {
-    //       console.log(res.data.msg);
-    //     } else {
-    //       console.log(res.data.msg);
-    //     }
-    //   })
-    //   .catch((err) => console.log(err));
-    setSelectedVideo(false);
-    setShowVideo(false);
+    const videoFormData = new FormData();
+    videoFormData.append("video", selectedVideo);
+    axios
+      .post(`/models/predict/${model.id}`, videoFormData)
+      .then((res) => {
+        if (res.data.success) {
+          setPredictClicked(false);
+          setPredictionsPage(true);
+          setPrediction(res.data.prediction);
+        } else {
+          console.log(res.data.msg);
+        }
+        setSelectedVideo(null);
+        setShowVideo(false);
+      })
+      .catch((err) => console.log(err));
   };
 
   const returnToVideoHandler = () => {
     setPredictClicked(false);
     setPredictionsPage(false);
+    setPrediction(0);
     setUploadVideoPage(true);
   };
   return (

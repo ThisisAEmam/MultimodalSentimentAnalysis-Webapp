@@ -47,7 +47,7 @@ const data = [
       "Helped in writing the project documentation",
       "Helped in creating the presentation's slideshow",
     ],
-    image: "noimage.jpg",
+    image: "kadry.jpg",
     qoute:
       "I loved working with all my team members, or let me say 'my second family'. It was a long yet great journey for us all. I learned alot and I hope working with them again.",
   },
@@ -129,7 +129,7 @@ const data = [
       "Helped in writing the project (Back-end) documentation",
       "Helped in creating the presentation's slideshow",
     ],
-    image: "noimage.jpg",
+    image: "badran.jpeg",
     qoute:
       "I loved working with all my team members, or let me say 'my second family'. It was a long yet great journey for us all. I learned alot and I hope working with them again.",
   },

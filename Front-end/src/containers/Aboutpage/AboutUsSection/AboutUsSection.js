@@ -8,12 +8,11 @@ const AboutUsSection = (props) => {
       <SectionHeader>Who are we?</SectionHeader>
       <div className={classes.body}>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam dicta quasi sit, dolores iste nemo natus vel beatae magnam deserunt rem velit voluptas
-          rerum debitis, enim quibusdam iure aspernatur illum repellendus, doloribus alias error sapiente ratione? Tempora eaque fugiat dolor eligendi
-          architecto voluptatibus iure sapiente labore aperiam deleniti? Doloremque, sequi aspernatur in animi ab voluptatibus reiciendis. Minima eos magni
-          atque rem eum blanditiis ratione animi impedit voluptates? Odio dignissimos veniam consequuntur magni distinctio dolores? Facilis, ipsam accusantium
-          recusandae amet vitae, facere tempora impedit expedita dolorem voluptas porro hic placeat laboriosam omnis doloribus cumque, perspiciatis cupiditate
-          ratione. Nesciunt, odio. Dolorem, quis.
+          We are a software engineering team, graduated from Faculty of Engineering Ain Shams University, Computer and Systems department. We are passionate
+          about Deeplearnig, specially sentiment analysis field. <br></br> Our supervisor Prof. Dr. Ahmed Hassan, Dean of ITCS School Nile University, improved
+          the idea of the project and helped us with everything we need and taught us a lot during the production of this project and was very supportive to us.{" "}
+          <br></br> Our senior engineer, Eng. Sarah Abdu, was with us step by step during the project and helped us with everything and wasn’t stingy with her
+          information she taught us a lot during the project as well. So we thank them very much for their great efforts with us during this project.
         </p>
       </div>
     </div>
