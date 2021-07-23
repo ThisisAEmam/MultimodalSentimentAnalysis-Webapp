@@ -1,5 +1,5 @@
-const Joi = require("joi");
 const Question = require("../../models/Question");
+const Joi = require("joi");
 
 const getAllQuestions = (req, res) => {
   Question.findAll({ order: [["created_at", "ASC"]] })
@@ -15,7 +15,7 @@ const postQuestion = (req, res) => {
     question: req.body.question,
     answer: req.body.answer,
   })
-    .then(() => res.send({ success: true, msg: "Question added!" }))
+    .then((resp) => res.send({ success: true, msg: "Question added!" }))
     .catch((err) => res.send({ success: false, msg: "There was an error.", error: err }));
 };
 
@@ -24,7 +24,7 @@ const updateQuestion = (req, res) => {
   const error = validatePUTFAQ(req.body);
   if (error) return res.send({ success: false, msg: error.details[0].message });
 
-  Question.findByPK(+id)
+  Question.findByPk(+id)
     .then((question) => {
       if (!question) return res.send({ success: false, msg: "Question not found." });
       question

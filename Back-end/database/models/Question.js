@@ -10,7 +10,7 @@ const Question = db.define(
       unique: true,
     },
     answer: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(2000),
       allowNull: false,
     },
   },

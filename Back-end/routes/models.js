@@ -38,7 +38,6 @@ router.post("/dataset/:modelId", passport.authenticate("user", { session: false 
 
 // Model Predict
 router.post("/predict/:modelId", modelControllers.predictVideo);
-router.get("/predict/:modelId/predictions", modelControllers.videoPredictions);
 
 // Model H5
 router.get("/files/:modelId", passport.authenticate("user", { session: false }), modelControllers.getModelFile);
